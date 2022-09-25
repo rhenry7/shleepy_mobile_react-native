@@ -18,7 +18,14 @@ function HomeScreen({ navigation }) {
       }}
     >
       <Text style={styles.white}>Home Screen</Text>
-      {/* <Button title="Load App" onPress={() => navigation.navigate('Bottom')} /> */}
+      <Button
+        title="Settings"
+        onPress={() => navigation.navigate('Settings')}
+      />
+      <Button
+        title="UserProfile"
+        onPress={() => navigation.navigate('UserProfile')}
+      />
     </View>
   )
 }
@@ -69,8 +76,8 @@ function BottomTab() {
 
           return <Ionicons name={iconName} size={size} color={color} />
         },
-        tabBarActiveTintColor: 'white',
-        tabBarInactiveTintColor: 'gray',
+        tabBarActiveTintColor: '#FEF7C1',
+        tabBarInactiveTintColor: '#949494',
         tabBarStyle: {
           backgroundColor: '#060523',
           borderTopColor: 'transparent',

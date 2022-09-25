@@ -1,9 +1,9 @@
 import React from 'react'
-import { View } from 'react-native'
+import { Button, View } from 'react-native'
 import { MenuButton } from './Button'
 import { styles } from '../styles'
 
-function Playlists() {
+function Playlists({ navigation }) {
   return (
     <View style={styles.container}>
       <View>
@@ -11,6 +11,10 @@ function Playlists() {
           <MenuButton
             title="Ambient"
             description="White Noise & Ambient Sounds"
+          />
+          <Button
+            title="Favorites"
+            onPress={() => navigation.navigate('Favorites')}
           />
         </View>
         <View>
