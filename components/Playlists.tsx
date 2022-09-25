@@ -1,7 +1,7 @@
-import React from 'react';
-import {View} from 'react-native';
-import {MenuButton} from './Button';
-import {styles} from './styles';
+import React from 'react'
+import { View } from 'react-native'
+import { MenuButton } from './Button'
+import { styles } from '../styles'
 
 function Playlists() {
   return (
@@ -25,7 +25,7 @@ function Playlists() {
         </View>
       </View>
     </View>
-  );
+  )
 }
 
-export default Playlists;
+export default Playlists

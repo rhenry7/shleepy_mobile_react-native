@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import Playlists from './Playlists'
+import { PlaylistsChoice } from './components/MainSelection'
 
 function HomeScreen({ navigation }) {
   return (
@@ -18,10 +18,7 @@ function HomeScreen({ navigation }) {
       }}
     >
       <Text style={styles.white}>Home Screen</Text>
-      {/* <Button
-        title="Go To Details"
-        onPress={() => navigation.navigate('Details')}
-      /> */}
+      {/* <Button title="Load App" onPress={() => navigation.navigate('Bottom')} /> */}
     </View>
   )
 }
@@ -30,15 +27,6 @@ function DetailsScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Details Screen</Text>
-      {/* <Button
-        title="Go to Details... again"
-        onPress={() => navigation.push('Details')}
-      /> */}
-      <Button title="Go back" onPress={() => navigation.goBack()} />
-      <Button
-        title="Go back to first screen in stack"
-        onPress={() => navigation.popToTop()}
-      />
     </View>
   )
 }
@@ -51,63 +39,86 @@ function SettingsScreen() {
   )
 }
 
+function UserProfile() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Profile!</Text>
+    </View>
+  )
+}
+
+function BottomTab() {
+  return (
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        headerShown: false,
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName
+
+          if (route.name === 'Home') {
+            iconName = focused ? 'ios-home' : 'ios-home-outline'
+          } else if (route.name === 'Settings') {
+            iconName = focused ? 'ios-apps' : 'ios-apps'
+          }
+          if (route.name === 'PlaylistsChoice') {
+            iconName = focused ? 'ios-list' : 'ios-list'
+          }
+          if (route.name === 'UserProfile') {
+            iconName = focused ? 'person-circle' : 'person-circle'
+          }
+
+          return <Ionicons name={iconName} size={size} color={color} />
+        },
+        tabBarActiveTintColor: 'white',
+        tabBarInactiveTintColor: 'gray',
+        tabBarStyle: {
+          backgroundColor: '#060523',
+          borderTopColor: 'transparent',
+        },
+      })}
+    >
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          headerTitleStyle: {
+            color: '#fff',
+          },
+          headerStyle: {
+            backgroundColor: '#060523',
+          },
+        }}
+      />
+      <Tab.Screen
+        name="PlaylistsChoice"
+        component={PlaylistsChoice}
+        options={{ title: 'Sounds' }}
+      />
+      <Tab.Screen name="Settings" component={SettingsScreen} />
+      <Tab.Screen name="UserProfile" component={UserProfile} />
+    </Tab.Navigator>
+  )
+}
+
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
 
 export default function App() {
   return (
     <NavigationContainer>
-      {/* {
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Home"
-            component={HomeScreen}
-            options={{ title: 'Overview' }}
-          />
-          <Stack.Screen name="Details" component={DetailsScreen} />
-        </Stack.Navigator>
-      } */}
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          headerShown: false,
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName
-
-            if (route.name === 'Home') {
-              iconName = focused ? 'ios-home' : 'ios-home-outline'
-            } else if (route.name === 'Settings') {
-              iconName = focused ? 'ios-apps' : 'ios-apps'
-            }
-            if (route.name === 'Playlists') {
-              iconName = focused ? 'ios-list' : 'ios-list'
-            }
-
-            // You can return any component that you like here!
-            return <Ionicons name={iconName} size={size} color={color} />
-          },
-          tabBarActiveTintColor: 'white',
-          tabBarInactiveTintColor: 'gray',
-          tabBarStyle: {
-            backgroundColor: '#060523',
-            borderTopColor: 'transparent',
-          },
-        })}
-      >
-        <Tab.Screen
-          name="Home"
-          component={HomeScreen}
+      <Stack.Navigator screenOptions={{}}>
+        <Stack.Screen
+          name="Bottom"
           options={{
-            headerTitleStyle: {
-              color: '#fff',
-            },
+            title: 'Good Night', // make user_name dynamic
             headerStyle: {
               backgroundColor: '#060523',
             },
+            headerTintColor: '#F0EAD6',
           }}
+          component={BottomTab}
         />
-        <Tab.Screen name="Playlists" component={Playlists} />
-        <Tab.Screen name="Settings" component={SettingsScreen} />
-      </Tab.Navigator>
+      </Stack.Navigator>
     </NavigationContainer>
   )
 }
@@ -120,6 +131,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   white: {
-    color: '#F0EAD6',
+    color: '#F0EAD6', //"eggshell"
   },
 })
