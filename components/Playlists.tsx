@@ -15,12 +15,6 @@ function Playlists({ navigation }) {
               iconName="color-filter-outline"
             />
           </Pressable>
-
-          {/* <Button
-            title="Ambient Sounds"
-            color="#f194ff"
-            onPress={() => navigation.navigate('Favorites')}
-          /> */}
         </View>
         <View>
           <MenuButton

@@ -11,8 +11,6 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     height: 80,
     backgroundColor: '#463AA0',
-    // display: 'flex',
-    // flex: 1,
   },
   sectionTitle: {
     fontSize: 34,
@@ -28,24 +26,22 @@ export const styles = StyleSheet.create({
   },
   textButtonStyle: {
     flex: 1,
-    //justifyContent: 'flex-end',
     justifyContent: 'center',
     margin: 0,
-    //backgroundColor: '#ff2',
   },
   container: {
     flex: 1,
-    alignContent: 'center',
-    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: '#060523',
     padding: 20,
   },
   container_list: {
     flex: 1,
-    alignContent: 'center',
+    // alignContent: 'center',
+    alignItems: 'center',
     //justifyContent: 'center',
     backgroundColor: '#060523',
-    paddingTop: 30,
+    paddingTop: 20,
   },
   topBarContainer: {
     flex: 1,

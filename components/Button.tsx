@@ -6,8 +6,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 
 export const MenuButton: React.FC<{
   title: string
-  description: string
-  iconName: string
+  description?: string
+  iconName?: string
 }> = ({ description, title, iconName }) => {
   return (
     <View style={styles.sectionContainer}>

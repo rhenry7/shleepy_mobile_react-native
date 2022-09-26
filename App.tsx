@@ -118,7 +118,7 @@ export default function App() {
         <Stack.Screen
           name="Bottom"
           options={{
-            title: 'Good Night', // make user_name dynamic
+            title: 'Shleepy', // make user_name dynamic
             headerStyle: {
               backgroundColor: '#060523',
             },
