@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
   sectionContainer: {
+    width: 350,
     marginTop: 2,
     marginBottom: 24,
     paddingHorizontal: 24,
@@ -10,6 +11,8 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     height: 80,
     backgroundColor: '#463AA0',
+    // display: 'flex',
+    // flex: 1,
   },
   sectionTitle: {
     fontSize: 34,
@@ -36,6 +39,13 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#060523',
     padding: 20,
+  },
+  container_list: {
+    flex: 1,
+    alignContent: 'center',
+    //justifyContent: 'center',
+    backgroundColor: '#060523',
+    paddingTop: 30,
   },
   topBarContainer: {
     flex: 1,

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, View } from 'react-native'
+import { Button, Pressable, View, Text } from 'react-native'
 import { MenuButton } from './Button'
 import { styles } from '../styles'
 
@@ -8,24 +8,41 @@ function Playlists({ navigation }) {
     <View style={styles.container}>
       <View>
         <View>
-          <MenuButton
-            title="Ambient"
-            description="White Noise & Ambient Sounds"
-          />
-          <Button
-            title="Favorites"
+          <Pressable onPress={() => navigation.navigate('Ambient')}>
+            <MenuButton
+              title="Ambient"
+              description="White Noise & Ambient Sounds"
+              iconName="color-filter-outline"
+            />
+          </Pressable>
+
+          {/* <Button
+            title="Ambient Sounds"
+            color="#f194ff"
             onPress={() => navigation.navigate('Favorites')}
-          />
+          /> */}
         </View>
         <View>
-          <MenuButton title="Nature" description="Sounds of the outdoors" />
+          <MenuButton
+            title="Nature"
+            description="Sounds of the outdoors"
+            iconName="leaf"
+          />
         </View>
 
         <View>
-          <MenuButton title="ASMR" description="Relaxing obscure noises" />
+          <MenuButton
+            title="ASMR"
+            description="Relaxing obscure noises"
+            iconName="planet"
+          />
         </View>
         <View>
-          <MenuButton title="City" description="Sounds of the urban life" />
+          <MenuButton
+            title="City"
+            description="Sounds of the urban life"
+            iconName="business-outline"
+          />
         </View>
       </View>
     </View>

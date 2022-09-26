@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { PlaylistsChoice } from './components/MainSelection'
+import AmbientSoundsList from './components/categories/ambientSounds'
 
 function HomeScreen({ navigation }) {
   return (
@@ -71,7 +72,7 @@ function BottomTab() {
             iconName = focused ? 'ios-list' : 'ios-list'
           }
           if (route.name === 'UserProfile') {
-            iconName = focused ? 'person-circle' : 'person-circle'
+            iconName = focused ? 'person-circle' : 'person-circle-outline'
           }
 
           return <Ionicons name={iconName} size={size} color={color} />
@@ -125,6 +126,8 @@ export default function App() {
           }}
           component={BottomTab}
         />
+        <Stack.Screen name="Details" component={DetailsScreen} />
+        <Stack.Screen name="Ambient" component={AmbientSoundsList} />
       </Stack.Navigator>
     </NavigationContainer>
   )
