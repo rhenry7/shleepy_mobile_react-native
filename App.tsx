@@ -7,6 +7,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { PlaylistsChoice } from './components/MainSelection'
 import AmbientSoundsList from './components/categories/ambientSounds'
+import { Provider } from 'react-redux'
+import { configureStore } from '@reduxjs/toolkit'
+import { store } from './src/app/store'
 
 function HomeScreen({ navigation }) {
   return (
@@ -113,23 +116,28 @@ const Stack = createNativeStackNavigator()
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{}}>
-        <Stack.Screen
-          name="Bottom"
-          options={{
-            title: 'Shleepy', // make user_name dynamic
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
             headerStyle: {
               backgroundColor: '#060523',
             },
             headerTintColor: '#F0EAD6',
           }}
-          component={BottomTab}
-        />
-        <Stack.Screen name="Details" component={DetailsScreen} />
-        <Stack.Screen name="Ambient" component={AmbientSoundsList} />
-      </Stack.Navigator>
-    </NavigationContainer>
+        >
+          <Stack.Screen
+            name="Bottom"
+            options={{
+              title: 'Shleepy', // make user_name dynamic
+            }}
+            component={BottomTab}
+          />
+          <Stack.Screen name="Details" component={DetailsScreen} />
+          <Stack.Screen name="Ambient" component={AmbientSoundsList} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   )
 }
 

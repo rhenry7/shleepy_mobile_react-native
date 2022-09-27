@@ -3,8 +3,11 @@ import { Pressable, View } from 'react-native'
 import { styles } from '../../styles'
 import { MenuButton } from '../Button'
 import { Audio } from 'expo-av'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
-const AmbientSoundsList = ({ navigation }) => {
+const Stack = createNativeStackNavigator()
+
+const AmbientSoundsList = () => {
   const [sound, setSound] = React.useState<Audio.Sound | null>(null)
 
   async function playSound() {
