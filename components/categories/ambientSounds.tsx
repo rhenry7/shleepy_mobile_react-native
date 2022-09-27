@@ -2,38 +2,47 @@ import React from 'react'
 import { Pressable, View } from 'react-native'
 import { styles } from '../../styles'
 import { MenuButton } from '../Button'
-import { Audio } from 'expo-av'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-
-const Stack = createNativeStackNavigator()
+//import { Audio } from 'expo-av'
+import { connect } from 'react-redux'
+import { soundToggled } from '../../src/app/soundSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import type { RootState } from '../../src/app/store'
 
 const AmbientSoundsList = () => {
-  const [sound, setSound] = React.useState<Audio.Sound | null>(null)
+  const sound = useSelector((state: RootState) => state.sounds.soundState)
+  // where does the  selected sound go?
+  const dispatch = useDispatch()
 
-  async function playSound() {
-    console.log('Loading Sound...')
-    const { sound } = await Audio.Sound.createAsync(
-      require('../../sounds/ambient/Deep_Space.wav'),
-    )
-    setSound(sound)
+  // const [sound, setSound] = React.useState<Audio.Sound | null>(null)
+  //   async function playSound() {
+  //     console.log('Loading Sound...')
+  //     const { sound } = await Audio.Sound.createAsync(
+  //       require('../../sounds/ambient/Deep_Space.wav'),
+  //     )
+  //     setSound(sound)
 
-    console.log('Playing Sound')
-    await sound.playAsync()
-  }
+  //     console.log('Playing Sound')
+  //     await sound.playAsync()
+  //   }
 
-  React.useEffect(() => {
-    return sound
-      ? () => {
-          console.log('Unloading Sound')
-          sound.unloadAsync()
-        }
-      : undefined
-  }, [sound])
+  //   React.useEffect(() => {
+  //     return sound
+  //       ? () => {
+  //           console.log('Unloading Sound')
+  //           sound.unloadAsync()
+  //         }
+  //       : undefined
+  //   }, [sound])
+
   return (
     <View style={styles.container_list}>
       <View>
         <View>
-          <Pressable onPress={playSound}>
+          <Pressable
+            onPress={() => {
+              dispatch(soundToggled)
+            }}
+          >
             <MenuButton
               title="Deep Space"
               description="empty void of space"
@@ -68,4 +77,10 @@ const AmbientSoundsList = () => {
   )
 }
 
-export default AmbientSoundsList
+const mapStateToProps = (state) => {
+  const { sound } = state
+  return { sound }
+}
+
+//export default connect(mapStateToProps)(HomeScreen);
+export default connect(mapStateToProps)(AmbientSoundsList)
