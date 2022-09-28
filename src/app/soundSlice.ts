@@ -7,17 +7,11 @@ const soundSlice = createSlice({
     soundState: 'nosound',
   },
   reducers: {
-    // todoAdded(state, action) {
-    //   state.push({
-    //     id: action.payload.id,
-    //     text: action.payload.text,
-    //     completed: false
-    //   })
-    //   },
-    soundToggled(state) {
+    soundToggled(state, action) {
       //   const todo = state.find((todo) => todo.id === action.payload)
       //   todo.completed = !todo.completed
       if (state.soundState === 'nosound') {
+        console.log('test')
         ;(async () => {
           const { sound } = await Audio.Sound.createAsync(
             require('../../sounds/ambient/Deep_Space.wav'),

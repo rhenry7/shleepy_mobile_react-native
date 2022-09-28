@@ -8,7 +8,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import { PlaylistsChoice } from './components/MainSelection'
 import AmbientSoundsList from './components/categories/ambientSounds'
 import { Provider } from 'react-redux'
-import { configureStore } from '@reduxjs/toolkit'
 import { store } from './src/app/store'
 
 function HomeScreen({ navigation }) {
@@ -113,6 +112,7 @@ function BottomTab() {
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
+// console.log('test 2')
 
 export default function App() {
   return (

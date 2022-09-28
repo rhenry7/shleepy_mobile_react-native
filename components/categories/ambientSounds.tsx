@@ -2,37 +2,35 @@ import React from 'react'
 import { Pressable, View } from 'react-native'
 import { styles } from '../../styles'
 import { MenuButton } from '../Button'
-//import { Audio } from 'expo-av'
-import { connect } from 'react-redux'
-import { soundToggled } from '../../src/app/soundSlice'
-import { useDispatch, useSelector } from 'react-redux'
-import type { RootState } from '../../src/app/store'
+import { Audio } from 'expo-av'
 
 const AmbientSoundsList = () => {
-  const sound = useSelector((state: RootState) => state.sounds.soundState)
-  // where does the  selected sound go?
-  const dispatch = useDispatch()
+  console.log('test 3')
 
-  // const [sound, setSound] = React.useState<Audio.Sound | null>(null)
-  //   async function playSound() {
-  //     console.log('Loading Sound...')
-  //     const { sound } = await Audio.Sound.createAsync(
-  //       require('../../sounds/ambient/Deep_Space.wav'),
-  //     )
-  //     setSound(sound)
+  const [sound, setSound] = React.useState<Audio.Sound | null>(null)
+  async function playSound() {
+    const { sound } = await Audio.Sound.createAsync(
+      require('../../sounds/ambient/Deep_Space.wav'),
+      {
+        shouldPlay: true,
+        volume: 0.25,
+        isLooping: true,
+      },
+    )
+    setSound(sound)
 
-  //     console.log('Playing Sound')
-  //     await sound.playAsync()
-  //   }
+    console.log('Playing Sound')
+    await sound.playAsync()
+  }
 
-  //   React.useEffect(() => {
-  //     return sound
-  //       ? () => {
-  //           console.log('Unloading Sound')
-  //           sound.unloadAsync()
-  //         }
-  //       : undefined
-  //   }, [sound])
+  React.useEffect(() => {
+    return sound
+      ? () => {
+          console.log('Unloading Sound')
+          sound.unloadAsync()
+        }
+      : undefined
+  }, [sound])
 
   return (
     <View style={styles.container_list}>
@@ -40,7 +38,7 @@ const AmbientSoundsList = () => {
         <View>
           <Pressable
             onPress={() => {
-              dispatch(soundToggled)
+              playSound()
             }}
           >
             <MenuButton
@@ -77,10 +75,10 @@ const AmbientSoundsList = () => {
   )
 }
 
-const mapStateToProps = (state) => {
-  const { sound } = state
-  return { sound }
-}
+// const mapStateToProps = (state) => {
+//   const { sound } = state
+//   return { sound }
+// }
 
 //export default connect(mapStateToProps)(HomeScreen);
-export default connect(mapStateToProps)(AmbientSoundsList)
+export default AmbientSoundsList
