@@ -113,8 +113,6 @@ function BottomTab() {
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
-TrackPlayer.registerPlaybackService(() => require('./service'))
-
 export default function App() {
   return (
     <Provider store={store}>

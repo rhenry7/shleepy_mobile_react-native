@@ -10,26 +10,17 @@ export const tracks = [
     url: require('../../sounds/ambient/Deep_Space.wav'),
     title: 'Blues Beat',
   },
-  //   {
-  //     id: 2,
-  //     url: require('./sounds/nature/veil.mp3'),
-  //     title: 'Blues Beat',
-  //   },
 ]
 
-//TrackPlayer.registerPlaybackService(() => require('./service'))
-
 const AmbientSoundsList = () => {
-  const setUpTrackPlayer = async () => {
-    try {
-      await TrackPlayer.setupPlayer()
-      await TrackPlayer.add(tracks)
-      console.log('Tracks added')
-    } catch (e) {
-      console.log(e)
-    }
-  }
   useEffect(() => {
+    setup()
+  }, [])
+
+  async function setup() {
+    //await TrackPlayer.setupPlayer({})
+    await TrackPlayer.add(tracks)
+    console.log('Tracks added')
     TrackPlayer.updateOptions({
       capabilities: [
         Capability.Play,
@@ -40,19 +31,13 @@ const AmbientSoundsList = () => {
       ],
       compactCapabilities: [Capability.Play, Capability.Pause],
     })
-    setUpTrackPlayer()
-    TrackPlayer.removeUpcomingTracks() // check if this works correctly
-  }, [])
+  }
 
   return (
     <View style={styles.container_list}>
       <View>
         <View>
-          <Pressable
-            onPress={() => {
-              ;() => TrackPlayer.play()
-            }}
-          >
+          <Pressable onPress={() => TrackPlayer.play()}>
             <MenuButton
               title="Deep Space"
               description="empty void of space"
