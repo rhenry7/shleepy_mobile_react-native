@@ -1,6 +1,11 @@
 import React, { useEffect } from 'react'
 import { Pressable, View } from 'react-native'
-import TrackPlayer, { Capability } from 'react-native-track-player'
+import TrackPlayer, {
+  Capability,
+  usePlaybackState,
+  State,
+} from 'react-native-track-player'
+import { useToggle } from '../../hooks'
 import { styles } from '../../styles'
 import { MenuButton } from '../Button'
 
@@ -13,12 +18,16 @@ export const tracks = [
 ]
 
 const AmbientSoundsList = () => {
+  const state = usePlaybackState()
+  const isPlaying = state === State.Playing
+  const onToggle = useToggle()
+
   useEffect(() => {
     setup()
   }, [])
 
   async function setup() {
-    //await TrackPlayer.setupPlayer({})
+    TrackPlayer.setupPlayer({})
     await TrackPlayer.add(tracks)
     console.log('Tracks added')
     TrackPlayer.updateOptions({
@@ -37,7 +46,7 @@ const AmbientSoundsList = () => {
     <View style={styles.container_list}>
       <View>
         <View>
-          <Pressable onPress={() => TrackPlayer.play()}>
+          <Pressable onPress={onToggle}>
             <MenuButton
               title="Deep Space"
               description="empty void of space"
