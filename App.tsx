@@ -9,6 +9,7 @@ import { PlaylistsChoice } from './components/MainSelection'
 import AmbientSoundsList from './components/categories/ambientSounds'
 import { Provider } from 'react-redux'
 import { store } from './src/app/store'
+import TrackPlayer from 'react-native-track-player'
 
 function HomeScreen({ navigation }) {
   return (
@@ -112,7 +113,7 @@ function BottomTab() {
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
-// console.log('test 2')
+TrackPlayer.registerPlaybackService(() => require('./service'))
 
 export default function App() {
   return (

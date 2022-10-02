@@ -1,12 +1,11 @@
-import { configureStore, applyMiddleware, compose } from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit'
 import soundsReducer from './soundSlice'
-import { composeWithDevTools } from '@redux-devtools/extension'
 
 export const store = configureStore({
   reducer: {
     sounds: soundsReducer,
   },
-  //devTools: process.env.NODE_ENV !== 'production',
+  devTools: true,
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

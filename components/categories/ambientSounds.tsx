@@ -1,36 +1,48 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Pressable, View } from 'react-native'
+import TrackPlayer, { Capability } from 'react-native-track-player'
 import { styles } from '../../styles'
 import { MenuButton } from '../Button'
-import { Audio } from 'expo-av'
+
+export const tracks = [
+  {
+    id: 1,
+    url: require('../../sounds/ambient/Deep_Space.wav'),
+    title: 'Blues Beat',
+  },
+  //   {
+  //     id: 2,
+  //     url: require('./sounds/nature/veil.mp3'),
+  //     title: 'Blues Beat',
+  //   },
+]
+
+//TrackPlayer.registerPlaybackService(() => require('./service'))
 
 const AmbientSoundsList = () => {
-  console.log('test 3')
-
-  const [sound, setSound] = React.useState<Audio.Sound | null>(null)
-  async function playSound() {
-    const { sound } = await Audio.Sound.createAsync(
-      require('../../sounds/ambient/Deep_Space.wav'),
-      {
-        shouldPlay: true,
-        volume: 0.25,
-        isLooping: true,
-      },
-    )
-    setSound(sound)
-
-    console.log('Playing Sound')
-    await sound.playAsync()
+  const setUpTrackPlayer = async () => {
+    try {
+      await TrackPlayer.setupPlayer()
+      await TrackPlayer.add(tracks)
+      console.log('Tracks added')
+    } catch (e) {
+      console.log(e)
+    }
   }
-
-  React.useEffect(() => {
-    return sound
-      ? () => {
-          console.log('Unloading Sound')
-          sound.unloadAsync()
-        }
-      : undefined
-  }, [sound])
+  useEffect(() => {
+    TrackPlayer.updateOptions({
+      capabilities: [
+        Capability.Play,
+        Capability.Pause,
+        Capability.SkipToNext,
+        Capability.SkipToPrevious,
+        Capability.Stop,
+      ],
+      compactCapabilities: [Capability.Play, Capability.Pause],
+    })
+    setUpTrackPlayer()
+    TrackPlayer.removeUpcomingTracks() // check if this works correctly
+  }, [])
 
   return (
     <View style={styles.container_list}>
@@ -38,7 +50,7 @@ const AmbientSoundsList = () => {
         <View>
           <Pressable
             onPress={() => {
-              playSound()
+              ;() => TrackPlayer.play()
             }}
           >
             <MenuButton
@@ -75,10 +87,4 @@ const AmbientSoundsList = () => {
   )
 }
 
-// const mapStateToProps = (state) => {
-//   const { sound } = state
-//   return { sound }
-// }
-
-//export default connect(mapStateToProps)(HomeScreen);
 export default AmbientSoundsList
