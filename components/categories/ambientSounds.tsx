@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Pressable, View } from 'react-native'
 import TrackPlayer, {
   Capability,
@@ -8,7 +8,6 @@ import TrackPlayer, {
 } from 'react-native-track-player'
 import { useToggle } from '../../hooks'
 import { styles } from '../../styles'
-import { MenuButton } from '../Button'
 import { SoundCard } from '../SoundCard'
 
 export const tracks = [
@@ -38,10 +37,11 @@ const AmbientSoundsList = () => {
   const state = usePlaybackState()
   const isPlaying = state === State.Playing
   const onToggle = useToggle()
-
-  useEffect(() => {
-    setup()
-  }, [])
+  const current = TrackPlayer.getCurrentTrack()
+  const [spaceToggle, setSpaceToggle] = useState(false)
+  const [windToggle, setWindToggle] = useState(false)
+  const [rainToggle, setRainToggle] = useState(false)
+  const [seagullsToggle, setSeaGullsToggle] = useState(false)
 
   async function setup() {
     TrackPlayer.setupPlayer({})
@@ -60,6 +60,10 @@ const AmbientSoundsList = () => {
     })
   }
 
+  useEffect(() => {
+    setup()
+  }, [])
+
   const playSpace = () => {
     console.log('space is playing...')
     TrackPlayer.skip(0)
@@ -67,6 +71,10 @@ const AmbientSoundsList = () => {
     if (!isPlaying) {
       onToggle()
     }
+    setRainToggle(false)
+    setSpaceToggle(true)
+    setWindToggle(false)
+    setSeaGullsToggle(false)
   }
 
   const playWind = () => {
@@ -76,24 +84,37 @@ const AmbientSoundsList = () => {
     if (!isPlaying) {
       onToggle()
     }
+    setRainToggle(false)
+    setSpaceToggle(false)
+    setWindToggle(true)
+    setSeaGullsToggle(false)
   }
 
-  const playSoftRain = () => {
+  const playSoftRain = async () => {
     console.log('soft rain is playing...')
     TrackPlayer.skip(2)
     TrackPlayer.play()
     if (!isPlaying) {
       onToggle()
     }
+    setRainToggle(true)
+    setSpaceToggle(false)
+    setWindToggle(false)
+    setSeaGullsToggle(false)
+    //rainToggler()
   }
 
   const playSeaGulls = () => {
-    console.log('space is playing...')
+    console.log('seagulls is playing...')
     TrackPlayer.skip(3)
     TrackPlayer.play()
     if (!isPlaying) {
       onToggle()
     }
+    setRainToggle(false)
+    setSpaceToggle(false)
+    setWindToggle(false)
+    setSeaGullsToggle(true)
   }
 
   return (
@@ -105,6 +126,7 @@ const AmbientSoundsList = () => {
               title="Deep Space"
               description="empty void of space"
               iconName="color-filter-outline"
+              status={spaceToggle}
             />
           </Pressable>
         </View>
@@ -114,16 +136,17 @@ const AmbientSoundsList = () => {
               title="Vacuum"
               description="random whiff of machinery"
               iconName="color-filter-outline"
+              status={windToggle}
             />
           </Pressable>
         </View>
-
         <View>
           <Pressable onPress={() => playSoftRain()}>
             <SoundCard
               title="Heavy Hum"
               description="obscure but familiar"
               iconName="color-filter-outline"
+              status={rainToggle}
             />
           </Pressable>
         </View>
@@ -133,16 +156,13 @@ const AmbientSoundsList = () => {
               title="Air Condition"
               description="interior background, office or lobby"
               iconName="color-filter-outline"
+              status={seagullsToggle}
             />
           </Pressable>
         </View>
         <View>
           <Pressable onPress={onToggle}>
-            <SoundCard
-              title="Stop"
-              description="stop play back"
-              iconName="ios-pause"
-            />
+            <SoundCard title="Stop Audio" />
           </Pressable>
         </View>
       </View>

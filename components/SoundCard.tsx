@@ -9,7 +9,8 @@ export const SoundCard: React.FC<{
   title: string
   description?: string
   iconName?: string
-}> = ({ description, title, iconName }) => {
+  status?: boolean
+}> = ({ description, title, iconName, status }) => {
   return (
     <View style={styles.sectionContainer}>
       <View
@@ -54,9 +55,7 @@ export const SoundCard: React.FC<{
           The toggle audio button will have to go here, but the problem will be mapping the audio only for if the sound if playing.
         
         */}
-        <View>
-          <PlayPauseButton />
-        </View>
+        <View>{status ? <PlayPauseButton /> : null}</View>
       </View>
     </View>
   )
