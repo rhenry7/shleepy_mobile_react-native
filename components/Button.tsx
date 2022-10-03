@@ -35,6 +35,14 @@ export const MenuButton: React.FC<{
           <Text style={[styles.buttonTitle]}>{title}</Text>
           <Text style={[styles.buttonTitle]}>{description}</Text>
         </View>
+        <View
+          style={{
+            alignContent: 'space-between',
+            justifyContent: 'center',
+          }}
+        >
+          <Ionicons name={'ios-play'} size={24} color={'white'}></Ionicons>
+        </View>
       </View>
     </View>
   )

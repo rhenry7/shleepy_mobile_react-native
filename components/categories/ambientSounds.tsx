@@ -61,16 +61,16 @@ const AmbientSoundsList = () => {
     console.log('space is playing...')
     TrackPlayer.skip(0)
     TrackPlayer.play()
-    if (isPlaying) {
+    if (!isPlaying) {
       onToggle()
     }
   }
 
   const playWind = () => {
-    console.log('wind is playing...')
+    console.log('space is playing...')
     TrackPlayer.skip(1)
     TrackPlayer.play()
-    if (isPlaying) {
+    if (!isPlaying) {
       onToggle()
     }
   }
@@ -79,7 +79,7 @@ const AmbientSoundsList = () => {
     console.log('soft rain is playing...')
     TrackPlayer.skip(2)
     TrackPlayer.play()
-    if (isPlaying) {
+    if (!isPlaying) {
       onToggle()
     }
   }
@@ -88,7 +88,7 @@ const AmbientSoundsList = () => {
     console.log('space is playing...')
     TrackPlayer.skip(3)
     TrackPlayer.play()
-    if (isPlaying) {
+    if (!isPlaying) {
       onToggle()
     }
   }
@@ -130,6 +130,15 @@ const AmbientSoundsList = () => {
               title="Air Condition"
               description="interior background, office or lobby"
               iconName="color-filter-outline"
+            />
+          </Pressable>
+        </View>
+        <View>
+          <Pressable onPress={onToggle}>
+            <MenuButton
+              title="Stop"
+              description="stop play back"
+              iconName="ios-pause"
             />
           </Pressable>
         </View>
