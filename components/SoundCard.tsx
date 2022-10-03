@@ -5,7 +5,7 @@ import { styles } from '../styles'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { PlayPauseButton } from './PlayPauseButton'
 
-export const MenuButton: React.FC<{
+export const SoundCard: React.FC<{
   title: string
   description?: string
   iconName?: string
@@ -49,6 +49,13 @@ export const MenuButton: React.FC<{
               justifyContent: 'center',
             }}
           ></View>
+        </View>
+        {/*
+          The toggle audio button will have to go here, but the problem will be mapping the audio only for if the sound if playing.
+        
+        */}
+        <View>
+          <PlayPauseButton />
         </View>
       </View>
     </View>

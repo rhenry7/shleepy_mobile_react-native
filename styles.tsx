@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native'
 export const styles = StyleSheet.create({
   sectionContainer: {
     width: 350,
-    marginTop: 2,
+    marginTop: 10,
     marginBottom: 24,
     paddingHorizontal: 24,
     margin: 0,

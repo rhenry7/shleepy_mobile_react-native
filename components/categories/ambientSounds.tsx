@@ -4,10 +4,12 @@ import TrackPlayer, {
   Capability,
   usePlaybackState,
   State,
+  RepeatMode,
 } from 'react-native-track-player'
 import { useToggle } from '../../hooks'
 import { styles } from '../../styles'
 import { MenuButton } from '../Button'
+import { SoundCard } from '../SoundCard'
 
 export const tracks = [
   {
@@ -44,6 +46,7 @@ const AmbientSoundsList = () => {
   async function setup() {
     TrackPlayer.setupPlayer({})
     await TrackPlayer.add(tracks)
+    TrackPlayer.setRepeatMode(RepeatMode.Track)
     console.log('Tracks added')
     TrackPlayer.updateOptions({
       capabilities: [
@@ -67,7 +70,7 @@ const AmbientSoundsList = () => {
   }
 
   const playWind = () => {
-    console.log('space is playing...')
+    console.log('wind is playing...')
     TrackPlayer.skip(1)
     TrackPlayer.play()
     if (!isPlaying) {
@@ -98,7 +101,7 @@ const AmbientSoundsList = () => {
       <View>
         <View>
           <Pressable onPress={() => playSpace()}>
-            <MenuButton
+            <SoundCard
               title="Deep Space"
               description="empty void of space"
               iconName="color-filter-outline"
@@ -107,7 +110,7 @@ const AmbientSoundsList = () => {
         </View>
         <View>
           <Pressable onPress={() => playWind()}>
-            <MenuButton
+            <SoundCard
               title="Vacuum"
               description="random whiff of machinery"
               iconName="color-filter-outline"
@@ -117,7 +120,7 @@ const AmbientSoundsList = () => {
 
         <View>
           <Pressable onPress={() => playSoftRain()}>
-            <MenuButton
+            <SoundCard
               title="Heavy Hum"
               description="obscure but familiar"
               iconName="color-filter-outline"
@@ -126,7 +129,7 @@ const AmbientSoundsList = () => {
         </View>
         <View>
           <Pressable onPress={() => playSeaGulls()}>
-            <MenuButton
+            <SoundCard
               title="Air Condition"
               description="interior background, office or lobby"
               iconName="color-filter-outline"
@@ -135,7 +138,7 @@ const AmbientSoundsList = () => {
         </View>
         <View>
           <Pressable onPress={onToggle}>
-            <MenuButton
+            <SoundCard
               title="Stop"
               description="stop play back"
               iconName="ios-pause"
