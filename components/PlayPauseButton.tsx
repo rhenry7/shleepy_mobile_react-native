@@ -1,6 +1,5 @@
 import React from 'react'
 import { View } from 'react-native'
-import { styles } from '../styles'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { usePlaybackState, State } from 'react-native-track-player'
 

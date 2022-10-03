@@ -1,6 +1,5 @@
-//import {NavigationContainer} from '@react-navigation/native';
 import React from 'react'
-import { View, Text, Pressable, Button } from 'react-native'
+import { View, Text } from 'react-native'
 import { styles } from '../styles'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { PlayPauseButton } from './PlayPauseButton'
@@ -51,10 +50,6 @@ export const SoundCard: React.FC<{
             }}
           ></View>
         </View>
-        {/*
-          The toggle audio button will have to go here, but the problem will be mapping the audio only for if the sound if playing.
-        
-        */}
         <View>{status ? <PlayPauseButton /> : null}</View>
       </View>
     </View>

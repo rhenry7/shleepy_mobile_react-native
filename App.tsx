@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar'
 import { Button, StyleSheet, Text, View } from 'react-native'
 import * as React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
@@ -9,7 +8,6 @@ import { PlaylistsChoice } from './components/MainSelection'
 import AmbientSoundsList from './components/categories/ambientSounds'
 import { Provider } from 'react-redux'
 import { store } from './src/app/store'
-import TrackPlayer from 'react-native-track-player'
 
 function HomeScreen({ navigation }) {
   return (
@@ -34,7 +32,7 @@ function HomeScreen({ navigation }) {
   )
 }
 
-function DetailsScreen({ navigation }) {
+function DetailsScreen() {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Details Screen</Text>
