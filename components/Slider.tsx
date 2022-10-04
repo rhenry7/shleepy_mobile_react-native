@@ -2,9 +2,12 @@
 import React, { useState } from 'react'
 import { View, Text, SafeAreaView, StyleSheet } from 'react-native'
 import Slider from '@react-native-community/slider'
+import TrackPlayer from 'react-native-track-player'
 
 const VolumeSlider = () => {
   const [sliderValue, setSliderValue] = useState(15)
+  console.log({ sliderValue })
+  TrackPlayer.setVolume(sliderValue)
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -13,12 +16,10 @@ const VolumeSlider = () => {
         <Text style={{ color: 'black' }}>
           Value of slider is : {sliderValue}
         </Text>
-
-        {/*Slider with max, min, step and initial value*/}
         <Slider
-          maximumValue={100}
+          maximumValue={50}
           minimumValue={0}
-          minimumTrackTintColor="#fffc71"
+          minimumTrackTintColor="#fff7c1"
           maximumTrackTintColor="#463AA0"
           step={1}
           value={sliderValue}
