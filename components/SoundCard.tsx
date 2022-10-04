@@ -3,6 +3,7 @@ import { View, Text } from 'react-native'
 import { styles } from '../styles'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { PlayPauseButton } from './PlayPauseButton'
+import { State, usePlaybackState } from 'react-native-track-player'
 
 export const SoundCard: React.FC<{
   title: string
@@ -10,6 +11,9 @@ export const SoundCard: React.FC<{
   iconName?: string
   status?: boolean
 }> = ({ description, title, iconName, status }) => {
+  const state = usePlaybackState()
+  const isPlaying = state === State.Playing
+
   return (
     <View>
       <View
@@ -22,7 +26,7 @@ export const SoundCard: React.FC<{
           padding: 0,
           borderRadius: 10,
           height: 80,
-          backgroundColor: status ? '#2c2278' : '#463AA0',
+          backgroundColor: status && isPlaying ? '#3022a1' : '#463AA0',
         }}
       >
         <View
@@ -63,7 +67,7 @@ export const SoundCard: React.FC<{
               }}
             ></View>
           </View>
-          <View>{status ? <PlayPauseButton /> : null}</View>
+          <View>{status && isPlaying ? <PlayPauseButton /> : null}</View>
         </View>
       </View>
     </View>
