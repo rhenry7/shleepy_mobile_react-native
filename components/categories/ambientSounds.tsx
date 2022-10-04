@@ -64,44 +64,79 @@ const AmbientSoundsList = () => {
     setup()
   }, [])
 
-  const playSpace = () => {
-    console.log('space is playing...')
-    TrackPlayer.skip(0)
-    TrackPlayer.play()
-    if (!isPlaying) {
-      onToggle()
-    }
+  /*
+
+  The purpose of this is to toggle the state of the sound that is currently being played,
+  which will allow the UI to properly show the user what is active. 
+
+  Ideally, the functionality below would be exported from a different file, but I am currently unsure if this is possible with useState - maybe if this was done with Redux, or a different state management. 
+
+  */
+
+  const toggleSpaceState = () => {
     setRainToggle(false)
     setSpaceToggle(true)
     setWindToggle(false)
     setSeaGullsToggle(false)
   }
 
-  const playWind = () => {
-    console.log('wind is playing...')
-    TrackPlayer.skip(1)
-    TrackPlayer.play()
-    if (!isPlaying) {
-      onToggle()
-    }
+  const toggleWindState = () => {
     setRainToggle(false)
     setSpaceToggle(false)
     setWindToggle(true)
     setSeaGullsToggle(false)
   }
 
-  const playSoftRain = async () => {
-    console.log('soft rain is playing...')
-    TrackPlayer.skip(2)
-    TrackPlayer.play()
-    if (!isPlaying) {
-      onToggle()
-    }
+  const toggleRainState = () => {
     setRainToggle(true)
     setSpaceToggle(false)
     setWindToggle(false)
     setSeaGullsToggle(false)
-    //rainToggler()
+  }
+
+  const toggleSeagullsState = () => {
+    setRainToggle(false)
+    setSpaceToggle(false)
+    setWindToggle(false)
+    setSeaGullsToggle(true)
+  }
+
+  const playSpace = () => {
+    console.log('space is playing...')
+    TrackPlayer.skip(0)
+    TrackPlayer.play()
+    toggleSpaceState()
+    if (spaceToggle) {
+      TrackPlayer.pause()
+    }
+    if (!isPlaying) {
+      onToggle()
+    }
+  }
+
+  const playWind = () => {
+    console.log('wind is playing...')
+    TrackPlayer.skip(1)
+    TrackPlayer.play()
+    toggleWindState()
+    if (windToggle) {
+      TrackPlayer.pause()
+    }
+    if (!isPlaying) {
+      onToggle()
+    }
+  }
+
+  const playSoftRain = () => {
+    console.log('soft rain is playing...')
+    TrackPlayer.skip(2)
+    toggleRainState()
+    if (rainToggle) {
+      TrackPlayer.pause()
+    }
+    if (!isPlaying) {
+      onToggle()
+    }
   }
 
   const playSeaGulls = () => {
@@ -111,10 +146,13 @@ const AmbientSoundsList = () => {
     if (!isPlaying) {
       onToggle()
     }
-    setRainToggle(false)
-    setSpaceToggle(false)
-    setWindToggle(false)
-    setSeaGullsToggle(true)
+    toggleSeagullsState()
+    if (seagullsToggle) {
+      TrackPlayer.pause()
+    }
+    if (!isPlaying) {
+      onToggle()
+    }
   }
 
   return (
@@ -158,11 +196,6 @@ const AmbientSoundsList = () => {
               iconName="color-filter-outline"
               status={seagullsToggle}
             />
-          </Pressable>
-        </View>
-        <View>
-          <Pressable onPress={onToggle}>
-            <SoundCard title="Stop Audio" />
           </Pressable>
         </View>
       </View>
