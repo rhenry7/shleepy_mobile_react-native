@@ -1,11 +1,33 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, Pressable } from 'react-native'
 import { styles } from '../styles'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { PlayPauseButton } from './PlayPauseButton'
 import { State, usePlaybackState } from 'react-native-track-player'
+import { useToggle } from '../hooks'
 
-export const SoundCard: React.FC<{
+export const ControllerIcon: React.FC<{ iconName: string; color: string }> = ({
+  iconName = 'ios-play',
+  color = 'white',
+}) => {
+  return (
+    <View>
+      <View
+        style={{
+          flexDirection: 'row',
+          alignContent: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
+        <View style={{ padding: 5, paddingTop: 25, justifyContent: 'center' }}>
+          <Ionicons name={iconName} size={24} color={color}></Ionicons>
+        </View>
+      </View>
+    </View>
+  )
+}
+
+export const SoundController: React.FC<{
   title: string
   description?: string
   iconName?: string
@@ -13,6 +35,7 @@ export const SoundCard: React.FC<{
 }> = ({ description, title, iconName, status }) => {
   const state = usePlaybackState()
   const isPlaying = state === State.Playing
+  const onToggle = useToggle()
 
   return (
     <View>
@@ -26,7 +49,9 @@ export const SoundCard: React.FC<{
           padding: 0,
           borderRadius: 10,
           height: 80,
-          backgroundColor: status && isPlaying ? '#3022a1' : '#463AA0',
+          //backgroundColor: '#3022a1',
+          borderColor: '#3022a1',
+          borderWidth: 2,
         }}
       >
         <View
@@ -52,13 +77,12 @@ export const SoundCard: React.FC<{
             </View>
             <View
               style={{
-                padding: 10,
+                paddingTop: 10,
                 alignContent: 'center',
                 justifyContent: 'center',
               }}
             >
               <Text style={[styles.buttonTitle]}>{title}</Text>
-              <Text style={[styles.buttonTitle]}>{description}</Text>
             </View>
             <View
               style={{
@@ -67,7 +91,18 @@ export const SoundCard: React.FC<{
               }}
             ></View>
           </View>
-          {/* <View>{status && isPlaying ? <PlayPauseButton /> : null}</View> */}
+          <View>
+            <Pressable onPress={onToggle}>
+              {status && isPlaying ? (
+                <PlayPauseButton />
+              ) : (
+                <ControllerIcon iconName={'ios-play'} color={'white'} />
+              )}
+            </Pressable>
+          </View>
+          <View>
+            <ControllerIcon iconName={'ios-star-outline'} color={'white'} />
+          </View>
         </View>
       </View>
     </View>

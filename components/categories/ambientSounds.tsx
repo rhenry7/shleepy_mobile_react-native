@@ -9,6 +9,7 @@ import TrackPlayer, {
 import { useToggle } from '../../hooks'
 import { styles } from '../../styles'
 import { SoundCard } from '../SoundCard'
+import { SoundController } from '../SoundController'
 
 export const tracks = [
   {
@@ -195,6 +196,16 @@ const AmbientSoundsList = () => {
               description="interior background, office or lobby"
               iconName="color-filter-outline"
               status={seagullsToggle}
+            />
+          </Pressable>
+        </View>
+        <View>
+          <Pressable onPress={() => console.log('sound controller clicked')}>
+            <SoundController
+              title="Sound Controller"
+              //description="Place holder sound control"
+              //iconName="color-filter-outline"
+              status={isPlaying}
             />
           </Pressable>
         </View>
