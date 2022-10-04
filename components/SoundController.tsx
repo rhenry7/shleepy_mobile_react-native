@@ -4,6 +4,7 @@ import { styles } from '../styles'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { State, usePlaybackState } from 'react-native-track-player'
 import { useToggle } from '../hooks'
+import VolumeSlider from './Slider'
 
 export const ControllerIcon: React.FC<{ iconName: string; color: string }> = ({
   iconName = 'ios-play',
@@ -27,7 +28,7 @@ export const ControllerIcon: React.FC<{ iconName: string; color: string }> = ({
 }
 
 export const SoundController: React.FC<{
-  title: string
+  title?: string
   description?: string
   iconName?: string
   status?: boolean
@@ -81,7 +82,8 @@ export const SoundController: React.FC<{
                 justifyContent: 'center',
               }}
             >
-              <Text style={[styles.buttonTitle]}>{title}</Text>
+              {/* <Text style={[styles.buttonTitle]}>{title}</Text> */}
+              <VolumeSlider />
             </View>
             <View
               style={{

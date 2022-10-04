@@ -26,7 +26,7 @@ export const SoundCard: React.FC<{
           padding: 0,
           borderRadius: 10,
           height: 80,
-          backgroundColor: status && isPlaying ? '#3022a1' : '#463AA0',
+          backgroundColor: status && isPlaying ? '#5f4bfa' : '#463AA0',
         }}
       >
         <View
@@ -67,7 +67,6 @@ export const SoundCard: React.FC<{
               }}
             ></View>
           </View>
-          {/* <View>{status && isPlaying ? <PlayPauseButton /> : null}</View> */}
         </View>
       </View>
     </View>
