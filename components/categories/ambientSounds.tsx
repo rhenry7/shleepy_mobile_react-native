@@ -202,7 +202,7 @@ const AmbientSoundsList = () => {
         <View>
           <Pressable onPress={() => console.log('sound controller clicked')}>
             <SoundController
-              title="Sound Controller"
+              title="Sound Controller, Toggle"
               //description="Place holder sound control"
               //iconName="color-filter-outline"
               status={isPlaying}

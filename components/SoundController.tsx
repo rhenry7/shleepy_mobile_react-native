@@ -2,7 +2,6 @@ import React from 'react'
 import { View, Text, Pressable } from 'react-native'
 import { styles } from '../styles'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import { PlayPauseButton } from './PlayPauseButton'
 import { State, usePlaybackState } from 'react-native-track-player'
 import { useToggle } from '../hooks'
 
@@ -94,9 +93,9 @@ export const SoundController: React.FC<{
           <View>
             <Pressable onPress={onToggle}>
               {status && isPlaying ? (
-                <PlayPauseButton />
+                <ControllerIcon iconName={'ellipse'} color={'#fff7c1'} />
               ) : (
-                <ControllerIcon iconName={'ios-play'} color={'white'} />
+                <ControllerIcon iconName={'moon'} color={'#463AA0'} />
               )}
             </Pressable>
           </View>

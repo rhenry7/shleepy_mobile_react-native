@@ -6,7 +6,7 @@ import { usePlaybackState, State } from 'react-native-track-player'
 export const PlayPauseButton: React.FC<{}> = () => {
   const state = usePlaybackState()
   const isPlaying = state === State.Playing
-  let iconName = isPlaying ? 'ios-pause' : 'ios-play'
+  let iconName = isPlaying ? 'moon' : 'ios-play'
 
   return (
     <View>
