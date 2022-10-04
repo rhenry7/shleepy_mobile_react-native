@@ -11,46 +11,60 @@ export const SoundCard: React.FC<{
   status?: boolean
 }> = ({ description, title, iconName, status }) => {
   return (
-    <View style={styles.sectionContainer}>
+    <View>
       <View
         style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
+          width: 350,
+          marginTop: 10,
+          marginBottom: 24,
+          paddingHorizontal: 24,
+          margin: 0,
+          padding: 0,
+          borderRadius: 10,
+          height: 80,
+          backgroundColor: status ? '#2c2278' : '#463AA0',
         }}
       >
         <View
           style={{
-            flex: 1,
             flexDirection: 'row',
-            paddingTop: 10,
+            justifyContent: 'space-between',
           }}
         >
           <View
             style={{
-              alignContent: 'center',
-              justifyContent: 'center',
+              flex: 1,
+              flexDirection: 'row',
+              paddingTop: 10,
             }}
           >
-            <Ionicons name={iconName} size={24} color={'white'}></Ionicons>
+            <View
+              style={{
+                alignContent: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Ionicons name={iconName} size={24} color={'white'}></Ionicons>
+            </View>
+            <View
+              style={{
+                padding: 10,
+                alignContent: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Text style={[styles.buttonTitle]}>{title}</Text>
+              <Text style={[styles.buttonTitle]}>{description}</Text>
+            </View>
+            <View
+              style={{
+                alignContent: 'space-between',
+                justifyContent: 'center',
+              }}
+            ></View>
           </View>
-          <View
-            style={{
-              padding: 10,
-              alignContent: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <Text style={[styles.buttonTitle]}>{title}</Text>
-            <Text style={[styles.buttonTitle]}>{description}</Text>
-          </View>
-          <View
-            style={{
-              alignContent: 'space-between',
-              justifyContent: 'center',
-            }}
-          ></View>
+          <View>{status ? <PlayPauseButton /> : null}</View>
         </View>
-        <View>{status ? <PlayPauseButton /> : null}</View>
       </View>
     </View>
   )

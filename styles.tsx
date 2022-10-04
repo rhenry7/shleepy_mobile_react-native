@@ -12,6 +12,17 @@ export const styles = StyleSheet.create({
     height: 80,
     backgroundColor: '#463AA0',
   },
+  soundCardContainer: {
+    width: 350,
+    marginTop: 10,
+    marginBottom: 24,
+    paddingHorizontal: 24,
+    margin: 0,
+    padding: 0,
+    borderRadius: 10,
+    height: 80,
+    //backgroundColor: '#463AA0',
+  },
   sectionTitle: {
     fontSize: 34,
     margin: 0,
