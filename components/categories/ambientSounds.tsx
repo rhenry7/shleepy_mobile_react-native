@@ -14,7 +14,7 @@ import { SoundController } from '../SoundController'
 export const tracks = [
   {
     id: 1,
-    url: require('../../sounds/ambient/Deep_Space.wav'),
+    url: require('../../sounds/nature/crickets.wav'),
     title: 'Blues Beat',
   },
   {
@@ -164,7 +164,7 @@ const AmbientSoundsList = () => {
             <SoundCard
               title="Deep Space"
               description="empty void of space"
-              iconName="color-filter-outline"
+              iconName="cloudy-night"
               status={spaceToggle}
             />
           </Pressable>
@@ -174,7 +174,7 @@ const AmbientSoundsList = () => {
             <SoundCard
               title="Vacuum"
               description="random whiff of machinery"
-              iconName="color-filter-outline"
+              iconName="cloudy-night"
               status={windToggle}
             />
           </Pressable>
@@ -184,7 +184,7 @@ const AmbientSoundsList = () => {
             <SoundCard
               title="Heavy Hum"
               description="obscure but familiar"
-              iconName="color-filter-outline"
+              iconName="cloudy-night"
               status={rainToggle}
             />
           </Pressable>
@@ -194,7 +194,7 @@ const AmbientSoundsList = () => {
             <SoundCard
               title="Air Condition"
               description="interior background, office or lobby"
-              iconName="color-filter-outline"
+              iconName="cloudy-night"
               status={seagullsToggle}
             />
           </Pressable>
@@ -204,7 +204,7 @@ const AmbientSoundsList = () => {
             <SoundController
               title="Sound Controller, Toggle"
               //description="Place holder sound control"
-              //iconName="color-filter-outline"
+              iconName="volume-mute"
               status={isPlaying}
             />
           </Pressable>

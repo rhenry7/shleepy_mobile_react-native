@@ -26,7 +26,7 @@ export const SoundCard: React.FC<{
           padding: 0,
           borderRadius: 10,
           height: 80,
-          backgroundColor: status && isPlaying ? '#5f4bfa' : '#463AA0',
+          backgroundColor: status && isPlaying ? '#463AA050' : '#463AA0',
         }}
       >
         <View
@@ -40,6 +40,7 @@ export const SoundCard: React.FC<{
               flex: 1,
               flexDirection: 'row',
               paddingTop: 10,
+              paddingLeft: 0,
             }}
           >
             <View
@@ -48,11 +49,12 @@ export const SoundCard: React.FC<{
                 justifyContent: 'center',
               }}
             >
-              <Ionicons name={iconName} size={24} color={'white'}></Ionicons>
+              <Ionicons name={iconName} size={20} color={'white'}></Ionicons>
             </View>
             <View
               style={{
                 padding: 10,
+                paddingLeft: 15,
                 alignContent: 'center',
                 justifyContent: 'center',
               }}

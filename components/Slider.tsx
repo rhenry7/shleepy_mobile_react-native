@@ -5,8 +5,8 @@ import Slider from '@react-native-community/slider'
 import TrackPlayer from 'react-native-track-player'
 
 const VolumeSlider = () => {
-  const [sliderValue, setSliderValue] = useState(15)
-  console.log({ sliderValue })
+  const [sliderValue, setSliderValue] = useState(17)
+  //console.log({ sliderValue })
   TrackPlayer.setVolume(sliderValue)
 
   return (
@@ -17,7 +17,7 @@ const VolumeSlider = () => {
           Value of slider is : {sliderValue}
         </Text>
         <Slider
-          maximumValue={50}
+          maximumValue={25}
           minimumValue={0}
           minimumTrackTintColor="#fff7c1"
           maximumTrackTintColor="#463AA0"

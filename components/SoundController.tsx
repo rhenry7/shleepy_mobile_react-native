@@ -49,8 +49,7 @@ export const SoundController: React.FC<{
           padding: 0,
           borderRadius: 10,
           height: 80,
-          //backgroundColor: '#3022a1',
-          borderColor: '#3022a1',
+          borderColor: '#463AA0',
           borderWidth: 2,
         }}
       >
@@ -71,9 +70,10 @@ export const SoundController: React.FC<{
               style={{
                 alignContent: 'center',
                 justifyContent: 'center',
+                paddingTop: 15,
               }}
             >
-              <Ionicons name={iconName} size={24} color={'white'}></Ionicons>
+              <Ionicons name={iconName} size={24} color={'#463AA0'}></Ionicons>
             </View>
             <View
               style={{
@@ -102,7 +102,7 @@ export const SoundController: React.FC<{
             </Pressable>
           </View>
           <View>
-            <ControllerIcon iconName={'ios-star-outline'} color={'white'} />
+            <ControllerIcon iconName={'ios-star'} color={'#463AA0'} />
           </View>
         </View>
       </View>
