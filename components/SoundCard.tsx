@@ -2,7 +2,6 @@ import React from 'react'
 import { View, Text } from 'react-native'
 import { styles } from '../styles'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import { PlayPauseButton } from './PlayPauseButton'
 import { State, usePlaybackState } from 'react-native-track-player'
 
 export const SoundCard: React.FC<{
@@ -17,17 +16,10 @@ export const SoundCard: React.FC<{
   return (
     <View>
       <View
-        style={{
-          width: 350,
-          marginTop: 10,
-          marginBottom: 24,
-          paddingHorizontal: 24,
-          margin: 0,
-          padding: 0,
-          borderRadius: 10,
-          height: 80,
-          backgroundColor: status && isPlaying ? '#463AA050' : '#463AA0',
-        }}
+        style={[
+          styles.soundCardContainer,
+          { backgroundColor: status && isPlaying ? '#463AA070' : '#463AA0' },
+        ]}
       >
         <View
           style={{
@@ -49,7 +41,11 @@ export const SoundCard: React.FC<{
                 justifyContent: 'center',
               }}
             >
-              <Ionicons name={iconName} size={20} color={'white'}></Ionicons>
+              <Ionicons
+                name={iconName}
+                size={20}
+                color={status && isPlaying ? '#fff7c1' : 'white'}
+              ></Ionicons>
             </View>
             <View
               style={{

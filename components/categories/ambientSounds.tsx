@@ -7,38 +7,15 @@ import TrackPlayer, {
   RepeatMode,
 } from 'react-native-track-player'
 import { useToggle } from '../../hooks'
+import { tracks } from '../../sounds/Tracks'
 import { styles } from '../../styles'
 import { SoundCard } from '../SoundCard'
 import { SoundController } from '../SoundController'
-
-export const tracks = [
-  {
-    id: 1,
-    url: require('../../sounds/nature/crickets.wav'),
-    title: 'Blues Beat',
-  },
-  {
-    id: 2,
-    url: require('../../sounds/nature/wind.wav'),
-    title: 'Blues Beat',
-  },
-  {
-    id: 3,
-    url: require('../../sounds/nature/soft_rain.wav'),
-    title: 'Blues Beat',
-  },
-  {
-    id: 4,
-    url: require('../../sounds/nature/seagulls.wav'),
-    title: 'Blues Beat',
-  },
-]
 
 const AmbientSoundsList = () => {
   const state = usePlaybackState()
   const isPlaying = state === State.Playing
   const onToggle = useToggle()
-  const current = TrackPlayer.getCurrentTrack()
   const [spaceToggle, setSpaceToggle] = useState(false)
   const [windToggle, setWindToggle] = useState(false)
   const [rainToggle, setRainToggle] = useState(false)
@@ -102,6 +79,11 @@ const AmbientSoundsList = () => {
     setSeaGullsToggle(true)
   }
 
+  /*
+This section handles the logic for toggling the sound on/off and for skipping to that specific track. 
+
+Currently, there is a bug to fix the delay/lag of switching between the sounds previously played and the upcoming sound. 
+  */
   const playSpace = () => {
     console.log('space is playing...')
     TrackPlayer.skip(0)
@@ -203,7 +185,7 @@ const AmbientSoundsList = () => {
           <Pressable onPress={() => console.log('sound controller clicked')}>
             <SoundController
               title="Sound Controller, Toggle"
-              //description="Place holder sound control"
+              description="Place holder sound control"
               iconName="volume-mute"
               status={isPlaying}
             />

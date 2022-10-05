@@ -21,7 +21,6 @@ export const styles = StyleSheet.create({
     padding: 0,
     borderRadius: 10,
     height: 80,
-    //backgroundColor: '#463AA0',
   },
   sectionTitle: {
     fontSize: 34,
@@ -107,5 +106,17 @@ export const styles = StyleSheet.create({
   },
   background: {
     color: '#393281',
+  },
+})
+
+export const colors = StyleSheet.create({
+  primary: {
+    color: '#463AA0',
+  },
+  secondary: {
+    color: '#060523',
+  },
+  highlight: {
+    color: '#fff7c1',
   },
 })
