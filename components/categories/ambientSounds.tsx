@@ -21,27 +21,6 @@ const AmbientSoundsList = () => {
   const [rainToggle, setRainToggle] = useState(false)
   const [seagullsToggle, setSeaGullsToggle] = useState(false)
 
-  async function setup() {
-    TrackPlayer.setupPlayer({})
-    await TrackPlayer.add(tracks)
-    TrackPlayer.setRepeatMode(RepeatMode.Track)
-    console.log('Tracks added')
-    TrackPlayer.updateOptions({
-      capabilities: [
-        Capability.Play,
-        Capability.Pause,
-        Capability.SkipToNext,
-        Capability.SkipToPrevious,
-        Capability.Stop,
-      ],
-      compactCapabilities: [Capability.Play, Capability.Pause],
-    })
-  }
-
-  useEffect(() => {
-    setup()
-  }, [])
-
   /*
 
   The purpose of this is to toggle the state of the sound that is currently being played,

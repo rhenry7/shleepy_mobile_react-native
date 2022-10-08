@@ -8,6 +8,8 @@ import { PlaylistsChoice } from './components/MainSelection'
 import AmbientSoundsList from './components/categories/ambientSounds'
 import { Provider } from 'react-redux'
 import { store } from './src/app/store'
+import TrackPlayer, { RepeatMode, Capability } from 'react-native-track-player'
+import { tracks } from './sounds/Tracks'
 
 function HomeScreen({ navigation }) {
   return (
@@ -103,8 +105,8 @@ function BottomTab() {
         component={PlaylistsChoice}
         options={{ title: 'Sounds' }}
       />
-      <Tab.Screen name="Settings" component={SettingsScreen} />
-      <Tab.Screen name="UserProfile" component={UserProfile} />
+      {/* <Tab.Screen name="Settings" component={SettingsScreen} />
+      <Tab.Screen name="UserProfile" component={UserProfile} /> */}
     </Tab.Navigator>
   )
 }
@@ -112,6 +114,26 @@ function BottomTab() {
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
 export default function App() {
+  async function setup() {
+    TrackPlayer.setupPlayer({})
+    await TrackPlayer.add(tracks)
+    TrackPlayer.setRepeatMode(RepeatMode.Track)
+    console.log('Tracks added')
+    TrackPlayer.updateOptions({
+      capabilities: [
+        Capability.Play,
+        Capability.Pause,
+        Capability.SkipToNext,
+        Capability.SkipToPrevious,
+        Capability.Stop,
+      ],
+      compactCapabilities: [Capability.Play, Capability.Pause],
+    })
+  }
+
+  React.useEffect(() => {
+    setup()
+  }, [])
   return (
     <Provider store={store}>
       <NavigationContainer>
