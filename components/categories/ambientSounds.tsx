@@ -1,13 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Pressable, View } from 'react-native'
-import TrackPlayer, {
-  Capability,
-  usePlaybackState,
-  State,
-  RepeatMode,
-} from 'react-native-track-player'
+import TrackPlayer, { usePlaybackState, State } from 'react-native-track-player'
 import { useToggle } from '../../hooks'
-import { tracks } from '../../sounds/Tracks'
 import { styles } from '../../styles'
 import { SoundCard } from '../SoundCard'
 import { SoundController } from '../SoundController'
@@ -29,6 +23,13 @@ const AmbientSoundsList = () => {
   Ideally, the functionality below would be exported from a different file, but I am currently unsure if this is possible with useState - maybe if this was done with Redux, or a different state management. 
 
   */
+
+  /*
+Todo: 
+
+This area needs to be factored to possible use something else to manage state
+
+*/
 
   const toggleSpaceState = () => {
     setRainToggle(false)

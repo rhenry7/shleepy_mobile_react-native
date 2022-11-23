@@ -10,6 +10,7 @@ import { Provider } from 'react-redux'
 import { store } from './src/app/store'
 import TrackPlayer, { RepeatMode, Capability } from 'react-native-track-player'
 import { tracks } from './sounds/Tracks'
+import FirstSoundButton from './components/SoundButtons/FirstSoundButton'
 
 function HomeScreen({ navigation }) {
   return (
@@ -74,7 +75,7 @@ function BottomTab() {
           if (route.name === 'PlaylistsChoice') {
             iconName = focused ? 'ios-list' : 'ios-list'
           }
-          if (route.name === 'UserProfile') {
+          if (route.name === 'SoundControllerScreen') {
             iconName = focused ? 'person-circle' : 'person-circle-outline'
           }
 
@@ -104,6 +105,11 @@ function BottomTab() {
         name="PlaylistsChoice"
         component={PlaylistsChoice}
         options={{ title: 'Sounds' }}
+      />
+      <Tab.Screen
+        name="SoundControllerScreen"
+        component={FirstSoundButton}
+        options={{ title: 'Mixer' }}
       />
       {/* <Tab.Screen name="Settings" component={SettingsScreen} />
       <Tab.Screen name="UserProfile" component={UserProfile} /> */}

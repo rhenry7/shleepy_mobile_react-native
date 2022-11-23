@@ -8,12 +8,10 @@ const VolumeSlider = () => {
   const [sliderValue, setSliderValue] = useState(17)
   //console.log({ sliderValue })
   TrackPlayer.setVolume(sliderValue)
-  const isMuted = sliderValue < 3
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={[styles.container, { flexDirection: 'column' }]}>
-        {/*Text to show slider value*/}
         <Text style={{ color: 'black' }}>
           Value of slider is : {sliderValue}
         </Text>
