@@ -52,8 +52,9 @@ export default function FirstSoundButton() {
     )
     setSound(sound)
 
-    console.log('Playing Sound')
+    console.log('Setting Sound')
     await sound.setVolumeAsync(volume)
+    await sound.playAsync()
   }
 
   React.useEffect(() => {
@@ -66,7 +67,6 @@ export default function FirstSoundButton() {
   }, [sound])
 
   const VolumeSlider = () => {
-    setVolume(sliderValue)
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <View style={[{ flexDirection: 'column' }]}>
@@ -77,7 +77,10 @@ export default function FirstSoundButton() {
             maximumTrackTintColor="#463AA0"
             step={0.1}
             value={sliderValue}
-            onValueChange={(sliderValue) => setSliderValue(sliderValue)}
+            onValueChange={(sliderValue) => {
+              setSliderValue(sliderValue)
+              setVolume(sliderValue)
+            }}
             thumbTintColor={'#fffc710'}
           />
           <Text>Value of slider is : {sliderValue}</Text>
@@ -95,9 +98,9 @@ export default function FirstSoundButton() {
         }}
       >
         <Button title="Play Sound" onPress={playSound} />
+        <VolumeSlider />
         <Button title="Stop Sound" onPress={stopSound} />
       </View>
-      <VolumeSlider />
     </View>
   )
 }
