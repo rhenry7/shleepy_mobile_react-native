@@ -1,11 +1,11 @@
 import * as React from 'react'
-import { View, Button, SafeAreaView, Text, Pressable } from 'react-native'
+import { View, Button, SafeAreaView, Text } from 'react-native'
 import { Audio } from 'expo-av'
 import { styles } from './MixerStyles'
 import { _DEFAULT_INITIAL_PLAYBACK_STATUS } from 'expo-av/build/AV'
 import Slider from '@react-native-community/slider'
 
-export default function FirstSoundButton() {
+export default function SecondSoundButton() {
   const [sound, setSound] = React.useState<Audio.Sound | null>()
   const [sliderValue, setSliderValue] = React.useState<number>()
 
@@ -22,7 +22,7 @@ export default function FirstSoundButton() {
   async function playSound() {
     console.log('Loading Sound')
     const { sound } = await Audio.Sound.createAsync(
-      require('../../sounds/nature/birds.wav'),
+      require('../../sounds/nature/rain_02.wav'),
       initialStatus,
     )
     setSound(sound)
@@ -34,7 +34,7 @@ export default function FirstSoundButton() {
   async function stopSound() {
     console.log('Loading Sound')
     const { sound } = await Audio.Sound.createAsync(
-      require('../../sounds/nature/birds.wav'),
+      require('../../sounds/nature/rain_02.wav'),
       initialStatus,
     )
     setSound(sound)
@@ -92,10 +92,9 @@ export default function FirstSoundButton() {
           justifyContent: 'space-between',
         }}
       >
-        <Button title="Birds" onPress={playSound} />
+        <Button title="Rain" onPress={playSound} />
         <VolumeSlider />
         <Button title="Stop" onPress={stopSound} />
-        <Pressable onPress={stopSound}></Pressable>
       </View>
     </View>
   )

@@ -12,20 +12,20 @@ export const styles = StyleSheet.create({
     height: 80,
     backgroundColor: '#463AA0',
   },
+  buttonContainer: {
+    height: 1400,
+    backgroundColor: '#060523',
+  },
   container: {
-    width: 400,
+    width: 380,
     marginTop: 10,
-    marginBottom: 24,
-    paddingHorizontal: 24,
+    paddingHorizontal: 18,
     margin: 0,
     padding: 0,
-    height: 80,
-    backgroundColor: '#060523',
   },
   volumeSlider: {
     flex: 1,
     padding: 20,
     justifyContent: 'center',
-    // backgroundColor: '#ecf0f1',
   },
 })

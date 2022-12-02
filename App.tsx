@@ -11,6 +11,7 @@ import { store } from './src/app/store'
 import TrackPlayer, { RepeatMode, Capability } from 'react-native-track-player'
 import { tracks } from './sounds/Tracks'
 import FirstSoundButton from './components/SoundButtons/FirstSoundButton'
+import ButtonContainer from './components/SoundButtons/ButtonContainer'
 
 function HomeScreen({ navigation }) {
   return (
@@ -108,7 +109,7 @@ function BottomTab() {
       />
       <Tab.Screen
         name="SoundControllerScreen"
-        component={FirstSoundButton}
+        component={ButtonContainer}
         options={{ title: 'Mixer' }}
       />
       {/* <Tab.Screen name="Settings" component={SettingsScreen} />
