@@ -8,7 +8,6 @@ import Slider from '@react-native-community/slider'
 export default function FirstSoundButton() {
   const [sound, setSound] = React.useState<Audio.Sound | null>()
   const [sliderValue, setSliderValue] = React.useState<number>()
-  //const [volume, setVolume] = React.useState<number>(sliderValue)
 
   const initialStatus = {
     progressUpdateIntervalMillis: 500,
@@ -16,7 +15,7 @@ export default function FirstSoundButton() {
     shouldPlay: false,
     rate: 1.0,
     shouldCorrectPitch: false,
-    volume: 1.0,
+    volume: 0.0,
     isMuted: false,
     isLooping: false,
   }
@@ -30,7 +29,6 @@ export default function FirstSoundButton() {
 
     console.log('Playing Sound')
     await sound.playAsync()
-    //await sound.setVolumeAsync(volume)
   }
 
   async function stopSound() {
@@ -45,16 +43,14 @@ export default function FirstSoundButton() {
     await sound.stopAsync()
   }
 
-  async function setVolume(volume: number) {
-    const { sound } = await Audio.Sound.createAsync(
-      require('../../sounds/nature/birds.wav'),
-      initialStatus,
-    )
-    setSound(sound)
-
-    console.log('Setting Sound')
-    await sound.setVolumeAsync(volume)
-    await sound.playAsync()
+  async function handleVolumeChange() {
+    await sound.setVolumeAsync(sliderValue)
+    const soundChange = await sound.setVolumeAsync(sliderValue)
+    if (soundChange.isLoaded) {
+      console.log(soundChange.volume)
+      if (soundChange.volume > 0.16) await sound.setVolumeAsync(0)
+    }
+    console.log(await sound.setVolumeAsync(sliderValue))
   }
 
   React.useEffect(() => {
@@ -75,11 +71,10 @@ export default function FirstSoundButton() {
             minimumValue={0}
             minimumTrackTintColor="#fff7c1"
             maximumTrackTintColor="#463AA0"
-            step={0.1}
+            step={0.15}
             value={sliderValue}
             onValueChange={(sliderValue) => {
-              setSliderValue(sliderValue)
-              setVolume(sliderValue)
+              setSliderValue(sliderValue), handleVolumeChange()
             }}
             thumbTintColor={'#fffc710'}
           />
@@ -97,9 +92,9 @@ export default function FirstSoundButton() {
           justifyContent: 'space-between',
         }}
       >
-        <Button title="Play Sound" onPress={playSound} />
+        <Button title="Play" onPress={playSound} />
         <VolumeSlider />
-        <Button title="Stop Sound" onPress={stopSound} />
+        <Button title="Stop" onPress={stopSound} />
       </View>
     </View>
   )
