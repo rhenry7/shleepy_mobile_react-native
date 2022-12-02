@@ -78,7 +78,6 @@ export default function FirstSoundButton() {
             }}
             thumbTintColor={'#fffc710'}
           />
-          <Text>Value of slider is : {sliderValue}</Text>
         </View>
       </SafeAreaView>
     )
