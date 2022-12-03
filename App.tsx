@@ -155,7 +155,7 @@ export default function App() {
           <Stack.Screen
             name="Bottom"
             options={{
-              title: 'Shleepy', // make user_name dynamic
+              title: '', // make user_name dynamic
             }}
             component={BottomTab}
           />

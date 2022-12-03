@@ -1,21 +1,15 @@
 import * as React from 'react'
-import {
-  View,
-  SafeAreaView,
-  Text,
-  Pressable,
-  TouchableOpacity,
-} from 'react-native'
+import { View, Button, SafeAreaView, Text, Pressable } from 'react-native'
 import { Audio } from 'expo-av'
 import { styles } from './MixerStyles'
 import { _DEFAULT_INITIAL_PLAYBACK_STATUS } from 'expo-av/build/AV'
 import Slider from '@react-native-community/slider'
 import { PlayStateToggle } from './PlayStateToggle'
 
-export default function FirstSoundButton() {
+export default function SecondSoundButton() {
   const [sound, setSound] = React.useState<Audio.Sound | null>()
-  const [soundState, setSoundState] = React.useState<boolean>()
   const [sliderValue, setSliderValue] = React.useState<number>()
+  const [soundState, setSoundState] = React.useState<boolean>()
 
   const initialStatus = {
     progressUpdateIntervalMillis: 500,
@@ -30,7 +24,7 @@ export default function FirstSoundButton() {
   async function playSound() {
     console.log('Loading Sound')
     const { sound } = await Audio.Sound.createAsync(
-      require('../../sounds/nature/seagulls.wav'),
+      require('../../sounds/nature/birds.wav'),
       initialStatus,
     )
     setSound(sound)
@@ -46,25 +40,22 @@ export default function FirstSoundButton() {
   async function stopSound() {
     console.log('Loading Sound')
     const { sound } = await Audio.Sound.createAsync(
-      require('../../sounds/nature/Tropical.wav'),
+      require('../../sounds/nature/rain_02.wav'),
       initialStatus,
     )
     setSound(sound)
+    setSoundState(false)
 
     console.log('Playing Sound')
     await sound.stopAsync()
-    setSoundState(false)
   }
 
   async function handleVolumeChange() {
     await sound.setVolumeAsync(sliderValue)
-    console.log(sliderValue)
     const soundChange = await sound.setVolumeAsync(sliderValue)
     if (soundChange.isLoaded) {
       console.log(soundChange.volume)
-      if (0.16 > soundChange.volume) {
-        await sound.setVolumeAsync(0)
-      }
+      if (soundChange.volume > 0.16) await sound.setVolumeAsync(0)
     }
     console.log(await sound.setVolumeAsync(sliderValue))
   }
@@ -80,7 +71,7 @@ export default function FirstSoundButton() {
 
   const VolumeSlider = () => {
     return (
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={{ width: 240, transform: [{ scaleY: 1.7 }] }}>
         <View style={[{ flexDirection: 'column' }]}>
           <Slider
             maximumValue={1}
@@ -98,7 +89,7 @@ export default function FirstSoundButton() {
       </SafeAreaView>
     )
   }
-  console.log({ soundState })
+
   return (
     <View style={styles.container}>
       <View
@@ -108,13 +99,9 @@ export default function FirstSoundButton() {
           alignItems: 'center',
         }}
       >
-        <TouchableOpacity
-          onPress={() => {
-            playSound
-          }}
-        >
-          <Text style={[styles.buttonTitle]}>Birds</Text>
-        </TouchableOpacity>
+        <Pressable onPress={playSound}>
+          <Text style={[styles.buttonTitle]}>Frog</Text>
+        </Pressable>
         <View
           style={{
             flexDirection: 'row',

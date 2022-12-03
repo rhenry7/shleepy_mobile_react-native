@@ -44,6 +44,7 @@ export default function SecondSoundButton() {
       initialStatus,
     )
     setSound(sound)
+    setSoundState(false)
 
     console.log('Playing Sound')
     await sound.stopAsync()
@@ -70,7 +71,7 @@ export default function SecondSoundButton() {
 
   const VolumeSlider = () => {
     return (
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={{ width: 240, transform: [{ scaleY: 1.7 }] }}>
         <View style={[{ flexDirection: 'column' }]}>
           <Slider
             maximumValue={1}
