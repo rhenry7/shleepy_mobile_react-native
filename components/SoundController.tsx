@@ -82,7 +82,6 @@ export const SoundController: React.FC<{
                 justifyContent: 'center',
               }}
             >
-              {/* <Text style={[styles.buttonTitle]}>{title}</Text> */}
               <VolumeSlider />
             </View>
             <View

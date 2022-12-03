@@ -1,13 +1,15 @@
 import * as React from 'react'
-import { View, Button, SafeAreaView, Text } from 'react-native'
+import { View, Button, SafeAreaView, Text, Pressable } from 'react-native'
 import { Audio } from 'expo-av'
 import { styles } from './MixerStyles'
 import { _DEFAULT_INITIAL_PLAYBACK_STATUS } from 'expo-av/build/AV'
 import Slider from '@react-native-community/slider'
+import { PlayStateToggle } from './PlayStateToggle'
 
 export default function SecondSoundButton() {
   const [sound, setSound] = React.useState<Audio.Sound | null>()
   const [sliderValue, setSliderValue] = React.useState<number>()
+  const [soundState, setSoundState] = React.useState<boolean>()
 
   const initialStatus = {
     progressUpdateIntervalMillis: 500,
@@ -29,6 +31,10 @@ export default function SecondSoundButton() {
 
     console.log('Playing Sound')
     await sound.playAsync()
+    const soundPlaying = await sound.playAsync()
+    if (soundPlaying.isLoaded) {
+      soundPlaying.isPlaying ? setSoundState(true) : setSoundState(false)
+    }
   }
 
   async function stopSound() {
@@ -71,12 +77,12 @@ export default function SecondSoundButton() {
             minimumValue={0}
             minimumTrackTintColor="#fff7c1"
             maximumTrackTintColor="#463AA0"
-            step={0.15}
+            step={0.05}
             value={sliderValue}
             onValueChange={(sliderValue) => {
               setSliderValue(sliderValue), handleVolumeChange()
             }}
-            thumbTintColor={'#fffc710'}
+            thumbTintColor={'#fffc7100'}
           />
         </View>
       </SafeAreaView>
@@ -89,11 +95,31 @@ export default function SecondSoundButton() {
         style={{
           flexDirection: 'row',
           justifyContent: 'space-between',
+          alignItems: 'center',
         }}
       >
-        <Button title="Rain" onPress={playSound} />
-        <VolumeSlider />
-        <Button title="Stop" onPress={stopSound} />
+        <Pressable onPress={playSound}>
+          <Text style={[styles.buttonTitle]}>Rain</Text>
+        </Pressable>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            width: 250,
+          }}
+        >
+          <VolumeSlider />
+        </View>
+
+        <View>
+          <Pressable onPress={stopSound}>
+            {soundState ? (
+              <PlayStateToggle iconName={'ellipse'} color={'#fff7c1'} />
+            ) : (
+              <PlayStateToggle iconName={'moon'} color={'#463AA0'} />
+            )}
+          </Pressable>
+        </View>
       </View>
     </View>
   )

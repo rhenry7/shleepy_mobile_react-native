@@ -16,12 +16,21 @@ export const styles = StyleSheet.create({
     height: 1400,
     backgroundColor: '#060523',
   },
+  buttonTitle: {
+    fontSize: 18,
+    fontWeight: '400',
+    justifyContent: 'flex-end',
+    margin: 0,
+    padding: 8,
+    color: '#fff7c1',
+  },
   container: {
     width: 380,
     marginTop: 10,
     paddingHorizontal: 18,
     margin: 0,
     padding: 0,
+    alignItems: 'center',
   },
   volumeSlider: {
     flex: 1,

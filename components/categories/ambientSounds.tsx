@@ -25,9 +25,8 @@ const AmbientSoundsList = () => {
   */
 
   /*
-Todo: 
-
-This area needs to be factored to possible use something else to manage state
+Todo: his area needs to be factored to possible use something else to manage state
+probably need to use something Zustand or MobX, probably won't want to use Redux
 
 */
 
@@ -65,7 +64,6 @@ This section handles the logic for toggling the sound on/off and for skipping to
 Currently, there is a bug to fix the delay/lag of switching between the sounds previously played and the upcoming sound. 
   */
   const playSpace = () => {
-    console.log('space is playing...')
     TrackPlayer.skip(0)
     TrackPlayer.play()
     toggleSpaceState()
@@ -78,7 +76,6 @@ Currently, there is a bug to fix the delay/lag of switching between the sounds p
   }
 
   const playWind = () => {
-    console.log('wind is playing...')
     TrackPlayer.skip(1)
     TrackPlayer.play()
     toggleWindState()
@@ -91,7 +88,6 @@ Currently, there is a bug to fix the delay/lag of switching between the sounds p
   }
 
   const playSoftRain = () => {
-    console.log('soft rain is playing...')
     TrackPlayer.skip(2)
     toggleRainState()
     if (rainToggle) {
@@ -103,7 +99,6 @@ Currently, there is a bug to fix the delay/lag of switching between the sounds p
   }
 
   const playSeaGulls = () => {
-    console.log('seagulls is playing...')
     TrackPlayer.skip(3)
     TrackPlayer.play()
     if (!isPlaying) {
