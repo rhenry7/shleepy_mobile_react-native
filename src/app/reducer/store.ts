@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
-import soundsReducer from './soundSlice'
+import soundReducer from './soundSlice'
 
 export const store = configureStore({
   reducer: {
-    sounds: soundsReducer,
+    sounds: soundReducer,
   },
   devTools: true,
 })

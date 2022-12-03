@@ -1,15 +1,23 @@
 import React, { useState } from 'react'
 import { Pressable, View } from 'react-native'
 import TrackPlayer, { usePlaybackState, State } from 'react-native-track-player'
-import { useToggle } from '../../hooks'
-import { styles } from '../../styles'
-import { SoundCard } from '../SoundCard'
-import { SoundController } from '../SoundController'
+import { useDispatch, useSelector } from 'react-redux'
+import { useToggle } from '../../../hooks'
+import { RootState } from '../../../src/app/reducer/store'
+import { styles } from '../../../styles'
+import { SoundCard } from '../../SoundCard'
+import { SoundController } from '../../SoundController'
+import { spaceSound } from '../../../src/app/reducer/soundSlice'
 
 const AmbientSoundsList = () => {
   const state = usePlaybackState()
   const isPlaying = state === State.Playing
   const onToggle = useToggle()
+  const dispatch = useDispatch()
+  const spaceSoundStatus = useSelector(
+    (soundState: RootState) => soundState.sounds.spaceSound,
+  )
+
   const [spaceToggle, setSpaceToggle] = useState(false)
   const [windToggle, setWindToggle] = useState(false)
   const [rainToggle, setRainToggle] = useState(false)
@@ -30,9 +38,10 @@ probably need to use something Zustand or MobX, probably won't want to use Redux
 
 */
 
+  // TODO: HANDLE WITH STATE MANAGER
   const toggleSpaceState = () => {
     setRainToggle(false)
-    setSpaceToggle(true)
+    dispatch(spaceSound(true))
     setWindToggle(false)
     setSeaGullsToggle(false)
   }
@@ -63,6 +72,9 @@ This section handles the logic for toggling the sound on/off and for skipping to
 
 Currently, there is a bug to fix the delay/lag of switching between the sounds previously played and the upcoming sound. 
   */
+
+  // TODO: HANDLE WITH STATE MANAGER
+
   const playSpace = () => {
     TrackPlayer.skip(0)
     TrackPlayer.play()
@@ -112,6 +124,7 @@ Currently, there is a bug to fix the delay/lag of switching between the sounds p
       onToggle()
     }
   }
+  console.log({ spaceSoundStatus, spaceSound })
 
   return (
     <View style={styles.container_list}>
@@ -122,7 +135,7 @@ Currently, there is a bug to fix the delay/lag of switching between the sounds p
               title="Deep Space"
               description="empty void of space"
               iconName="cloudy-night"
-              status={spaceToggle}
+              status={spaceSoundStatus}
             />
           </Pressable>
         </View>
