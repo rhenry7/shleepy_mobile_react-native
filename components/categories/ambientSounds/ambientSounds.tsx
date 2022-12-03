@@ -7,7 +7,12 @@ import { RootState } from '../../../src/app/reducer/store'
 import { styles } from '../../../styles'
 import { SoundCard } from '../../SoundCard'
 import { SoundController } from '../../SoundController'
-import { spaceSound } from '../../../src/app/reducer/soundSlice'
+import {
+  rainSound,
+  seagullsSound,
+  spaceSound,
+  windSound,
+} from '../../../src/app/reducer/soundSlice'
 
 const AmbientSoundsList = () => {
   const state = usePlaybackState()
@@ -15,13 +20,17 @@ const AmbientSoundsList = () => {
   const onToggle = useToggle()
   const dispatch = useDispatch()
   const spaceSoundStatus = useSelector(
-    (soundState: RootState) => soundState.sounds.spaceSound,
+    (state: RootState) => state.sounds.spaceSound,
   )
-
-  const [spaceToggle, setSpaceToggle] = useState(false)
-  const [windToggle, setWindToggle] = useState(false)
-  const [rainToggle, setRainToggle] = useState(false)
-  const [seagullsToggle, setSeaGullsToggle] = useState(false)
+  const rainSoundStatus = useSelector(
+    (state: RootState) => state.sounds.rainSound,
+  )
+  const windSoundStatus = useSelector(
+    (state: RootState) => state.sounds.windSound,
+  )
+  const seagullsSoundStatus = useSelector(
+    (state: RootState) => state.sounds.seagullsSound,
+  )
 
   /*
 
@@ -32,39 +41,36 @@ const AmbientSoundsList = () => {
 
   */
 
-  /*
-Todo: his area needs to be factored to possible use something else to manage state
-probably need to use something Zustand or MobX, probably won't want to use Redux
+  // TODO: Figure out how to move to separate folder to make code easier to read
 
-*/
+  // maybe these should all be Hooks?
 
-  // TODO: HANDLE WITH STATE MANAGER
   const toggleSpaceState = () => {
-    setRainToggle(false)
+    dispatch(rainSound(false))
     dispatch(spaceSound(true))
-    setWindToggle(false)
-    setSeaGullsToggle(false)
+    dispatch(windSound(false))
+    dispatch(seagullsSound(false))
   }
 
   const toggleWindState = () => {
-    setRainToggle(false)
-    setSpaceToggle(false)
-    setWindToggle(true)
-    setSeaGullsToggle(false)
+    dispatch(rainSound(false))
+    dispatch(spaceSound(false))
+    dispatch(windSound(true))
+    dispatch(seagullsSound(false))
   }
 
   const toggleRainState = () => {
-    setRainToggle(true)
-    setSpaceToggle(false)
-    setWindToggle(false)
-    setSeaGullsToggle(false)
+    dispatch(rainSound(true))
+    dispatch(spaceSound(false))
+    dispatch(windSound(false))
+    dispatch(seagullsSound(false))
   }
 
   const toggleSeagullsState = () => {
-    setRainToggle(false)
-    setSpaceToggle(false)
-    setWindToggle(false)
-    setSeaGullsToggle(true)
+    dispatch(rainSound(false))
+    dispatch(spaceSound(false))
+    dispatch(windSound(false))
+    dispatch(seagullsSound(true))
   }
 
   /*
@@ -73,13 +79,12 @@ This section handles the logic for toggling the sound on/off and for skipping to
 Currently, there is a bug to fix the delay/lag of switching between the sounds previously played and the upcoming sound. 
   */
 
-  // TODO: HANDLE WITH STATE MANAGER
-
+  // maybe these should all be Hooks?
   const playSpace = () => {
     TrackPlayer.skip(0)
     TrackPlayer.play()
     toggleSpaceState()
-    if (spaceToggle) {
+    if (spaceSoundStatus) {
       TrackPlayer.pause()
     }
     if (!isPlaying) {
@@ -91,7 +96,7 @@ Currently, there is a bug to fix the delay/lag of switching between the sounds p
     TrackPlayer.skip(1)
     TrackPlayer.play()
     toggleWindState()
-    if (windToggle) {
+    if (windSoundStatus) {
       TrackPlayer.pause()
     }
     if (!isPlaying) {
@@ -102,7 +107,7 @@ Currently, there is a bug to fix the delay/lag of switching between the sounds p
   const playSoftRain = () => {
     TrackPlayer.skip(2)
     toggleRainState()
-    if (rainToggle) {
+    if (rainSoundStatus) {
       TrackPlayer.pause()
     }
     if (!isPlaying) {
@@ -117,14 +122,13 @@ Currently, there is a bug to fix the delay/lag of switching between the sounds p
       onToggle()
     }
     toggleSeagullsState()
-    if (seagullsToggle) {
+    if (seagullsSoundStatus) {
       TrackPlayer.pause()
     }
     if (!isPlaying) {
       onToggle()
     }
   }
-  console.log({ spaceSoundStatus, spaceSound })
 
   return (
     <View style={styles.container_list}>
@@ -145,7 +149,7 @@ Currently, there is a bug to fix the delay/lag of switching between the sounds p
               title="Vacuum"
               description="random whiff of machinery"
               iconName="cloudy-night"
-              status={windToggle}
+              status={windSoundStatus}
             />
           </Pressable>
         </View>
@@ -155,7 +159,7 @@ Currently, there is a bug to fix the delay/lag of switching between the sounds p
               title="Heavy Hum"
               description="obscure but familiar"
               iconName="cloudy-night"
-              status={rainToggle}
+              status={rainSoundStatus}
             />
           </Pressable>
         </View>
@@ -165,7 +169,7 @@ Currently, there is a bug to fix the delay/lag of switching between the sounds p
               title="Air Condition"
               description="interior background, office or lobby"
               iconName="cloudy-night"
-              status={seagullsToggle}
+              status={seagullsSoundStatus}
             />
           </Pressable>
         </View>
