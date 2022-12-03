@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { Pressable, View } from 'react-native'
 import TrackPlayer, { usePlaybackState, State } from 'react-native-track-player'
 import { useDispatch, useSelector } from 'react-redux'
@@ -13,6 +13,7 @@ import {
   spaceSound,
   windSound,
 } from '../../../src/app/reducer/soundSlice'
+import { useSound } from '../../../hooks/useSound'
 
 const AmbientSoundsList = () => {
   const state = usePlaybackState()
@@ -80,17 +81,24 @@ Currently, there is a bug to fix the delay/lag of switching between the sounds p
   */
 
   // maybe these should all be Hooks?
-  const playSpace = () => {
-    TrackPlayer.skip(0)
-    TrackPlayer.play()
-    toggleSpaceState()
-    if (spaceSoundStatus) {
-      TrackPlayer.pause()
-    }
-    if (!isPlaying) {
-      onToggle()
-    }
-  }
+  // const playSpace = () => {
+  //   TrackPlayer.skip(0)
+  //   TrackPlayer.play()
+  //   toggleSpaceState()
+  //   if (spaceSoundStatus) {
+  //     TrackPlayer.pause()
+  //   }
+  //   if (!isPlaying) {
+  //     onToggle()
+  //   }
+  // }
+
+  const playSpaceHook = useSound(
+    spaceSoundStatus,
+    isPlaying,
+    toggleSpaceState,
+    onToggle,
+  )
 
   const playWind = () => {
     TrackPlayer.skip(1)
@@ -134,7 +142,7 @@ Currently, there is a bug to fix the delay/lag of switching between the sounds p
     <View style={styles.container_list}>
       <View>
         <View>
-          <Pressable onPress={() => playSpace()}>
+          <Pressable onPress={() => {}}>
             <SoundCard
               title="Deep Space"
               description="empty void of space"
