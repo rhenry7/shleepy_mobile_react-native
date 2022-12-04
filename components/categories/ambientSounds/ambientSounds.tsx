@@ -19,10 +19,9 @@ const AmbientSoundsList = () => {
   const state = usePlaybackState()
   const isPlaying = state === State.Playing
   const onToggle = useToggle()
-
-  const [play, setPlay] = useState(false)
-
   const dispatch = useDispatch()
+
+  // figure out how to move these to a different folder
   const spaceSoundStatus = useSelector(
     (state: RootState) => state.sounds.spaceSound,
   )
@@ -36,19 +35,7 @@ const AmbientSoundsList = () => {
     (state: RootState) => state.sounds.seagullsSound,
   )
 
-  /*
-
-  The purpose of this is to toggle the state of the sound that is currently being played,
-  which will allow the UI to properly show the user what is active. 
-
-  Ideally, the functionality below would be exported from a different file, but I am currently unsure if this is possible with useState - maybe if this was done with Redux, or a different state management. 
-
-  */
-
-  // TODO: Figure out how to move to separate folder to make code easier to read
-
   // maybe these should all be Hooks?
-
   const toggleSpaceState = () => {
     dispatch(rainSound(false))
     dispatch(spaceSound(true))
@@ -78,58 +65,40 @@ const AmbientSoundsList = () => {
   }
 
   /*
-This section handles the logic for toggling the sound on/off and for skipping to that specific track. 
-
 Currently, there is a bug to fix the delay/lag of switching between the sounds previously played and the upcoming sound. 
   */
-
-  // maybe these should all be Hooks?
 
   const playSpaceHook = useSound(
     spaceSoundStatus,
     isPlaying,
     toggleSpaceState,
     onToggle,
-    play,
+    0,
   )
 
-  const playWind = () => {
-    TrackPlayer.skip(1)
-    TrackPlayer.play()
-    toggleWindState()
-    if (windSoundStatus) {
-      TrackPlayer.pause()
-    }
-    if (!isPlaying) {
-      onToggle()
-    }
-  }
+  const playWindHook = useSound(
+    windSoundStatus,
+    isPlaying,
+    toggleWindState,
+    onToggle,
+    1,
+  )
 
-  const playSoftRain = () => {
-    TrackPlayer.skip(2)
-    toggleRainState()
-    if (rainSoundStatus) {
-      TrackPlayer.pause()
-    }
-    if (!isPlaying) {
-      onToggle()
-    }
-  }
+  const playRainHook = useSound(
+    rainSoundStatus,
+    isPlaying,
+    toggleRainState,
+    onToggle,
+    2,
+  )
 
-  const playSeaGulls = () => {
-    TrackPlayer.skip(3)
-    TrackPlayer.play()
-    if (!isPlaying) {
-      onToggle()
-    }
-    toggleSeagullsState()
-    if (seagullsSoundStatus) {
-      TrackPlayer.pause()
-    }
-    if (!isPlaying) {
-      onToggle()
-    }
-  }
+  const playSeagullsHook = useSound(
+    seagullsSoundStatus,
+    isPlaying,
+    toggleSeagullsState,
+    onToggle,
+    3,
+  )
 
   return (
     <View style={styles.container_list}>
@@ -145,7 +114,7 @@ Currently, there is a bug to fix the delay/lag of switching between the sounds p
           </Pressable>
         </View>
         <View>
-          <Pressable onPress={() => playWind()}>
+          <Pressable onPress={playWindHook}>
             <SoundCard
               title="Vacuum"
               description="random whiff of machinery"
@@ -155,7 +124,7 @@ Currently, there is a bug to fix the delay/lag of switching between the sounds p
           </Pressable>
         </View>
         <View>
-          <Pressable onPress={() => playSoftRain()}>
+          <Pressable onPress={playRainHook}>
             <SoundCard
               title="Heavy Hum"
               description="obscure but familiar"
@@ -165,7 +134,7 @@ Currently, there is a bug to fix the delay/lag of switching between the sounds p
           </Pressable>
         </View>
         <View>
-          <Pressable onPress={() => playSeaGulls()}>
+          <Pressable onPress={playSeagullsHook}>
             <SoundCard
               title="Air Condition"
               description="interior background, office or lobby"

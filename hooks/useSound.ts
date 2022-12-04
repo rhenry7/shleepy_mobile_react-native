@@ -1,14 +1,5 @@
-// import {
-//   rainSound,
-//   seagullsSound,
-//   spaceSound,
-//   windSound,
-// } from '../../../src/app/reducer/soundSlice'
-// import { useToggle } from '../../../hooks'
-// import { RootState } from '../../../src/app/reducer/store'
-// import { useSelector } from 'react-redux'
-import { useCallback, useEffect } from 'react'
-import TrackPlayer, { State, usePlaybackState } from 'react-native-track-player'
+import { useCallback } from 'react'
+import TrackPlayer from 'react-native-track-player'
 
 /*
 
@@ -31,14 +22,14 @@ export const useSound = (
   playingStatus: boolean,
   toggleSoundStatus: () => void,
   callToggle: () => void,
-  play: boolean,
+  soundLocation: number,
 ) => {
   return useCallback(() => {
-    TrackPlayer.skip(0)
+    TrackPlayer.skip(soundLocation)
     TrackPlayer.play()
     toggleSoundStatus()
     if (soundStatus) {
-      TrackPlayer.reset()
+      TrackPlayer.pause()
     }
     if (!playingStatus) {
       callToggle()
