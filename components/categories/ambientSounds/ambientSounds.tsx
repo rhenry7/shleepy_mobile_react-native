@@ -1,67 +1,59 @@
-import React, { useCallback, useState } from 'react'
+import React from 'react'
 import { Pressable, View } from 'react-native'
-import TrackPlayer, { usePlaybackState, State } from 'react-native-track-player'
-import { useDispatch, useSelector } from 'react-redux'
+import { usePlaybackState, State } from 'react-native-track-player'
+import { useDispatch } from 'react-redux'
 import { useToggle } from '../../../hooks'
-import { RootState } from '../../../src/app/reducer/store'
 import { styles } from '../../../styles'
 import { SoundCard } from '../../SoundCard'
 import { SoundController } from '../../SoundController'
 import {
-  rainSound,
-  seagullsSound,
-  spaceSound,
-  windSound,
+  rainSoundAction,
+  seagullsSoundAction,
+  spaceSoundAction,
+  windSoundAction,
 } from '../../../src/app/reducer/soundSlice'
 import { useSound } from '../../../hooks/useSound'
-
+import useSoundStatus from '../../../hooks/useSoundStatus'
 const AmbientSoundsList = () => {
   const state = usePlaybackState()
   const isPlaying = state === State.Playing
   const onToggle = useToggle()
   const dispatch = useDispatch()
+  const { spaceSound, rainSound, windSound, seagullsSound } = useSoundStatus()
+  const spaceSoundStatus = spaceSound
+  const rainSoundStatus = rainSound
+  const windSoundStatus = windSound
+  const seagullsSoundStatus = seagullsSound
 
-  // figure out how to move these to a different folder
-  const spaceSoundStatus = useSelector(
-    (state: RootState) => state.sounds.spaceSound,
-  )
-  const rainSoundStatus = useSelector(
-    (state: RootState) => state.sounds.rainSound,
-  )
-  const windSoundStatus = useSelector(
-    (state: RootState) => state.sounds.windSound,
-  )
-  const seagullsSoundStatus = useSelector(
-    (state: RootState) => state.sounds.seagullsSound,
-  )
+  console.log(spaceSoundStatus)
 
   // maybe these should all be Hooks?
   const toggleSpaceState = () => {
-    dispatch(rainSound(false))
-    dispatch(spaceSound(true))
-    dispatch(windSound(false))
-    dispatch(seagullsSound(false))
+    dispatch(rainSoundAction(false))
+    dispatch(spaceSoundAction(true))
+    dispatch(windSoundAction(false))
+    dispatch(seagullsSoundAction(false))
   }
 
   const toggleWindState = () => {
-    dispatch(rainSound(false))
-    dispatch(spaceSound(false))
-    dispatch(windSound(true))
-    dispatch(seagullsSound(false))
+    dispatch(rainSoundAction(false))
+    dispatch(spaceSoundAction(false))
+    dispatch(windSoundAction(true))
+    dispatch(seagullsSoundAction(false))
   }
 
   const toggleRainState = () => {
-    dispatch(rainSound(true))
-    dispatch(spaceSound(false))
-    dispatch(windSound(false))
-    dispatch(seagullsSound(false))
+    dispatch(rainSoundAction(true))
+    dispatch(spaceSoundAction(false))
+    dispatch(windSoundAction(false))
+    dispatch(seagullsSoundAction(false))
   }
 
   const toggleSeagullsState = () => {
-    dispatch(rainSound(false))
-    dispatch(spaceSound(false))
-    dispatch(windSound(false))
-    dispatch(seagullsSound(true))
+    dispatch(rainSoundAction(false))
+    dispatch(spaceSoundAction(false))
+    dispatch(windSoundAction(false))
+    dispatch(seagullsSoundAction(true))
   }
 
   /*

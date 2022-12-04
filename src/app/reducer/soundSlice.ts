@@ -14,16 +14,16 @@ export const soundSlice = createSlice({
     soundToggled(state, action: PayloadAction<boolean>) {
       state.sound = action.payload
     },
-    spaceSound(state, action: PayloadAction<boolean>) {
+    spaceSoundAction(state, action: PayloadAction<boolean>) {
       state.spaceSound = action.payload
     },
-    rainSound(state, action: PayloadAction<boolean>) {
+    rainSoundAction(state, action: PayloadAction<boolean>) {
       state.rainSound = action.payload
     },
-    windSound(state, action: PayloadAction<boolean>) {
+    windSoundAction(state, action: PayloadAction<boolean>) {
       state.windSound = action.payload
     },
-    seagullsSound(state, action: PayloadAction<boolean>) {
+    seagullsSoundAction(state, action: PayloadAction<boolean>) {
       state.seagullsSound = action.payload
     },
   },
@@ -31,9 +31,9 @@ export const soundSlice = createSlice({
 
 export const {
   soundToggled,
-  spaceSound,
-  rainSound,
-  windSound,
-  seagullsSound,
+  spaceSoundAction,
+  rainSoundAction,
+  windSoundAction,
+  seagullsSoundAction,
 } = soundSlice.actions
 export default soundSlice.reducer
