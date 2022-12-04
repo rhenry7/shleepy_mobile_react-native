@@ -10,13 +10,30 @@
 import { useCallback, useEffect } from 'react'
 import TrackPlayer, { State, usePlaybackState } from 'react-native-track-player'
 
+/*
+
+Old code to be kept for reference and to use as a back up
+  const playSpace = () => {
+    TrackPlayer.skip(0)
+    TrackPlayer.play()
+    toggleSpaceState()
+    if (spaceSoundStatus) {
+      TrackPlayer.pause()
+    }
+    if (!isPlaying) {
+      onToggle()
+    }
+  }
+*/
+
 export const useSound = (
   soundStatus: boolean,
   playingStatus: boolean,
   toggleSoundStatus: () => void,
   callToggle: () => void,
+  play: boolean,
 ) => {
-  return useEffect(() => {
+  return useCallback(() => {
     TrackPlayer.skip(0)
     TrackPlayer.play()
     toggleSoundStatus()

@@ -19,6 +19,9 @@ const AmbientSoundsList = () => {
   const state = usePlaybackState()
   const isPlaying = state === State.Playing
   const onToggle = useToggle()
+
+  const [play, setPlay] = useState(false)
+
   const dispatch = useDispatch()
   const spaceSoundStatus = useSelector(
     (state: RootState) => state.sounds.spaceSound,
@@ -81,23 +84,13 @@ Currently, there is a bug to fix the delay/lag of switching between the sounds p
   */
 
   // maybe these should all be Hooks?
-  // const playSpace = () => {
-  //   TrackPlayer.skip(0)
-  //   TrackPlayer.play()
-  //   toggleSpaceState()
-  //   if (spaceSoundStatus) {
-  //     TrackPlayer.pause()
-  //   }
-  //   if (!isPlaying) {
-  //     onToggle()
-  //   }
-  // }
 
   const playSpaceHook = useSound(
     spaceSoundStatus,
     isPlaying,
     toggleSpaceState,
     onToggle,
+    play,
   )
 
   const playWind = () => {
@@ -142,7 +135,7 @@ Currently, there is a bug to fix the delay/lag of switching between the sounds p
     <View style={styles.container_list}>
       <View>
         <View>
-          <Pressable onPress={() => {}}>
+          <Pressable onPress={playSpaceHook}>
             <SoundCard
               title="Deep Space"
               description="empty void of space"
