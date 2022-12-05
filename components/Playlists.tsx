@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Pressable, View, Text } from 'react-native'
+import { Pressable, View } from 'react-native'
 import { MenuButton } from './Button'
 import { styles } from '../styles'
 

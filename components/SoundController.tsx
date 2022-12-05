@@ -1,6 +1,5 @@
 import React from 'react'
-import { View, Text, Pressable } from 'react-native'
-import { styles } from '../styles'
+import { View, Pressable } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { State, usePlaybackState } from 'react-native-track-player'
 import { useToggle } from '../hooks'

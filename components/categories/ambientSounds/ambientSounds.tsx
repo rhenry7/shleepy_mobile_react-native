@@ -25,8 +25,6 @@ const AmbientSoundsList = () => {
   const windSoundStatus = windSound
   const seagullsSoundStatus = seagullsSound
 
-  console.log(spaceSoundStatus)
-
   // maybe these should all be Hooks?
   const toggleSpaceState = () => {
     dispatch(rainSoundAction(false))
@@ -96,6 +94,19 @@ Currently, there is a bug to fix the delay/lag of switching between the sounds p
     <View style={styles.container_list}>
       <View>
         <View>
+          <Pressable onPress={playSpaceHook}>
+            <SoundCard
+              title="Deep Space"
+              description="empty void of space"
+              iconName="cloudy-night"
+              status={spaceSoundStatus}
+            />
+          </Pressable>
+        </View>
+        <View>
+          {
+            // placeholder for new button
+          }
           <Pressable onPress={playSpaceHook}>
             <SoundCard
               title="Deep Space"
