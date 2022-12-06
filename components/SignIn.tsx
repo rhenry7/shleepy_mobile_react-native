@@ -1,19 +1,15 @@
 import React from 'react'
 import Icon from '@expo/vector-icons/MaterialCommunityIcons'
-import {
-  Image,
-  Pressable,
-  StyleSheet,
-  TextInput,
-  Text,
-  View,
-} from 'react-native'
+import { Pressable, StyleSheet, TextInput, Text, View } from 'react-native'
 //import Icon from 'react-native-vector-icons/FontAwesome';
-import { StackScreenProps } from '@react-navigation/stack'
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
-import { auth } from '../firebase/firebaseConfig'
+import {
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from 'firebase/auth'
+import { auth, provider } from '../firebase/firebaseConfig'
 
-function SignInScreen<StackScreenProps>({ navigation }) {
+function SignInScreen({ navigation }) {
   const [value, setValue] = React.useState({
     email: '',
     password: '',
@@ -39,6 +35,30 @@ function SignInScreen<StackScreenProps>({ navigation }) {
         error: error.message,
       })
     }
+  }
+
+  async function signInWithGoogle() {
+    try {
+      await signInWithPopup(auth, provider)
+        .then((result) => {
+          // This gives you a Google Access Token. You can use it to access the Google API.
+          const credential = GoogleAuthProvider.credentialFromResult(result)
+          const token = credential.accessToken
+          // The signed-in user info.
+          const user = result.user
+          // ...
+        })
+        .catch((error) => {
+          // Handle Errors here.
+          const errorCode = error.code
+          const errorMessage = error.message
+          // The email of the user's account used.
+          const email = error.customData.email
+          // The AuthCredential type that was used.
+          const credential = GoogleAuthProvider.credentialFromError(error)
+          // ...
+        })
+    } catch (error) {}
   }
 
   return (
@@ -67,6 +87,7 @@ function SignInScreen<StackScreenProps>({ navigation }) {
           </View>
           <Pressable>
             <Text onPress={signIn}>Sign In</Text>
+            <Text onPress={signInWithGoogle}>Sign In With Google</Text>
           </Pressable>
         </View>
         <Text>
