@@ -13,6 +13,7 @@ import { tracks } from './sounds/Tracks'
 import FirstSoundButton from './components/SoundButtons/FirstSoundButton'
 import ButtonContainer from './components/SoundButtons/ButtonContainer'
 import SignInScreen from './components/SignIn'
+import SignUpScreen from './components/SignUp'
 
 function HomeScreen({ navigation }) {
   return (
@@ -161,6 +162,8 @@ export default function App() {
             component={BottomTab}
           />
           <Stack.Screen name="Details" component={DetailsScreen} />
+          <Stack.Screen name="Sign Up" component={SignUpScreen} />
+          <Stack.Screen name="Sign In" component={SignInScreen} />
           <Stack.Screen name="Ambient" component={AmbientSoundsList} />
         </Stack.Navigator>
       </NavigationContainer>

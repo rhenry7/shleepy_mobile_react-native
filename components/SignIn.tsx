@@ -26,10 +26,12 @@ function SignInScreen<StackScreenProps>({ navigation }) {
         ...value,
         error: 'Email and password are mandatory.',
       })
+      console.log('auth failure')
       return
     }
 
     try {
+      console.log('auth success')
       await signInWithEmailAndPassword(auth, value.email, value.password)
     } catch (error) {
       setValue({
@@ -43,7 +45,6 @@ function SignInScreen<StackScreenProps>({ navigation }) {
     <View>
       <View>
         <Text>Sign In</Text>
-
         <View>
           <View>
             <View>
@@ -60,7 +61,7 @@ function SignInScreen<StackScreenProps>({ navigation }) {
               <TextInput
                 placeholder="Password"
                 onChangeText={(text) => setValue({ ...value, password: text })}
-                secureTextEntry={true}
+                secureTextEntry={false}
               />
             </View>
           </View>
