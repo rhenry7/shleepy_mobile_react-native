@@ -12,6 +12,7 @@ import TrackPlayer, { RepeatMode, Capability } from 'react-native-track-player'
 import { tracks } from './sounds/Tracks'
 import FirstSoundButton from './components/SoundButtons/FirstSoundButton'
 import ButtonContainer from './components/SoundButtons/ButtonContainer'
+import SignInScreen from './components/SignIn'
 
 function HomeScreen({ navigation }) {
   return (
@@ -92,7 +93,7 @@ function BottomTab() {
     >
       <Tab.Screen
         name="Home"
-        component={HomeScreen}
+        component={SignInScreen}
         options={{
           headerTitleStyle: {
             color: '#fff',
