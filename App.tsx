@@ -94,7 +94,7 @@ function BottomTab() {
     >
       <Tab.Screen
         name="Home"
-        component={SignInScreen}
+        component={SignUpScreen}
         options={{
           headerTitleStyle: {
             color: '#fff',
