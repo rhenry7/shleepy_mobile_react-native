@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Pressable, StyleSheet, TextInput, Text, View } from 'react-native'
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { auth } from '../firebase/firebaseConfig'
@@ -10,6 +10,15 @@ function SignUpScreen({ navigation }) {
     error: '',
     name: '',
   })
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        navigation.navigate('Playlists')
+      }
+    })
+    return unsubscribe
+  }, [])
 
   async function signUp() {
     if (value.email === '' || value.password === '') {
