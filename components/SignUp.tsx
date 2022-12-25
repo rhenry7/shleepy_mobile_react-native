@@ -86,12 +86,20 @@ function SignUpScreen<StackScreenProps>({ navigation }) {
             Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
             officia deserunt mollit anim id est laborum.
           </Text>
-          <Text onPress={signUp} style={styles.actionButton}>
+          <Text
+            onPress={signUp}
+            style={[styles.actionButton, styles.highlight]}
+          >
             Sign Up
           </Text>
           <Text style={styles.actionButton}>
             Have an account?{' '}
-            <Text onPress={() => navigation.navigate('Sign In')}>Sign In</Text>
+            <Text
+              onPress={() => navigation.navigate('Sign In')}
+              style={[styles.actionButton, styles.highlight]}
+            >
+              Sign In
+            </Text>
           </Text>
         </Pressable>
       </View>
@@ -120,6 +128,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: colors.secondary.color,
     color: '#fff',
+    paddingVertical: 120,
+  },
+  highlight: {
+    color: '#fff',
+    fontWeight: '500',
   },
   inputContainer: {
     paddingVertical: 30,
@@ -134,8 +147,9 @@ const styles = StyleSheet.create({
   actionButton: {
     color: 'white',
     fontWeight: '300',
-    fontSize: 24,
+    fontSize: 18,
     paddingLeft: 15,
+    paddingVertical: 3,
   },
   input: {
     color: colors.primary.color,
@@ -145,7 +159,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   inputText: {
-    color: colors.primary.color,
+    color: colors.highlight.color,
     placeholderTextColor: '#000',
     fontWeight: '300',
     fontSize: 24,

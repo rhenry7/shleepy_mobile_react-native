@@ -62,38 +62,52 @@ function SignInScreen({ navigation }) {
   }
 
   return (
-    <View>
-      <View>
-        <Text>Sign In</Text>
-        <View>
+    <View style={[styles.container]}>
+      <Text style={styles.buttonText}>Sign In</Text>
+      <View style={styles.inputContainer}>
+        <View style={styles.input}>
           <View>
             <View>
-              <Icon style={styles.icon} name="email" size={18} color="gray" />
               <TextInput
                 placeholder="Email"
+                placeholderTextColor={colors.primary.color}
                 value={value.email}
                 onChangeText={(text) => setValue({ ...value, email: text })}
-              />
-            </View>
-
-            <View>
-              <Icon style={styles.icon} name="lock" size={18} color="gray" />
-              <TextInput
-                placeholder="Password"
-                onChangeText={(text) => setValue({ ...value, password: text })}
-                secureTextEntry={false}
+                style={styles.inputText}
               />
             </View>
           </View>
-          <Pressable>
-            <Text onPress={signIn}>Sign In</Text>
-            <Text onPress={signInWithGoogle}>Sign In With Google</Text>
-          </Pressable>
         </View>
-        <Text>
-          Don't Have an account?{' '}
-          <Text onPress={() => navigation.navigate('Sign Up')}>Sign Up</Text>
-        </Text>
+        <View style={styles.input}>
+          <View>
+            <View>
+              <TextInput
+                placeholder="Password"
+                placeholderTextColor={colors.primary.color}
+                onChangeText={(text) => setValue({ ...value, password: text })}
+                secureTextEntry={true}
+                style={styles.inputText}
+              />
+            </View>
+          </View>
+        </View>
+        <Pressable style={styles.extraPaddedSpace}>
+          <Text
+            onPress={signIn}
+            style={[styles.actionButton, styles.highlight]}
+          >
+            Sign In
+          </Text>
+          <Text style={styles.actionButton}>
+            Don't have an account?{' '}
+            <Text
+              onPress={() => navigation.navigate('Sign Up')}
+              style={[styles.actionButton, styles.highlight]}
+            >
+              Sign Up
+            </Text>
+          </Text>
+        </Pressable>
       </View>
     </View>
   )
@@ -101,17 +115,94 @@ function SignInScreen({ navigation }) {
 
 export default SignInScreen
 
+export const colors = StyleSheet.create({
+  primary: {
+    color: '#463AA0',
+  },
+  secondary: {
+    color: '#060523',
+  },
+  highlight: {
+    color: '#fff7c1',
+  },
+})
+
 const styles = StyleSheet.create({
-  icon: {
+  container: {
+    flex: 1,
+    // justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.secondary.color,
+    color: '#fff',
+    paddingVertical: 120,
+  },
+  highlight: {
+    color: '#fff',
+    fontWeight: '500',
+  },
+  inputContainer: {
+    paddingVertical: 30,
+    width: '90%',
+  },
+  legalInfo: {
+    color: '#fff7',
+    fontSize: 8,
+    paddingLeft: 15,
     padding: 10,
   },
+  actionButton: {
+    color: 'white',
+    fontWeight: '300',
+    fontSize: 18,
+    paddingLeft: 15,
+    paddingVertical: 3,
+  },
   input: {
-    flex: 1,
-    paddingTop: 10,
-    paddingRight: 10,
-    paddingBottom: 10,
-    paddingLeft: 0,
-    backgroundColor: '#fff',
-    color: '#424242',
+    color: colors.primary.color,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    borderRadius: 10,
+    marginTop: 5,
+  },
+  inputText: {
+    color: colors.highlight.color,
+    placeholderTextColor: '#000',
+    fontWeight: '300',
+    fontSize: 24,
+    borderBottomColor: colors.primary.color,
+    borderBottomWidth: 1,
+  },
+  extraPaddedSpace: {
+    paddingVertical: 5,
+  },
+  buttonContainer: {
+    width: '60%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 40,
+  },
+  button: {
+    backgroundColor: '#0782F9',
+    width: '100%',
+    padding: 15,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  buttonOutline: {
+    backgroundColor: 'white',
+    marginTop: 5,
+    borderColor: '#0782F9',
+    borderWidth: 2,
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight: '700',
+    fontSize: 32,
+    alignItems: 'center',
+  },
+  buttonOutlineText: {
+    color: '#0782F9',
+    fontWeight: '700',
+    fontSize: 16,
   },
 })
