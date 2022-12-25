@@ -1,7 +1,5 @@
 import React from 'react'
-import Icon from '@expo/vector-icons/MaterialCommunityIcons'
 import { Pressable, StyleSheet, TextInput, Text, View } from 'react-native'
-//import Icon from 'react-native-vector-icons/FontAwesome';
 import {
   GoogleAuthProvider,
   signInWithEmailAndPassword,
@@ -175,34 +173,10 @@ const styles = StyleSheet.create({
   extraPaddedSpace: {
     paddingVertical: 5,
   },
-  buttonContainer: {
-    width: '60%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 40,
-  },
-  button: {
-    backgroundColor: '#0782F9',
-    width: '100%',
-    padding: 15,
-    borderRadius: 10,
-    alignItems: 'center',
-  },
-  buttonOutline: {
-    backgroundColor: 'white',
-    marginTop: 5,
-    borderColor: '#0782F9',
-    borderWidth: 2,
-  },
   buttonText: {
     color: 'white',
     fontWeight: '700',
     fontSize: 32,
     alignItems: 'center',
-  },
-  buttonOutlineText: {
-    color: '#0782F9',
-    fontWeight: '700',
-    fontSize: 16,
   },
 })
