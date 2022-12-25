@@ -14,6 +14,7 @@ import FirstSoundButton from './components/SoundButtons/FirstSoundButton'
 import ButtonContainer from './components/SoundButtons/ButtonContainer'
 import SignInScreen from './components/SignIn'
 import SignUpScreen from './components/SignUp'
+import { auth } from './firebase/firebaseConfig'
 
 function HomeScreen({ navigation }) {
   return (
@@ -120,6 +121,49 @@ function BottomTab() {
   )
 }
 
+const PlaylistStack = createNativeStackNavigator()
+
+function PlaylistStackScreen() {
+  return (
+    <PlaylistStack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: '#060523',
+        },
+        headerTintColor: '#F0EAD6',
+        headerTitleStyle: { color: '#060523' },
+      }}
+    >
+      <PlaylistStack.Screen name="Playlist" component={PlaylistsChoice} />
+      <PlaylistStack.Screen
+        name="SoundControllerScreen"
+        component={ButtonContainer}
+        options={{ title: 'Mixer' }}
+      />
+      <Stack.Screen name="Ambient" component={AmbientSoundsList} />
+    </PlaylistStack.Navigator>
+  )
+}
+
+const authStack = createNativeStackNavigator()
+
+function AuthStackScreen() {
+  return (
+    <authStack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: '#060523',
+        },
+        headerTintColor: '#F0EAD6',
+        headerTitleStyle: { color: '#060523' },
+      }}
+    >
+      <authStack.Screen name="Sign Up" component={SignUpScreen} />
+      <authStack.Screen name="Sign In" component={SignInScreen} />
+    </authStack.Navigator>
+  )
+}
+
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
 export default function App() {
@@ -141,47 +185,89 @@ export default function App() {
   }
 
   React.useEffect(() => {
-    setup()
+    if (auth.currentUser) {
+      setup()
+    }
   }, [])
+  // return (
+  //   <Provider store={store}>
+  //     <NavigationContainer>
+  //       <Tab.Navigator>
+  //         <Stack.Navigator
+  //           screenOptions={{
+  //             headerStyle: {
+  //               backgroundColor: '#060523',
+  //             },
+  //             headerTintColor: '#F0EAD6',
+  //           }}
+  //         >
+  //           <Stack.Screen
+  //             name="Bottom"
+  //             options={{
+  //               title: '', // make user_name dynamic
+  //             }}
+  //             component={BottomTab}
+  //           />
+  //           <Stack.Screen
+  //             name="Details"
+  //             options={{ headerShown: false }}
+  //             component={DetailsScreen}
+  //           />
+  //           <Tab.Screen
+  //             name="Sign Up"
+  //             options={{ headerShown: false }}
+  //             component={SignUpScreen}
+  //           />
+  //           <Tab.Screen
+  //             name="Sign In"
+  //             options={{ headerShown: false }}
+  //             component={SignInScreen}
+  //           />
+  //           <Stack.Screen name="Ambient" component={AmbientSoundsList} />
+  //         </Stack.Navigator>
+  //       </Tab.Navigator>
+  //     </NavigationContainer>
+  //   </Provider>
+  // )
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            headerStyle: {
-              backgroundColor: '#060523',
+        <Tab.Navigator
+          screenOptions={({ route }) => ({
+            headerShown: false,
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName
+
+              if (route.name === 'Auth') {
+                iconName = focused ? 'ios-home' : 'ios-home-outline'
+              } else if (route.name === 'Settings') {
+                iconName = focused ? 'ios-apps' : 'ios-apps'
+              }
+              if (route.name === 'Playlists') {
+                iconName = focused ? 'ios-list' : 'ios-list'
+              }
+              if (route.name === 'SoundControllerScreen') {
+                iconName = focused ? 'person-circle' : 'person-circle-outline'
+              }
+
+              return <Ionicons name={iconName} size={size} color={color} />
             },
-            headerTintColor: '#F0EAD6',
-          }}
+            tabBarActiveTintColor: '#FEF7C1',
+            tabBarInactiveTintColor: '#949494',
+            tabBarStyle: {
+              backgroundColor: '#060523',
+              borderTopColor: 'transparent',
+            },
+          })}
         >
-          <Stack.Screen
-            name="Bottom"
-            options={{
-              title: '', // make user_name dynamic
-            }}
-            component={BottomTab}
+          <Tab.Screen name="Auth" component={AuthStackScreen} />
+          <Tab.Screen name="Playlists" component={PlaylistStackScreen} />
+          <Tab.Screen
+            name="SoundControllerScreen"
+            component={ButtonContainer}
+            options={{ title: 'Mixer' }}
           />
-          <Stack.Screen
-            name="Details"
-            options={{ headerShown: false }}
-            component={DetailsScreen}
-          />
-          <Stack.Screen
-            name="Sign Up"
-            options={{ headerShown: false }}
-            component={SignUpScreen}
-          />
-          <Stack.Screen
-            name="Sign In"
-            options={{ headerShown: false }}
-            component={SignInScreen}
-          />
-          <Stack.Screen
-            name="Ambient"
-            options={{ headerShown: false }}
-            component={AmbientSoundsList}
-          />
-        </Stack.Navigator>
+        </Tab.Navigator>
       </NavigationContainer>
     </Provider>
   )

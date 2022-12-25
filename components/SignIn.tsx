@@ -14,12 +14,15 @@ function SignInScreen({ navigation }) {
     error: '',
   })
 
-  async function signIn() {
+  console.log({ auth: auth.currentUser })
+
+  async function Login() {
     if (value.email === '' || value.password === '') {
       setValue({
         ...value,
         error: 'Email and password are mandatory.',
       })
+      alert('you must enter an email and password')
       console.log('auth failure')
       return
     }
@@ -61,7 +64,7 @@ function SignInScreen({ navigation }) {
 
   return (
     <View style={[styles.container]}>
-      <Text style={styles.buttonText}>Sign In</Text>
+      <Text style={styles.buttonText}>Login</Text>
       <View style={styles.inputContainer}>
         <View style={styles.input}>
           <View>
@@ -90,11 +93,8 @@ function SignInScreen({ navigation }) {
           </View>
         </View>
         <Pressable style={styles.extraPaddedSpace}>
-          <Text
-            onPress={signIn}
-            style={[styles.actionButton, styles.highlight]}
-          >
-            Sign In
+          <Text onPress={Login} style={[styles.actionButton, styles.highlight]}>
+            Login
           </Text>
           <Text style={styles.actionButton}>
             Don't have an account?{' '}

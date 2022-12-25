@@ -12,6 +12,16 @@ function SignUpScreen({ navigation }) {
   })
 
   async function signUp() {
+    if (value.email === '' || value.password === '') {
+      setValue({
+        ...value,
+        error: 'Email and password are mandatory.',
+      })
+      alert('you must fill all fields')
+      console.log('auth failure')
+      return
+    }
+
     if (value.error) alert(value.error)
     console.log(value)
     try {
@@ -157,7 +167,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
   buttonText: {
-    color: 'white',
+    color: '#fff',
     fontWeight: '700',
     fontSize: 32,
     alignItems: 'center',

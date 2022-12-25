@@ -96,15 +96,15 @@ Currently, there is a bug to fix the delay/lag of switching between the sounds p
         <View>
           <Pressable onPress={playSpaceHook}>
             <SoundCard
-              title="Deep Space"
-              description="empty void of space"
+              title="Night Crickets"
+              description="lorem ipsum dolor sit amet"
               iconName="cloudy-night"
               status={spaceSoundStatus}
             />
           </Pressable>
         </View>
         <View>
-          {
+          {/* {
             // placeholder for new button
           }
           <Pressable onPress={playSpaceHook}>
@@ -114,13 +114,13 @@ Currently, there is a bug to fix the delay/lag of switching between the sounds p
               iconName="cloudy-night"
               status={spaceSoundStatus}
             />
-          </Pressable>
+          </Pressable> */}
         </View>
         <View>
           <Pressable onPress={playWindHook}>
             <SoundCard
-              title="Vacuum"
-              description="random whiff of machinery"
+              title="Warm Wind"
+              description="sound of a windy day"
               iconName="cloudy-night"
               status={windSoundStatus}
             />
@@ -129,8 +129,8 @@ Currently, there is a bug to fix the delay/lag of switching between the sounds p
         <View>
           <Pressable onPress={playRainHook}>
             <SoundCard
-              title="Heavy Hum"
-              description="obscure but familiar"
+              title="Rooftop Rain"
+              description="Rain with a bit of wind"
               iconName="cloudy-night"
               status={rainSoundStatus}
             />
@@ -139,8 +139,8 @@ Currently, there is a bug to fix the delay/lag of switching between the sounds p
         <View>
           <Pressable onPress={playSeagullsHook}>
             <SoundCard
-              title="Air Condition"
-              description="interior background, office or lobby"
+              title="Sea Gulls"
+              description="Ocean birds with a breeze"
               iconName="cloudy-night"
               status={seagullsSoundStatus}
             />
