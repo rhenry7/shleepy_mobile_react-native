@@ -60,7 +60,7 @@ const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
 export default function App() {
   async function setup() {
-    TrackPlayer.setupPlayer({})
+    await TrackPlayer.setupPlayer({})
     await TrackPlayer.add(tracks)
     TrackPlayer.setRepeatMode(RepeatMode.Track)
     console.log('Tracks added')

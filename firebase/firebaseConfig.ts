@@ -2,6 +2,7 @@
 import { getApp, initializeApp } from 'firebase/app'
 import { getAuth } from 'firebase/auth'
 import { GoogleAuthProvider } from 'firebase/auth'
+import { getStorage, ref } from 'firebase/storage'
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -28,6 +29,12 @@ const initializeAppIfNecessary = () => {
 }
 let app = initializeAppIfNecessary()
 export const auth = getAuth(app)
+
+// Initialize Cloud Storage and get a reference to the service
+const storage = getStorage(app)
+
+// Create a storage reference from our storage service
+export const storageRef = ref(storage)
 
 export const provider = new GoogleAuthProvider()
 provider.addScope('https://www.googleapis.com/auth/contacts.readonly')
