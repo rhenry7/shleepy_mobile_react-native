@@ -1,14 +1,21 @@
 import * as React from 'react'
-import { View, Button, SafeAreaView, Text, Pressable } from 'react-native'
+import {
+  View,
+  Button,
+  SafeAreaView,
+  Text,
+  Pressable,
+  StyleSheet,
+} from 'react-native'
 import { Audio } from 'expo-av'
 import { styles } from './MixerStyles'
 import { _DEFAULT_INITIAL_PLAYBACK_STATUS } from 'expo-av/build/AV'
-import Slider from '@react-native-community/slider'
 import { PlayStateToggle } from './PlayStateToggle'
+import VolumeSlider from '../Slider'
+import Slider from '@react-native-community/slider'
 
 export default function SecondSoundButton() {
   const [sound, setSound] = React.useState<Audio.Sound | null>()
-  const [sliderValue, setSliderValue] = React.useState<number>()
   const [soundState, setSoundState] = React.useState<boolean>()
 
   const initialStatus = {
@@ -17,14 +24,14 @@ export default function SecondSoundButton() {
     shouldPlay: false,
     rate: 1.0,
     shouldCorrectPitch: false,
-    volume: sliderValue,
+    volume: 0,
     isMuted: false,
     isLooping: true,
   }
   async function playSound() {
     console.log('Loading Sound')
     const { sound } = await Audio.Sound.createAsync(
-      require('../../sounds/nature/birds.wav'),
+      require('../../sounds/nature/heavy_rain.mp3'),
       initialStatus,
     )
     setSound(sound)
@@ -37,58 +44,41 @@ export default function SecondSoundButton() {
     }
   }
 
-  async function stopSound() {
-    console.log('Loading Sound')
-    const { sound } = await Audio.Sound.createAsync(
-      require('../../sounds/nature/rain_02.wav'),
-      initialStatus,
-    )
-    setSound(sound)
-    setSoundState(false)
-
-    console.log('Playing Sound')
-    await sound.stopAsync()
-  }
-
-  async function handleVolumeChange() {
-    await sound.setVolumeAsync(sliderValue)
-    const soundChange = await sound.setVolumeAsync(sliderValue)
-    if (soundChange.isLoaded) {
-      console.log(soundChange.volume)
-      if (soundChange.volume > 0.16) await sound.setVolumeAsync(0)
-    }
-    console.log(await sound.setVolumeAsync(sliderValue))
-  }
-
-  React.useEffect(() => {
-    return sound
-      ? () => {
-          console.log('Unloading Sound')
-          sound.unloadAsync()
-        }
-      : undefined
-  }, [sound])
-
   const VolumeSlider = () => {
+    const [sliderValue, setSliderValue] = React.useState<number>()
+    const changeVolume = async () => {
+      await sound.setVolumeAsync(sliderValue)
+    }
+
     return (
-      <SafeAreaView style={{ width: 240, transform: [{ scaleY: 1.7 }] }}>
-        <View style={[{ flexDirection: 'column' }]}>
+      <SafeAreaView style={{ flex: 1 }}>
+        <View style={[sliderStyle.container, { flexDirection: 'column' }]}>
+          <Text style={{ color: 'black' }}>
+            Value of slider is : {sliderValue}
+          </Text>
           <Slider
             maximumValue={1}
             minimumValue={0}
             minimumTrackTintColor="#fff7c1"
             maximumTrackTintColor="#463AA0"
-            step={0.05}
+            step={0.1}
             value={sliderValue}
-            onValueChange={(sliderValue) => {
-              setSliderValue(sliderValue), handleVolumeChange()
-            }}
+            onValueChange={(sliderValue) => setSliderValue(sliderValue)}
+            onSlidingComplete={changeVolume}
             thumbTintColor={'#fffc7100'}
           />
         </View>
       </SafeAreaView>
     )
   }
+
+  React.useEffect(() => {
+    return sound
+      ? () => {
+          sound.unloadAsync()
+        }
+      : undefined
+  }, [sound])
 
   return (
     <View style={styles.container}>
@@ -112,18 +102,16 @@ export default function SecondSoundButton() {
           <VolumeSlider />
         </View>
 
-        <View>
-          <Pressable onPress={stopSound}>
-            {soundState ? (
-              <PlayStateToggle iconName={'ellipse'} color={'#fff7c1'} />
-            ) : (
-              <PlayStateToggle iconName={'moon'} color={'#463AA0'} />
-            )}
-          </Pressable>
-        </View>
+        <View></View>
       </View>
     </View>
   )
 }
 
-// then it needs to control the sound with individual on/off
+const sliderStyle = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    justifyContent: 'center',
+  },
+})
