@@ -13,7 +13,6 @@ export const styles = StyleSheet.create({
     backgroundColor: '#463AA0',
   },
   buttonContainer: {
-    height: 1400,
     backgroundColor: '#060523',
     flex: 1,
     // justifyContent: 'center',
@@ -23,11 +22,13 @@ export const styles = StyleSheet.create({
   },
   buttonTitle: {
     fontSize: 18,
-    fontWeight: '400',
-    justifyContent: 'flex-end',
+    fontWeight: '300',
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
     margin: 0,
     padding: 8,
-    color: '#fff7c1',
+    color: '#F0EAD6',
   },
   container: {
     width: 380,
@@ -35,7 +36,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 18,
     margin: 0,
     padding: 0,
-    alignItems: 'center',
+    alignItems: 'flex-start',
   },
   volumeSlider: {
     flex: 1,

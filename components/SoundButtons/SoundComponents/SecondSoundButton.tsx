@@ -1,17 +1,8 @@
 import * as React from 'react'
-import {
-  View,
-  Button,
-  SafeAreaView,
-  Text,
-  Pressable,
-  StyleSheet,
-} from 'react-native'
+import { View, SafeAreaView, Text, Pressable, StyleSheet } from 'react-native'
 import { Audio } from 'expo-av'
-import { styles } from './MixerStyles'
+import { styles } from '../MixerStyles'
 import { _DEFAULT_INITIAL_PLAYBACK_STATUS } from 'expo-av/build/AV'
-import { PlayStateToggle } from './PlayStateToggle'
-import VolumeSlider from '../Slider'
 import Slider from '@react-native-community/slider'
 
 export default function SecondSoundButton() {
@@ -31,7 +22,7 @@ export default function SecondSoundButton() {
   async function playSound() {
     console.log('Loading Sound')
     const { sound } = await Audio.Sound.createAsync(
-      require('../../sounds/nature/forrest.mp3'),
+      require('../../../sounds/nature/birds.wav'),
       initialStatus,
     )
     setSound(sound)
@@ -59,7 +50,7 @@ export default function SecondSoundButton() {
           <Slider
             maximumValue={1}
             minimumValue={0}
-            minimumTrackTintColor="#fff7c1"
+            minimumTrackTintColor="#F0EAD6"
             maximumTrackTintColor="#463AA0"
             step={0.1}
             value={sliderValue}
@@ -90,7 +81,7 @@ export default function SecondSoundButton() {
         }}
       >
         <Pressable onPress={playSound}>
-          <Text style={[styles.buttonTitle]}>Frog</Text>
+          <Text style={[styles.buttonTitle]}>Birds</Text>
         </Pressable>
         <View
           style={{

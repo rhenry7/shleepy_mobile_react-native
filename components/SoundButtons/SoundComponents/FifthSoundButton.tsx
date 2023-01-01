@@ -1,20 +1,11 @@
 import * as React from 'react'
-import {
-  View,
-  Button,
-  SafeAreaView,
-  Text,
-  Pressable,
-  StyleSheet,
-} from 'react-native'
+import { View, SafeAreaView, Text, Pressable, StyleSheet } from 'react-native'
 import { Audio } from 'expo-av'
-import { styles } from './MixerStyles'
+import { styles } from '../MixerStyles'
 import { _DEFAULT_INITIAL_PLAYBACK_STATUS } from 'expo-av/build/AV'
-import { PlayStateToggle } from './PlayStateToggle'
-import VolumeSlider from '../Slider'
 import Slider from '@react-native-community/slider'
 
-export default function SecondSoundButton() {
+export default function FifthSoundButton() {
   const [sound, setSound] = React.useState<Audio.Sound | null>()
   const [soundState, setSoundState] = React.useState<boolean>()
 
@@ -31,7 +22,7 @@ export default function SecondSoundButton() {
   async function playSound() {
     console.log('Loading Sound')
     const { sound } = await Audio.Sound.createAsync(
-      require('../../sounds/nature/rain_02.wav'),
+      require('../../../sounds/nature/fire.wav'),
       initialStatus,
     )
     setSound(sound)
@@ -42,19 +33,6 @@ export default function SecondSoundButton() {
     if (soundPlaying.isLoaded) {
       soundPlaying.isPlaying ? setSoundState(true) : setSoundState(false)
     }
-  }
-
-  async function stopSound() {
-    console.log('Loading Sound')
-    const { sound } = await Audio.Sound.createAsync(
-      require('../../sounds/nature/rain_02.wav'),
-      initialStatus,
-    )
-    setSound(sound)
-    setSoundState(false)
-
-    console.log('Playing Sound')
-    await sound.stopAsync()
   }
 
   const VolumeSlider = () => {
@@ -72,7 +50,7 @@ export default function SecondSoundButton() {
           <Slider
             maximumValue={1}
             minimumValue={0}
-            minimumTrackTintColor="#fff7c1"
+            minimumTrackTintColor="#F0EAD6"
             maximumTrackTintColor="#463AA0"
             step={0.1}
             value={sliderValue}
@@ -98,17 +76,17 @@ export default function SecondSoundButton() {
       <View
         style={{
           flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
+          // justifyContent: 'space-between',
+          // alignItems: 'center',
         }}
       >
         <Pressable onPress={playSound}>
-          <Text style={[styles.buttonTitle]}>Rain</Text>
+          <Text style={[styles.buttonTitle]}>Fires</Text>
         </Pressable>
         <View
           style={{
             flexDirection: 'row',
-            justifyContent: 'space-between',
+            justifyContent: 'flex-end',
             width: 250,
           }}
         >
