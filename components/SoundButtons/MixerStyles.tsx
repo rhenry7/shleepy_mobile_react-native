@@ -15,6 +15,11 @@ export const styles = StyleSheet.create({
   buttonContainer: {
     height: 1400,
     backgroundColor: '#060523',
+    flex: 1,
+    // justifyContent: 'center',
+    alignItems: 'center',
+    color: '#fff',
+    paddingVertical: 120,
   },
   buttonTitle: {
     fontSize: 18,

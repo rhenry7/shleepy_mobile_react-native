@@ -31,7 +31,7 @@ export default function SecondSoundButton() {
   async function playSound() {
     console.log('Loading Sound')
     const { sound } = await Audio.Sound.createAsync(
-      require('../../sounds/nature/heavy_rain.mp3'),
+      require('../../sounds/nature/forrest.mp3'),
       initialStatus,
     )
     setSound(sound)
