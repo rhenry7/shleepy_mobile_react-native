@@ -43,7 +43,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     backgroundColor: '#060523',
-    padding: 20,
+    //padding: 20,
   },
   container_list: {
     flex: 1,

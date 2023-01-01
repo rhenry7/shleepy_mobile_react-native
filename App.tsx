@@ -12,9 +12,12 @@ import ButtonContainer from './components/SoundButtons/ButtonContainer'
 import SignInScreen from './components/SignIn'
 import SignUpScreen from './components/SignUp'
 import { getDownloadURL, ref } from 'firebase/storage'
-import { storage } from './firebase/firebaseConfig'
+import { auth, storage } from './firebase/firebaseConfig'
 
 const PlaylistStack = createNativeStackNavigator()
+
+const userName = auth.currentUser.displayName
+console.log(auth.currentUser)
 
 function PlaylistStackScreen() {
   return (
@@ -24,10 +27,13 @@ function PlaylistStackScreen() {
           backgroundColor: '#060523',
         },
         headerTintColor: '#F0EAD6',
-        headerTitleStyle: { color: '#060523' },
+        headerTitleStyle: { color: '#F0EAD6' },
       }}
     >
-      <PlaylistStack.Screen name="Playlist" component={PlaylistsChoice} />
+      <PlaylistStack.Screen
+        name={'Goodnight, ' + ' ' + userName}
+        component={PlaylistsChoice}
+      />
       <PlaylistStack.Screen
         name="SoundControllerScreen"
         component={ButtonContainer}

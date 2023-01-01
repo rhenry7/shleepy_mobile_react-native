@@ -10,6 +10,7 @@ function SignUpScreen({ navigation }) {
     error: '',
     name: '',
   })
+  console.log(value)
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -39,6 +40,7 @@ function SignUpScreen({ navigation }) {
       await updateProfile(auth.currentUser, {
         displayName: value.name,
       }).catch((err) => console.log(err))
+      setValue({ email: '', password: '', error: '', name: '' })
     } catch (error) {
       setValue({
         ...value,
@@ -83,6 +85,7 @@ function SignUpScreen({ navigation }) {
               <TextInput
                 placeholder="Password"
                 placeholderTextColor={colors.primary.color}
+                value={value.password}
                 onChangeText={(text) => setValue({ ...value, password: text })}
                 secureTextEntry={true}
                 style={styles.inputText}
