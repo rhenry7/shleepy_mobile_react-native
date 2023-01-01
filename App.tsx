@@ -8,10 +8,11 @@ import AmbientSoundsList from './components/categories/ambientSounds/ambientSoun
 import { Provider } from 'react-redux'
 import { store } from './src/app/reducer/store'
 import TrackPlayer, { RepeatMode, Capability } from 'react-native-track-player'
-import { tracks } from './sounds/Tracks'
 import ButtonContainer from './components/SoundButtons/ButtonContainer'
 import SignInScreen from './components/SignIn'
 import SignUpScreen from './components/SignUp'
+import { getDownloadURL, ref } from 'firebase/storage'
+import { storage } from './firebase/firebaseConfig'
 
 const PlaylistStack = createNativeStackNavigator()
 
@@ -58,10 +59,63 @@ function AuthStackScreen() {
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
+
 export default function App() {
+  interface Track {
+    id: number
+    url: string
+    title: string
+  }
+
+  let playerInitialized = false
+
   async function setup() {
-    await TrackPlayer.setupPlayer({})
-    await TrackPlayer.add(tracks)
+    if (!playerInitialized) {
+      await TrackPlayer.setupPlayer({})
+      let tracksTwo: Track[] = [
+        {
+          id: 1,
+          url: '',
+          title: 'Wind',
+        },
+        {
+          id: 2,
+          url: '',
+          title: 'Rain',
+        },
+        {
+          id: 3,
+          url: '',
+          title: 'Crickets',
+        },
+        {
+          id: 4,
+          url: '',
+          title: 'Blues Beat',
+        },
+      ]
+      try {
+        tracksTwo[0].url = await getDownloadURL(
+          ref(storage, 'sounds/nature/crickets.wav'),
+        )
+        tracksTwo[1].url = await getDownloadURL(
+          ref(storage, 'sounds/nature/wind.wav'),
+        )
+        tracksTwo[2].url = await getDownloadURL(
+          ref(storage, 'sounds/nature/heavy_rain.mp3'),
+        )
+        tracksTwo[3].url = await getDownloadURL(
+          ref(storage, 'sounds/nature/seagulls.wav'),
+        )
+
+        console.log('TRACK ARRAY LENGTH', tracksTwo.length)
+        await TrackPlayer.add(tracksTwo)
+      } catch (error) {
+        console.error(error)
+      }
+
+      playerInitialized = true
+    }
     TrackPlayer.setRepeatMode(RepeatMode.Track)
     console.log('Tracks added')
     try {

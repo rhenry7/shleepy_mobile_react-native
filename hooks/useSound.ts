@@ -8,12 +8,12 @@ export const useSound = (
   callToggle: () => void,
   soundLocation: number,
 ) => {
-  return useCallback(() => {
-    TrackPlayer.skip(soundLocation)
-    TrackPlayer.play()
+  return useCallback(async () => {
+    await TrackPlayer.skip(soundLocation)
+    await TrackPlayer.play()
     toggleSoundStatus()
     if (soundStatus) {
-      TrackPlayer.pause()
+      TrackPlayer.reset()
     }
     if (!playingStatus) {
       callToggle()
