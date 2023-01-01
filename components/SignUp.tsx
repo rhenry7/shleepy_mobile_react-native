@@ -15,7 +15,7 @@ function SignUpScreen({ navigation }) {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        navigation.navigate('Playlists')
+        //navigation.navigate('Playlists')
       }
     })
     return unsubscribe

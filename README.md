@@ -1,9 +1,10 @@
 # shleepy_mobile_react-native
-This is mobile version of a previous project that uses TypeScript and React Native to create a mobile sleep app using various forms of ambient sounds.
 
-Tools used: 
-Firebase for handling authentication. Will connect to Firestore for storing and retrieving sound files.
-React-Native Navigation for handling user navigation. 
-TypeScript.
+This is a mobile sleep/ambient noise app made with TypeScript and React Native.
+
+Tools used:
+Firebase for handling authentication and storage used to store sound files.
+Redux and Redux ToolKit for state management.
+React-Native-Navigation for navigation.
 Expo for app set up and testing features.
-Expo AV and React-Native-Trackplayer for using audio. 
+Expo AV and React-Native-TrackPlayer for playing audio.

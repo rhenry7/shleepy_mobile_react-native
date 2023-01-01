@@ -30,6 +30,7 @@ function SignInScreen({ navigation }) {
     try {
       console.log('auth success')
       await signInWithEmailAndPassword(auth, value.email, value.password)
+      setValue({ email: '', password: '', error: '' })
     } catch (error) {
       setValue({
         ...value,
@@ -85,6 +86,7 @@ function SignInScreen({ navigation }) {
               <TextInput
                 placeholder="Password"
                 placeholderTextColor={colors.primary.color}
+                value={value.password}
                 onChangeText={(text) => setValue({ ...value, password: text })}
                 secureTextEntry={true}
                 style={styles.inputText}

@@ -13,13 +13,27 @@ import SignInScreen from './components/SignIn'
 import SignUpScreen from './components/SignUp'
 import { getDownloadURL, ref } from 'firebase/storage'
 import { auth, storage } from './firebase/firebaseConfig'
+import { useEffect, useState } from 'react'
 
 const PlaylistStack = createNativeStackNavigator()
 
-const userName = auth.currentUser.displayName
 console.log(auth.currentUser)
 
 function PlaylistStackScreen() {
+  const [user, setUser] = useState('')
+  async function getUserName() {
+    const userName = await auth.currentUser.displayName
+    setUser(userName)
+  }
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUser(user.displayName)
+      }
+    })
+    return unsubscribe
+  }, [])
+  getUserName()
   return (
     <PlaylistStack.Navigator
       screenOptions={{
@@ -31,7 +45,7 @@ function PlaylistStackScreen() {
       }}
     >
       <PlaylistStack.Screen
-        name={'Goodnight, ' + ' ' + userName}
+        name={'Goodnight, ' + ' ' + (user === null ? 'Shleepy Head' : user)}
         component={PlaylistsChoice}
       />
       <PlaylistStack.Screen
