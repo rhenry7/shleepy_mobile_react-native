@@ -5,7 +5,7 @@ import { TabView } from 'react-native-tab-view'
 import { styles } from '../styles'
 import Playlists from './Playlists'
 
-export function Favorites() {
+export function Meditation() {
   return (
     <View
       style={{
@@ -15,7 +15,7 @@ export function Favorites() {
         backgroundColor: '#060523',
       }}
     >
-      <Text style={styles.white}>Favorites Screen</Text>
+      <Text style={styles.white}>Meditation Screen</Text>
     </View>
   )
 }
@@ -48,8 +48,7 @@ export function PlaylistsChoice() {
       }}
     >
       <Tab.Screen name="Playlists" component={Playlists} />
-      <Tab.Screen name="Favorites" component={Favorites} />
-      <Tab.Screen name="Recommended" component={Recommended} />
+      <Tab.Screen name="Meditation" component={Meditation} />
     </Tab.Navigator>
   )
 }

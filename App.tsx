@@ -15,10 +15,24 @@ import { getDownloadURL, ref } from 'firebase/storage'
 import { auth, storage } from './firebase/firebaseConfig'
 import { useEffect, useState } from 'react'
 import { Provider as PaperProvider } from 'react-native-paper'
+import { IconButton } from 'react-native-paper'
 
 const PlaylistStack = createNativeStackNavigator()
 
 console.log(auth.currentUser)
+
+function LogoTitle() {
+  return (
+    // @ts-ignore:next-line
+    <IconButton
+      icon="account"
+      mode="outlined"
+      iconColor={'#463AA0ed'}
+      containerColor={'#fff'}
+      size={15}
+    />
+  )
+}
 
 function PlaylistStackScreen() {
   const [user, setUser] = useState('')
@@ -43,12 +57,12 @@ function PlaylistStackScreen() {
         },
         headerTintColor: '#F0EAD6',
         headerTitleStyle: { color: '#F0EAD6' },
+        headerRight: () => <LogoTitle />,
+        headerTitle:
+          'Goodnight, ' + ' ' + (user === null ? 'Shleepy Head' : user),
       }}
     >
-      <PlaylistStack.Screen
-        name={'Goodnight, ' + ' ' + (user === null ? 'Shleepy Head' : user)}
-        component={PlaylistsChoice}
-      />
+      <PlaylistStack.Screen name={'playlists'} component={PlaylistsChoice} />
       <PlaylistStack.Screen
         name="SoundControllerScreen"
         component={ButtonContainer}
