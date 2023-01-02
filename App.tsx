@@ -14,6 +14,7 @@ import SignUpScreen from './components/SignUp'
 import { getDownloadURL, ref } from 'firebase/storage'
 import { auth, storage } from './firebase/firebaseConfig'
 import { useEffect, useState } from 'react'
+import { Provider as PaperProvider } from 'react-native-paper'
 
 const PlaylistStack = createNativeStackNavigator()
 
@@ -162,44 +163,46 @@ export default function App() {
   }, [])
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        <Tab.Navigator
-          screenOptions={({ route }) => ({
-            headerShown: false,
-            tabBarIcon: ({ focused, color, size }) => {
-              let iconName
+      <PaperProvider>
+        <NavigationContainer>
+          <Tab.Navigator
+            screenOptions={({ route }) => ({
+              headerShown: false,
+              tabBarIcon: ({ focused, color, size }) => {
+                let iconName
 
-              if (route.name === 'Auth') {
-                iconName = focused ? 'person-circle' : 'person-circle-outline'
-              } else if (route.name === 'Settings') {
-                iconName = focused ? 'ios-apps' : 'ios-apps'
-              }
-              if (route.name === 'Playlists') {
-                iconName = focused ? 'ios-list' : 'ios-list'
-              }
-              if (route.name === 'SoundControllerScreen') {
-                iconName = focused ? 'options' : 'options-outline'
-              }
+                if (route.name === 'Auth') {
+                  iconName = focused ? 'person-circle' : 'person-circle-outline'
+                } else if (route.name === 'Settings') {
+                  iconName = focused ? 'ios-apps' : 'ios-apps'
+                }
+                if (route.name === 'Playlists') {
+                  iconName = focused ? 'ios-list' : 'ios-list'
+                }
+                if (route.name === 'SoundControllerScreen') {
+                  iconName = focused ? 'options' : 'options-outline'
+                }
 
-              return <Ionicons name={iconName} size={size} color={color} />
-            },
-            tabBarActiveTintColor: '#FEF7C1',
-            tabBarInactiveTintColor: '#949494',
-            tabBarStyle: {
-              backgroundColor: '#060523',
-              borderTopColor: 'transparent',
-            },
-          })}
-        >
-          <Tab.Screen name="Auth" component={AuthStackScreen} />
-          <Tab.Screen name="Playlists" component={PlaylistStackScreen} />
-          <Tab.Screen
-            name="SoundControllerScreen"
-            component={ButtonContainer}
-            options={{ title: 'Mixer' }}
-          />
-        </Tab.Navigator>
-      </NavigationContainer>
+                return <Ionicons name={iconName} size={size} color={color} />
+              },
+              tabBarActiveTintColor: '#FEF7C1',
+              tabBarInactiveTintColor: '#949494',
+              tabBarStyle: {
+                backgroundColor: '#060523',
+                borderTopColor: 'transparent',
+              },
+            })}
+          >
+            <Tab.Screen name="Auth" component={AuthStackScreen} />
+            <Tab.Screen name="Playlists" component={PlaylistStackScreen} />
+            <Tab.Screen
+              name="SoundControllerScreen"
+              component={ButtonContainer}
+              options={{ title: 'Mixer' }}
+            />
+          </Tab.Navigator>
+        </NavigationContainer>
+      </PaperProvider>
     </Provider>
   )
 }

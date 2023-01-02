@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { Pressable, StyleSheet, TextInput, Text, View } from 'react-native'
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { auth } from '../firebase/firebaseConfig'
+import { Button } from 'react-native-paper'
 
 function SignUpScreen({ navigation }) {
   const [value, setValue] = React.useState({
@@ -98,12 +99,14 @@ function SignUpScreen({ navigation }) {
             Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
             officia deserunt mollit anim id est laborum.
           </Text>
-          <Text
+          <Button
+            icon="account-plus-outline"
+            mode="contained"
             onPress={signUp}
-            style={[styles.actionButton, styles.highlight]}
+            buttonColor={'#463AA0ed'}
           >
             Sign Up
-          </Text>
+          </Button>
           <Text style={styles.actionButton}>
             Have an account?{' '}
             <Text

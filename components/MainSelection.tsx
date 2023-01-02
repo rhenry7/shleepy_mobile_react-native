@@ -1,6 +1,7 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import React from 'react'
 import { View, Text } from 'react-native'
+import { TabView } from 'react-native-tab-view'
 import { styles } from '../styles'
 import Playlists from './Playlists'
 
