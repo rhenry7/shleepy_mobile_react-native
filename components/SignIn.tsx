@@ -31,7 +31,7 @@ function SignInScreen({ navigation }) {
     try {
       console.log('auth success')
       await signInWithEmailAndPassword(auth, value.email, value.password)
-      await auth.setPersistence(browserSessionPersistence)
+      //await auth.setPersistence(browserSessionPersistence)
       setValue({ email: '', password: '', error: '' })
     } catch (error) {
       setValue({

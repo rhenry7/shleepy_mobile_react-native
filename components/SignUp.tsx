@@ -45,7 +45,7 @@ function SignUpScreen({ navigation }) {
       await updateProfile(auth.currentUser, {
         displayName: value.name,
       }).catch((err) => console.log(err))
-      await auth.setPersistence(browserSessionPersistence)
+      //await auth.setPersistence(browserSessionPersistence)
       setValue({ email: '', password: '', error: '', name: '' })
     } catch (error) {
       setValue({

@@ -59,8 +59,8 @@ function PlaylistStackScreen() {
         headerTintColor: '#F0EAD6',
         headerTitleStyle: { color: '#F0EAD6' },
         headerRight: () => <LogoTitle />,
-        // headerTitle:
-        //   'Goodnight, ' + ' ' + (user === null ? 'Shleepy Head' : user),
+        headerTitle:
+          'Goodnight, ' + ' ' + (user === null ? 'Shleepy Head' : user),
       }}
     >
       <PlaylistStack.Screen name={'playlists'} component={PlaylistsChoice} />
