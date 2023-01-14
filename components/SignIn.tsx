@@ -1,6 +1,7 @@
 import React from 'react'
 import { Pressable, StyleSheet, TextInput, Text, View } from 'react-native'
 import {
+  browserSessionPersistence,
   GoogleAuthProvider,
   signInWithEmailAndPassword,
   signInWithPopup,
@@ -30,6 +31,7 @@ function SignInScreen({ navigation }) {
     try {
       console.log('auth success')
       await signInWithEmailAndPassword(auth, value.email, value.password)
+      await auth.setPersistence(browserSessionPersistence)
       setValue({ email: '', password: '', error: '' })
     } catch (error) {
       setValue({

@@ -1,6 +1,10 @@
 import React, { useEffect } from 'react'
 import { Pressable, StyleSheet, TextInput, Text, View } from 'react-native'
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
+import {
+  browserSessionPersistence,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from 'firebase/auth'
 import { auth } from '../firebase/firebaseConfig'
 import { Button } from 'react-native-paper'
 
@@ -41,6 +45,7 @@ function SignUpScreen({ navigation }) {
       await updateProfile(auth.currentUser, {
         displayName: value.name,
       }).catch((err) => console.log(err))
+      await auth.setPersistence(browserSessionPersistence)
       setValue({ email: '', password: '', error: '', name: '' })
     } catch (error) {
       setValue({

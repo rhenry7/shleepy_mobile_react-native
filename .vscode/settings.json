@@ -1,3 +1,5 @@
 {
-  "cSpell.words": ["Ionicons", "Pressable"]
+  "cSpell.words": ["Ionicons", "Pressable", "todos"],
+  "search.useGlobalIgnoreFiles": true,
+  "search.useParentIgnoreFiles": true
 }
