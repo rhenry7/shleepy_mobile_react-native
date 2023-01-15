@@ -5,6 +5,7 @@ import {
   TextInput,
   StyleSheet,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native'
 import { Button } from 'react-native-paper'
 import moment from 'moment'
@@ -22,7 +23,7 @@ const Journal: React.FC<JournalProps> = () => {
     if (newEntry !== '') {
       setEntry([
         ...entry,
-        { text: newEntry, timestamp: moment().format('DD/MM/YYYY') },
+        { text: newEntry, timestamp: moment().format('MM/DD/YYYY') },
       ])
       setNewEntry('')
     }
@@ -39,10 +40,10 @@ const Journal: React.FC<JournalProps> = () => {
         <TextInput
           placeholder="How was your sleep?"
           placeholderTextColor={'#463AA090'}
-          style={styles.inputText}
           value={newEntry}
           onChangeText={(text) => setNewEntry(text)}
           multiline={true}
+          style={styles.inputText}
         />
         <Button
           style={styles.buttonContainer}
@@ -54,16 +55,18 @@ const Journal: React.FC<JournalProps> = () => {
           Add Entry
         </Button>
       </View>
-      <View style={styles.entries}>
-        {entry.map((todo, index) => (
-          <View key={index} style={styles.entry}>
-            <Text style={colors.white} onPress={() => setSelectedEntry(todo)}>
-              {todo.text}
-            </Text>
-            <Text style={colors.highlight}>{todo.timestamp}</Text>
-          </View>
-        ))}
-      </View>
+      <ScrollView showsVerticalScrollIndicator={true} indicatorStyle={'white'}>
+        <View style={styles.entries}>
+          {entry.map((todo, index) => (
+            <View key={index} style={styles.entry}>
+              <Text style={colors.white} onPress={() => setSelectedEntry(todo)}>
+                {todo.text.slice(0, 75)}...
+              </Text>
+              <Text style={colors.highlight}>{todo.timestamp}</Text>
+            </View>
+          ))}
+        </View>
+      </ScrollView>
       {selectedEntry && (
         <Modal
           visible={selectedEntry !== null}
@@ -130,17 +133,18 @@ const styles = StyleSheet.create({
     placeholderTextColor: '#000',
     fontWeight: '300',
     fontSize: 24,
-    borderColor: colors.primary.color,
+    borderColor: colors.secondary.color,
+    borderBottomColor: colors.primary.color,
     borderBottomWidth: 1,
     maxWidth: 300,
     alignItems: 'center',
     justifyContent: 'center',
   },
+  input: {},
   entries: {
     flexDirection: 'column',
     display: 'flex',
-    alignSelf: 'flex-start',
-    justifyContent: 'space-between',
+    alignItems: 'flex-start',
     margin: 10,
     padding: 10,
     maxWidth: 400,
