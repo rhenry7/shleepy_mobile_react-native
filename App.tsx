@@ -28,9 +28,9 @@ function UserIcon({ navigation }) {
     // @ts-ignore:next-line
     <IconButton
       icon="account"
-      mode="outlined"
-      iconColor={'#463AA0ed'}
-      containerColor={'#fff'}
+      mode="contained"
+      iconColor={'#fff'}
+      containerColor={'#463AA0ed'}
       onPress={() => navigation.navigate('Modal')}
       size={15}
     />

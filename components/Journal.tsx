@@ -1,13 +1,22 @@
 import React, { useState } from 'react'
-import { View, Text, TextInput, StyleSheet } from 'react-native'
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native'
 import { Button } from 'react-native-paper'
 import moment from 'moment'
+import { Modal } from 'react-native-paper'
 
 interface JournalProps {}
 
 const Journal: React.FC<JournalProps> = () => {
   const [entry, setEntry] = useState([])
   const [newEntry, setNewEntry] = useState('')
+  const [modalVisible, setModalVisible] = useState(false)
+  const [selectedEntry, setSelectedEntry] = useState(null)
 
   const handleAddTodo = () => {
     if (newEntry !== '') {
@@ -17,6 +26,11 @@ const Journal: React.FC<JournalProps> = () => {
       ])
       setNewEntry('')
     }
+  }
+
+  const handlePress = (entry) => {
+    setModalVisible(true)
+    setSelectedEntry(entry)
   }
 
   return (
@@ -39,13 +53,31 @@ const Journal: React.FC<JournalProps> = () => {
         >
           Add Entry
         </Button>
+      </View>
+      <View style={styles.entries}>
         {entry.map((todo, index) => (
-          <View key={index} style={styles.entries}>
-            <Text style={colors.white}>{todo.text}</Text>
-            <Text style={colors.white}>{todo.timestamp}</Text>
+          <View key={index} style={styles.entry}>
+            <Text style={colors.white} onPress={() => setSelectedEntry(todo)}>
+              {todo.text}
+            </Text>
+            <Text style={colors.highlight}>{todo.timestamp}</Text>
           </View>
         ))}
       </View>
+      {selectedEntry && (
+        <Modal
+          visible={selectedEntry !== null}
+          onDismiss={() => setSelectedEntry(null)}
+          contentContainerStyle={styles.modalContainer}
+          style={styles.modalContainer}
+        >
+          <View style={styles.modalContent}>
+            <Text style={styles.modalText}>{selectedEntry.text}</Text>
+            <Text style={styles.modalText}>{selectedEntry.timestamp}</Text>
+            <Button onPress={() => setSelectedEntry(null)}>Close</Button>
+          </View>
+        </Modal>
+      )}
     </View>
   )
 }
@@ -73,6 +105,23 @@ const styles = StyleSheet.create({
     color: '#fff',
     paddingVertical: 120,
   },
+  modalText: {
+    color: 'black',
+  },
+  modalContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'black',
+  },
+  modalContent: {
+    alignItems: 'center',
+    color: '#fff',
+    backgroundColor: 'white',
+    padding: 22,
+    borderRadius: 4,
+    borderColor: 'rgba(0, 0, 0, 0.1)',
+  },
   buttonContainer: {
     margin: 20,
   },
@@ -84,13 +133,20 @@ const styles = StyleSheet.create({
     borderColor: colors.primary.color,
     borderBottomWidth: 1,
     maxWidth: 300,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   entries: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
+    flexDirection: 'column',
+    display: 'flex',
+    alignSelf: 'flex-start',
     justifyContent: 'space-between',
     margin: 10,
-    maxWidth: 200,
+    padding: 10,
+    maxWidth: 400,
+  },
+  entry: {
+    padding: 10,
   },
 })
 
