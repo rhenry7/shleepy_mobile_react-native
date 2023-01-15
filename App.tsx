@@ -203,7 +203,7 @@ export default function App(state: RootState) {
               tabBarIcon: ({ focused, color, size }) => {
                 let iconName
 
-                if (route.name === 'Auth') {
+                if (route.name === 'Settings') {
                   iconName = 'person-circle-outline'
                 } else if (route.name === 'Settings') {
                   iconName = focused ? 'ios-apps' : 'ios-apps'
@@ -240,7 +240,7 @@ export default function App(state: RootState) {
                 component={JournalStackScreen}
                 options={{ title: 'Journal' }}
               />
-              <Tab.Screen name="Auth" component={AuthStackScreen} />
+              <Tab.Screen name="Settings" component={AuthStackScreen} />
             </Tab.Group>
           </Tab.Navigator>
         </NavigationContainer>
