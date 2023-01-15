@@ -7,6 +7,8 @@ import {
 } from 'firebase/auth'
 import { auth } from '../firebase/firebaseConfig'
 import { Button } from 'react-native-paper'
+import { useDispatch } from 'react-redux'
+import userSlice, { setCurrentUser } from '../src/app/reducer/userSlice'
 
 function SignUpScreen({ navigation }) {
   const [value, setValue] = React.useState({
@@ -15,12 +17,13 @@ function SignUpScreen({ navigation }) {
     error: '',
     name: '',
   })
+  const dispatch = useDispatch()
   console.log(value)
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        //navigation.navigate('Playlists')
+        navigation.navigate('Playlists')
       }
     })
     return unsubscribe
@@ -41,12 +44,21 @@ function SignUpScreen({ navigation }) {
     console.log(value)
     try {
       await createUserWithEmailAndPassword(auth, value.email, value.password)
-
-      await updateProfile(auth.currentUser, {
-        displayName: value.name,
-      }).catch((err) => console.log(err))
-      //await auth.setPersistence(browserSessionPersistence)
       setValue({ email: '', password: '', error: '', name: '' })
+      auth.onAuthStateChanged(async (user) => {
+        if (user) {
+          await updateProfile(user, {
+            displayName: value.name,
+          }).catch((err) => console.log(err))
+          dispatch(
+            setCurrentUser({
+              email: auth.currentUser.email,
+              displayName: auth.currentUser.displayName,
+              id: auth.currentUser.uid,
+            }),
+          )
+        }
+      })
     } catch (error) {
       setValue({
         ...value,
@@ -112,15 +124,17 @@ function SignUpScreen({ navigation }) {
           >
             Sign Up
           </Button>
-          <Text style={styles.actionButton}>
-            Have an account?{' '}
-            <Text
-              onPress={() => navigation.navigate('Sign In')}
-              style={[styles.actionButton, styles.highlight]}
-            >
-              Sign In
+          <View style={styles.signInText}>
+            <Text style={styles.actionButton}>
+              Have an account?{' '}
+              <Text
+                onPress={() => navigation.navigate('Sign In')}
+                style={[styles.actionButton, styles.highlight]}
+              >
+                Sign In
+              </Text>
             </Text>
-          </Text>
+          </View>
         </Pressable>
       </View>
     </View>
@@ -168,6 +182,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: '300',
     fontSize: 18,
+    padding: 15,
     paddingLeft: 15,
     paddingVertical: 3,
   },
@@ -191,5 +206,8 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: 32,
     alignItems: 'center',
+  },
+  signInText: {
+    paddingVertical: 5,
   },
 })

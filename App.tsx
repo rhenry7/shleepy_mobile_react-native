@@ -5,8 +5,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { PlaylistsChoice } from './components/MainSelection'
 import AmbientSoundsList from './components/categories/ambientSounds/ambientSounds'
-import { Provider } from 'react-redux'
-import { store } from './src/app/reducer/store'
+import { Provider, useSelector } from 'react-redux'
+import { RootState, store } from './src/app/reducer/store'
 import TrackPlayer, { RepeatMode, Capability } from 'react-native-track-player'
 import ButtonContainer from './components/SoundButtons/ButtonContainer'
 import SignInScreen from './components/SignIn'
@@ -20,8 +20,6 @@ import Journal from './components/Journal'
 import { View, Text } from 'react-native'
 
 const PlaylistStack = createNativeStackNavigator()
-
-console.log({ auth: auth.currentUser })
 
 function UserIcon({ navigation }) {
   return (
@@ -38,20 +36,9 @@ function UserIcon({ navigation }) {
 }
 
 function PlaylistStackScreen({ navigation }) {
-  const [user, setUser] = useState('')
-  async function getUserName() {
-    const userName = await auth.currentUser.displayName
-    setUser(userName)
-  }
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        setUser(user.displayName)
-      }
-    })
-    return unsubscribe
-  }, [])
-  getUserName()
+  const displayName = useSelector((state: RootState) => state.user.displayName)
+  console.log({ displayName })
+
   return (
     <PlaylistStack.Navigator
       screenOptions={{
@@ -62,7 +49,9 @@ function PlaylistStackScreen({ navigation }) {
         headerTitleStyle: { color: '#F0EAD6' },
         headerRight: () => <UserIcon navigation={navigation} />,
         headerTitle:
-          'Goodnight, ' + ' ' + (user === null ? 'Shleepy Head' : user),
+          'Goodnight, ' +
+          ' ' +
+          (displayName === null ? 'Shleepy Head' : displayName),
       }}
     >
       <PlaylistStack.Group>
@@ -124,7 +113,8 @@ function ModalScreen({ navigation }) {
   )
 }
 
-export default function App() {
+export default function App(state: RootState) {
+  console.log({ auth: auth.currentUser })
   interface Track {
     id: number
     url: string
@@ -159,19 +149,18 @@ export default function App() {
         },
       ]
       try {
-        tracksTwo[0].url = await getDownloadURL(
-          ref(storage, 'sounds/nature/crickets.wav'),
-        )
-        tracksTwo[1].url = await getDownloadURL(
-          ref(storage, 'sounds/nature/wind.wav'),
-        )
-        tracksTwo[2].url = await getDownloadURL(
-          ref(storage, 'sounds/nature/heavy_rain.mp3'),
-        )
-        tracksTwo[3].url = await getDownloadURL(
-          ref(storage, 'sounds/nature/seagulls.wav'),
-        )
-
+        // tracksTwo[0].url = await getDownloadURL(
+        //   ref(storage, 'sounds/nature/crickets.wav'),
+        // )
+        // tracksTwo[1].url = await getDownloadURL(
+        //   ref(storage, 'sounds/nature/wind.wav'),
+        // )
+        // tracksTwo[2].url = await getDownloadURL(
+        //   ref(storage, 'sounds/nature/heavy_rain.mp3'),
+        // )
+        // tracksTwo[3].url = await getDownloadURL(
+        //   ref(storage, 'sounds/nature/seagulls.wav'),
+        // )
         console.log('TRACK ARRAY LENGTH', tracksTwo.length)
         await TrackPlayer.add(tracksTwo)
       } catch (error) {
