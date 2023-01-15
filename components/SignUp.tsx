@@ -8,7 +8,7 @@ import {
 import { auth } from '../firebase/firebaseConfig'
 import { Button } from 'react-native-paper'
 import { useDispatch } from 'react-redux'
-import userSlice, { setCurrentUser } from '../src/app/reducer/userSlice'
+import { setCurrentUser } from '../src/app/reducer/userSlice'
 
 function SignUpScreen({ navigation }) {
   const [value, setValue] = React.useState({

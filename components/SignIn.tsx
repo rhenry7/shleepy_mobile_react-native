@@ -5,8 +5,11 @@ import {
   GoogleAuthProvider,
   signInWithEmailAndPassword,
   signInWithPopup,
+  updateProfile,
 } from 'firebase/auth'
 import { auth, provider } from '../firebase/firebaseConfig'
+import { setCurrentUser } from '../src/app/reducer/userSlice'
+import { useDispatch } from 'react-redux'
 
 function SignInScreen({ navigation }) {
   const [value, setValue] = React.useState({
@@ -14,6 +17,7 @@ function SignInScreen({ navigation }) {
     password: '',
     error: '',
   })
+  const dispatch = useDispatch()
 
   console.log({ auth: auth.currentUser })
 
@@ -31,8 +35,21 @@ function SignInScreen({ navigation }) {
     try {
       console.log('auth success')
       await signInWithEmailAndPassword(auth, value.email, value.password)
-      //await auth.setPersistence(browserSessionPersistence)
       setValue({ email: '', password: '', error: '' })
+      auth.onAuthStateChanged(async (user) => {
+        if (user) {
+          await updateProfile(user, {
+            displayName: auth.currentUser.displayName,
+          }).catch((err) => console.log(err))
+          dispatch(
+            setCurrentUser({
+              email: auth.currentUser.email,
+              displayName: auth.currentUser.displayName,
+              id: auth.currentUser.uid,
+            }),
+          )
+        }
+      })
     } catch (error) {
       setValue({
         ...value,
