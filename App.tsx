@@ -14,15 +14,16 @@ import SignUpScreen from './components/SignUp'
 import { getDownloadURL, ref } from 'firebase/storage'
 import { auth, storage } from './firebase/firebaseConfig'
 import { useEffect, useState } from 'react'
-import { Provider as PaperProvider } from 'react-native-paper'
+import { Button, Provider as PaperProvider } from 'react-native-paper'
 import { IconButton } from 'react-native-paper'
 import Journal from './components/Journal'
+import { View, Text } from 'react-native'
 
 const PlaylistStack = createNativeStackNavigator()
 
 console.log({ auth: auth.currentUser })
 
-function LogoTitle() {
+function UserIcon({ navigation }) {
   return (
     // @ts-ignore:next-line
     <IconButton
@@ -30,12 +31,13 @@ function LogoTitle() {
       mode="outlined"
       iconColor={'#463AA0ed'}
       containerColor={'#fff'}
+      onPress={() => navigation.navigate('Modal')}
       size={15}
     />
   )
 }
 
-function PlaylistStackScreen() {
+function PlaylistStackScreen({ navigation }) {
   const [user, setUser] = useState('')
   async function getUserName() {
     const userName = await auth.currentUser.displayName
@@ -58,17 +60,22 @@ function PlaylistStackScreen() {
         },
         headerTintColor: '#F0EAD6',
         headerTitleStyle: { color: '#F0EAD6' },
-        headerRight: () => <LogoTitle />,
+        headerRight: () => <UserIcon navigation={navigation} />,
         headerTitle:
           'Goodnight, ' + ' ' + (user === null ? 'Shleepy Head' : user),
       }}
     >
-      <PlaylistStack.Screen name={'playlists'} component={PlaylistsChoice} />
-      <PlaylistStack.Screen
-        name="SoundControllerScreen"
-        component={ButtonContainer}
-        options={{ title: 'Mixer' }}
-      />
+      <PlaylistStack.Group>
+        <PlaylistStack.Screen name={'playlists'} component={PlaylistsChoice} />
+        <PlaylistStack.Screen
+          name="SoundControllerScreen"
+          component={ButtonContainer}
+          options={{ title: 'Mixer' }}
+        />
+      </PlaylistStack.Group>
+      <PlaylistStack.Group>
+        <PlaylistStack.Screen name="Modal" component={ModalScreen} />
+      </PlaylistStack.Group>
       <Stack.Screen name="Ambient" component={AmbientSoundsList} />
     </PlaylistStack.Navigator>
   )
@@ -105,6 +112,17 @@ function JournalStackScreen() {
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
+
+function ModalScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text style={{ fontSize: 30 }}>This is a modal!</Text>
+      <Button icon="plus" mode="contained" onPress={() => navigation.goBack()}>
+        Go back
+      </Button>
+    </View>
+  )
+}
 
 export default function App() {
   interface Track {
@@ -197,7 +215,7 @@ export default function App() {
                 let iconName
 
                 if (route.name === 'Auth') {
-                  iconName = focused ? 'person-circle' : 'person-circle-outline'
+                  iconName = 'person-circle-outline'
                 } else if (route.name === 'Settings') {
                   iconName = focused ? 'ios-apps' : 'ios-apps'
                 }
@@ -221,18 +239,20 @@ export default function App() {
               },
             })}
           >
-            <Tab.Screen name="Playlists" component={PlaylistStackScreen} />
-            <Tab.Screen
-              name="SoundControllerScreen"
-              component={ButtonContainer}
-              options={{ title: 'Mixer' }}
-            />
-            <Tab.Screen
-              name="DreamJournal"
-              component={JournalStackScreen}
-              options={{ title: 'Journal' }}
-            />
-            <Tab.Screen name="Auth" component={AuthStackScreen} />
+            <Tab.Group>
+              <Tab.Screen name="Playlists" component={PlaylistStackScreen} />
+              <Tab.Screen
+                name="SoundControllerScreen"
+                component={ButtonContainer}
+                options={{ title: 'Mixer' }}
+              />
+              <Tab.Screen
+                name="DreamJournal"
+                component={JournalStackScreen}
+                options={{ title: 'Journal' }}
+              />
+              <Tab.Screen name="Auth" component={AuthStackScreen} />
+            </Tab.Group>
           </Tab.Navigator>
         </NavigationContainer>
       </PaperProvider>

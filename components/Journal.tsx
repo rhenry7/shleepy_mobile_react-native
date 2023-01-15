@@ -11,7 +11,10 @@ const Journal: React.FC<JournalProps> = () => {
 
   const handleAddTodo = () => {
     if (newEntry !== '') {
-      setEntry([...entry, { text: newEntry, timestamp: moment().format() }])
+      setEntry([
+        ...entry,
+        { text: newEntry, timestamp: moment().format('DD/MM/YYYY') },
+      ])
       setNewEntry('')
     }
   }
@@ -25,6 +28,7 @@ const Journal: React.FC<JournalProps> = () => {
           style={styles.inputText}
           value={newEntry}
           onChangeText={(text) => setNewEntry(text)}
+          multiline={true}
         />
         <Button
           style={styles.buttonContainer}
@@ -36,7 +40,7 @@ const Journal: React.FC<JournalProps> = () => {
           Add Entry
         </Button>
         {entry.map((todo, index) => (
-          <View key={index}>
+          <View key={index} style={styles.entries}>
             <Text style={colors.white}>{todo.text}</Text>
             <Text style={colors.white}>{todo.timestamp}</Text>
           </View>
@@ -79,6 +83,14 @@ const styles = StyleSheet.create({
     fontSize: 24,
     borderColor: colors.primary.color,
     borderBottomWidth: 1,
+    maxWidth: 300,
+  },
+  entries: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    margin: 10,
+    maxWidth: 200,
   },
 })
 
