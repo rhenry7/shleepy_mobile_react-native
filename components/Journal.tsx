@@ -36,7 +36,7 @@ const Journal: React.FC<JournalProps> = () => {
 
   return (
     <View style={[styles.container]}>
-      <View>
+      <View style={[styles.inputContainer]}>
         <TextInput
           placeholder="How was your sleep?"
           placeholderTextColor={'#463AA090'}
@@ -60,7 +60,9 @@ const Journal: React.FC<JournalProps> = () => {
           {entry.map((todo, index) => (
             <View key={index} style={styles.entry}>
               <Text style={colors.white} onPress={() => setSelectedEntry(todo)}>
-                {todo.text.slice(0, 75)}...
+                {todo.text.length < 75
+                  ? todo.text
+                  : `${todo.text.slice(0, 55)}...`}
               </Text>
               <Text style={colors.highlight}>{todo.timestamp}</Text>
             </View>
@@ -102,14 +104,20 @@ export const colors = StyleSheet.create({
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
     backgroundColor: colors.secondary.color,
     color: '#fff',
     paddingVertical: 120,
+    height: 1000,
+  },
+  inputContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.secondary.color,
+    color: '#fff',
   },
   modalText: {
     color: 'black',
+    padding: 5,
   },
   modalContainer: {
     flex: 1,
@@ -118,9 +126,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
   },
   modalContent: {
-    alignItems: 'center',
     color: '#fff',
     backgroundColor: 'white',
+    display: 'flex',
+    alignItems: 'flex-start',
+    margin: 5,
     padding: 22,
     borderRadius: 4,
     borderColor: 'rgba(0, 0, 0, 0.1)',

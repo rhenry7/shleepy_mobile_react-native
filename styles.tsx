@@ -43,7 +43,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     backgroundColor: '#060523',
-    //padding: 20,
+    maxHeight: '100%',
   },
   container_list: {
     flex: 1,
@@ -80,7 +80,7 @@ export const styles = StyleSheet.create({
     backgroundColor: '#463AA0',
   },
   MainNavContainer: {
-    marginTop: 32,
+    // marginTop: 32,
     marginBottom: 0,
     paddingStart: 24,
     color: 'white',
