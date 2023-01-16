@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { Provider } from 'react-redux'
-import { RootState, store } from './src/app/reducer/store'
+import { store } from './src/app/reducer/store'
 import TrackPlayer, { RepeatMode, Capability } from 'react-native-track-player'
 import ButtonContainer from './components/SoundButtons/ButtonContainer'
 import { auth } from './firebase/firebaseConfig'
@@ -12,8 +12,18 @@ import { PlaylistStackScreen } from './src/app/Stacks/PlaylistStack'
 import { JournalStackScreen } from './src/app/Stacks/JournalStack'
 import { AuthStackScreen } from './src/app/Stacks/AuthStack'
 
+/*
+The App component sets up and initializes the player.It defines an async function setup() which is used to set up the player if it has not been initialized yet. The function creates an array of tracks with properties id, url and title and temporarily disables the retrieval of the url property to save on data usage from Firebase.
+
+The function then uses the TrackPlayer.setupPlayer() method to set up the player and the TrackPlayer.add() method to add the tracks to the player.
+
+It then sets the repeat mode to Track and updates the player options to include capabilities such as play, pause, skip to next and previous, and stop.
+
+The useEffect() hook is used to call the onStart() function when the component is loaded and it in turn calls the setup() function. This ensures that the player is set up and initialized when the app is first loaded.
+*/
+
 const Tab = createBottomTabNavigator()
-export default function App(state: RootState) {
+export default function App() {
   console.log({ auth: auth.currentUser })
   interface Track {
     id: number
@@ -62,7 +72,6 @@ export default function App(state: RootState) {
         // tracksTwo[3].url = await getDownloadURL(
         //   ref(storage, 'sounds/nature/seagulls.wav'),
         // )
-        console.log('TRACK ARRAY LENGTH', tracksTwo.length)
         await TrackPlayer.add(tracksTwo)
       } catch (error) {
         console.error(error)
