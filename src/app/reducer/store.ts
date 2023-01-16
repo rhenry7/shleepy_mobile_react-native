@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
+import modalSlice from './slices/modalSlice'
 import soundReducer from './slices/soundSlice'
 import userSlice from './slices/userSlice'
 
 export const store = configureStore({
   reducer: {
     sounds: soundReducer,
-    user: userSlice,
+    user: userSlice, // authentication
+    modal: modalSlice,
   },
   devTools: true,
 })

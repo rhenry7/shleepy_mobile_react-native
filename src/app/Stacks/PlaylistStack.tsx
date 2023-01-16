@@ -1,16 +1,20 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import AmbientSoundsList from '../../../components/categories/ambientSounds/ambientSounds'
 import { PlaylistsChoice } from '../../../components/MainSelection'
 import ButtonContainer from '../../../components/SoundButtons/ButtonContainer'
 import { RootState } from '../reducer/store'
 import { View, Text } from 'react-native'
 import { Button, IconButton, Modal } from 'react-native-paper'
+import { modalVisibleAction } from '../reducer/slices/modalSlice'
 
 // TODO: consider renaming to "HomeStack" since this is basically the home screen for now
 
 export function UserIcon({ navigation }) {
+  const dispatch = useDispatch()
+  const modalVisible = useSelector((state: RootState) => state.modal.modalState)
+  console.log(modalVisible)
   return (
     // @ts-ignore:next-line
     <IconButton
@@ -18,7 +22,10 @@ export function UserIcon({ navigation }) {
       mode="contained"
       iconColor={'#fff'}
       containerColor={'#463AA0ed'}
-      onPress={() => navigation.navigate('Modal')}
+      onPress={() => {
+        dispatch(modalVisibleAction(!!true))
+        console.log(modalVisible)
+      }}
       size={15}
     />
   )
