@@ -1,7 +1,6 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import React from 'react'
 import { View, Text } from 'react-native'
-import { TabView } from 'react-native-tab-view'
 import { styles } from '../styles'
 import Playlists from './Playlists'
 
@@ -16,21 +15,6 @@ export function Meditation() {
       }}
     >
       <Text style={styles.white}>Meditation Screen</Text>
-    </View>
-  )
-}
-
-export function Recommended() {
-  return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#060523',
-      }}
-    >
-      <Text style={styles.white}>Recommended</Text>
     </View>
   )
 }

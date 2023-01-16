@@ -3,6 +3,8 @@ import { Pressable, View } from 'react-native'
 import { MenuButton } from './Button'
 import { styles } from '../styles'
 
+//TODO: add the Modal here, and also to state for a sort of "global modal?"
+
 function Playlists({ navigation }) {
   return (
     <View style={styles.container}>

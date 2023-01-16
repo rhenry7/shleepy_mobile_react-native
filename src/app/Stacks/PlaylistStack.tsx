@@ -1,12 +1,12 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import AmbientSoundsList from '../../../components/categories/ambientSounds/ambientSounds'
 import { PlaylistsChoice } from '../../../components/MainSelection'
 import ButtonContainer from '../../../components/SoundButtons/ButtonContainer'
 import { RootState } from '../reducer/store'
 import { View, Text } from 'react-native'
-import { Button } from 'react-native-paper'
+import { Button, IconButton, Modal } from 'react-native-paper'
 
 // TODO: consider renaming to "HomeStack" since this is basically the home screen for now
 

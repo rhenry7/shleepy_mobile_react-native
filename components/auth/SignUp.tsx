@@ -5,10 +5,10 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
 } from 'firebase/auth'
-import { auth } from '../firebase/firebaseConfig'
 import { Button } from 'react-native-paper'
 import { useDispatch } from 'react-redux'
-import { setCurrentUser } from '../src/app/reducer/slices/userSlice'
+import { auth } from '../../firebase/firebaseConfig'
+import { setCurrentUser } from '../../src/app/reducer/slices/userSlice'
 
 function SignUpScreen({ navigation }) {
   const [value, setValue] = React.useState({
