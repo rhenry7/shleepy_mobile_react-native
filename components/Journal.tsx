@@ -60,9 +60,9 @@ const Journal: React.FC<JournalProps> = () => {
           {entry.map((todo, index) => (
             <View key={index} style={styles.entry}>
               <Text style={colors.white} onPress={() => setSelectedEntry(todo)}>
-                {todo.text.length < 75
+                {todo.text.length < 100
                   ? todo.text
-                  : `${todo.text.slice(0, 55)}...`}
+                  : `${todo.text.slice(0, 100)}...`}
               </Text>
               <Text style={colors.highlight}>{todo.timestamp}</Text>
             </View>
