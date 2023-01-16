@@ -11,7 +11,7 @@ import {
   seagullsSoundAction,
   spaceSoundAction,
   windSoundAction,
-} from '../../../src/app/reducer/soundSlice'
+} from '../../../src/app/reducer/slices/soundSlice'
 import { useSound } from '../../../hooks/useSound'
 import useSoundStatus from '../../../hooks/useSoundStatus'
 const AmbientSoundsList = () => {

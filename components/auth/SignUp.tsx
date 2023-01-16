@@ -1,45 +1,54 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Pressable, StyleSheet, TextInput, Text, View } from 'react-native'
 import {
   browserSessionPersistence,
-  GoogleAuthProvider,
-  signInWithEmailAndPassword,
-  signInWithPopup,
+  createUserWithEmailAndPassword,
   updateProfile,
 } from 'firebase/auth'
-import { auth, provider } from '../firebase/firebaseConfig'
-import { setCurrentUser } from '../src/app/reducer/userSlice'
+import { auth } from '../firebase/firebaseConfig'
+import { Button } from 'react-native-paper'
 import { useDispatch } from 'react-redux'
+import { setCurrentUser } from '../src/app/reducer/slices/userSlice'
 
-function SignInScreen({ navigation }) {
+function SignUpScreen({ navigation }) {
   const [value, setValue] = React.useState({
     email: '',
     password: '',
     error: '',
+    name: '',
   })
   const dispatch = useDispatch()
+  console.log(value)
 
-  console.log({ auth: auth.currentUser })
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        navigation.navigate('Playlists')
+      }
+    })
+    return unsubscribe
+  }, [])
 
-  async function Login() {
+  async function signUp() {
     if (value.email === '' || value.password === '') {
       setValue({
         ...value,
         error: 'Email and password are mandatory.',
       })
-      alert('you must enter an email and password')
+      alert('you must fill all fields')
       console.log('auth failure')
       return
     }
 
+    if (value.error) alert(value.error)
+    console.log(value)
     try {
-      console.log('auth success')
-      await signInWithEmailAndPassword(auth, value.email, value.password)
-      setValue({ email: '', password: '', error: '' })
+      await createUserWithEmailAndPassword(auth, value.email, value.password)
+      setValue({ email: '', password: '', error: '', name: '' })
       auth.onAuthStateChanged(async (user) => {
         if (user) {
           await updateProfile(user, {
-            displayName: auth.currentUser.displayName,
+            displayName: value.name,
           }).catch((err) => console.log(err))
           dispatch(
             setCurrentUser({
@@ -58,34 +67,23 @@ function SignInScreen({ navigation }) {
     }
   }
 
-  async function signInWithGoogle() {
-    try {
-      await signInWithPopup(auth, provider)
-        .then((result) => {
-          // This gives you a Google Access Token. You can use it to access the Google API.
-          const credential = GoogleAuthProvider.credentialFromResult(result)
-          const token = credential.accessToken
-          // The signed-in user info.
-          const user = result.user
-          // ...
-        })
-        .catch((error) => {
-          // Handle Errors here.
-          const errorCode = error.code
-          const errorMessage = error.message
-          // The email of the user's account used.
-          const email = error.customData.email
-          // The AuthCredential type that was used.
-          const credential = GoogleAuthProvider.credentialFromError(error)
-          // ...
-        })
-    } catch (error) {}
-  }
-
   return (
     <View style={[styles.container]}>
-      <Text style={styles.buttonText}>Login</Text>
+      <Text style={styles.buttonText}>Sign Up</Text>
       <View style={styles.inputContainer}>
+        <View style={styles.input}>
+          <View>
+            <View>
+              <TextInput
+                placeholder="Name"
+                placeholderTextColor={colors.primary.color}
+                value={value.name}
+                onChangeText={(text) => setValue({ ...value, name: text })}
+                style={styles.inputText}
+              />
+            </View>
+          </View>
+        </View>
         <View style={styles.input}>
           <View>
             <View>
@@ -113,26 +111,37 @@ function SignInScreen({ navigation }) {
             </View>
           </View>
         </View>
-        <Pressable style={styles.extraPaddedSpace}>
-          <Text onPress={Login} style={[styles.actionButton, styles.highlight]}>
-            Login
+        <Pressable>
+          <Text style={styles.legalInfo}>
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+            officia deserunt mollit anim id est laborum.
           </Text>
-          <Text style={styles.actionButton}>
-            Don't have an account?{' '}
-            <Text
-              onPress={() => navigation.navigate('Sign Up')}
-              style={[styles.actionButton, styles.highlight]}
-            >
-              Sign Up
+          <Button
+            icon="account-plus-outline"
+            mode="contained"
+            onPress={signUp}
+            buttonColor={'#463AA0ed'}
+          >
+            Sign Up
+          </Button>
+          <View style={styles.signInText}>
+            <Text style={styles.actionButton}>
+              Have an account?{' '}
+              <Text
+                onPress={() => navigation.navigate('Sign In')}
+                style={[styles.actionButton, styles.highlight]}
+              >
+                Sign In
+              </Text>
             </Text>
-          </Text>
+          </View>
         </Pressable>
       </View>
     </View>
   )
 }
 
-export default SignInScreen
+export default SignUpScreen
 
 export const colors = StyleSheet.create({
   primary: {
@@ -173,6 +182,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: '300',
     fontSize: 18,
+    padding: 15,
     paddingLeft: 15,
     paddingVertical: 3,
   },
@@ -191,13 +201,13 @@ const styles = StyleSheet.create({
     borderBottomColor: colors.primary.color,
     borderBottomWidth: 1,
   },
-  extraPaddedSpace: {
-    paddingVertical: 5,
-  },
   buttonText: {
-    color: 'white',
+    color: '#fff',
     fontWeight: '700',
     fontSize: 32,
     alignItems: 'center',
+  },
+  signInText: {
+    paddingVertical: 5,
   },
 })

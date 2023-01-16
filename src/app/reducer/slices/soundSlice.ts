@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Audio } from 'expo-av'
 
 export const soundSlice = createSlice({
   name: 'sound slice',

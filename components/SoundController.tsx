@@ -31,7 +31,7 @@ export const SoundController: React.FC<{
   description?: string
   iconName?: string
   status?: boolean
-}> = ({ description, title, iconName, status }) => {
+}> = ({ iconName, status }) => {
   const state = usePlaybackState()
   const isPlaying = state === State.Playing
   const onToggle = useToggle()

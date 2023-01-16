@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
-import soundReducer from './soundSlice'
-import userSlice from './userSlice'
+import soundReducer from './slices/soundSlice'
+import userSlice from './slices/userSlice'
 
 export const store = configureStore({
   reducer: {
