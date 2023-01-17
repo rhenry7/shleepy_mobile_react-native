@@ -6,12 +6,43 @@ import { modalVisibleAction } from '../src/app/reducer/slices/modalSlice'
 import { RootState } from '../src/app/reducer/store'
 import { styles } from '../styles'
 import { Modal, Portal, Button, IconButton } from 'react-native-paper'
+import { auth } from '../firebase/firebaseConfig'
+import { setCurrentUser } from '../src/app/reducer/slices/userSlice'
 
 //TODO: add the Modal here, and also to state for a sort of "global modal?"
-
+// change name from "playlist" to "Home/Main Nav"
 function Playlists({ navigation }) {
   const dispatch = useDispatch()
   const modalVisible = useSelector((state: RootState) => state.modal.modalState)
+
+  const handleSignOut = () => {
+    auth
+      .signOut()
+      .then(() => {
+        if (auth.currentUser) {
+          console.log(auth.currentUser.email)
+        } else {
+          console.log('User is not signed in.')
+        }
+        alert('Successfully signed out!')
+        dispatch(
+          setCurrentUser({
+            email: '',
+            displayName: '',
+            id: '',
+          }),
+        )
+        navigation.navigate('Playlists')
+      })
+      .catch((error) => {
+        if (auth.currentUser) {
+          console.log(auth.currentUser.email)
+        } else {
+          console.log('User is not signed in.')
+        }
+        alert(error.message)
+      })
+  }
 
   return (
     <>
@@ -103,7 +134,7 @@ function Playlists({ navigation }) {
               icon="minus"
               mode="contained"
               onPress={() => {
-                navigation.navigate('Sign Out')
+                handleSignOut()
                 dispatch(modalVisibleAction(false))
               }}
               buttonColor={'#463AA0ed'}

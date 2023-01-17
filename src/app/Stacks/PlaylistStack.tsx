@@ -12,6 +12,7 @@ import SignUpScreen from '../../../components/auth/SignUp'
 import SignInScreen from '../../../components/auth/SignIn'
 import SignOut from '../../../components/auth/SignOut'
 import SignOutScreen from '../../../components/auth/SignOut'
+import { auth } from '../../../firebase/firebaseConfig'
 
 // TODO: consider renaming to "HomeStack" since this is basically the home screen for now
 
@@ -51,7 +52,9 @@ export function ModalScreen({ navigation }) {
 const PlaylistStack = createNativeStackNavigator()
 export function PlaylistStackScreen({ navigation }) {
   const displayName = useSelector((state: RootState) => state.user.displayName)
-  console.log({ displayName })
+  const currentUser = auth.currentUser
+
+  console.log({ displayName, currentUser })
 
   return (
     <PlaylistStack.Navigator
