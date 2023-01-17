@@ -8,6 +8,10 @@ import { RootState } from '../reducer/store'
 import { View, Text } from 'react-native'
 import { Button, IconButton, Modal } from 'react-native-paper'
 import { modalVisibleAction } from '../reducer/slices/modalSlice'
+import SignUpScreen from '../../../components/auth/SignUp'
+import SignInScreen from '../../../components/auth/SignIn'
+import SignOut from '../../../components/auth/SignOut'
+import SignOutScreen from '../../../components/auth/SignOut'
 
 // TODO: consider renaming to "HomeStack" since this is basically the home screen for now
 
@@ -15,6 +19,7 @@ export function UserIcon({ navigation }) {
   const dispatch = useDispatch()
   const modalVisible = useSelector((state: RootState) => state.modal.modalState)
   console.log(modalVisible)
+
   return (
     // @ts-ignore:next-line
     <IconButton
@@ -23,7 +28,7 @@ export function UserIcon({ navigation }) {
       iconColor={'#fff'}
       containerColor={'#463AA0ed'}
       onPress={() => {
-        dispatch(modalVisibleAction(!!true))
+        dispatch(modalVisibleAction(true))
         console.log(modalVisible)
       }}
       size={15}
@@ -75,6 +80,9 @@ export function PlaylistStackScreen({ navigation }) {
         <PlaylistStack.Screen name="Modal" component={ModalScreen} />
       </PlaylistStack.Group>
       <PlaylistStack.Screen name="Ambient" component={AmbientSoundsList} />
+      <PlaylistStack.Screen name="Sign Up" component={SignUpScreen} />
+      <PlaylistStack.Screen name="Sign In" component={SignInScreen} />
+      <PlaylistStack.Screen name="Sign Out" component={SignOutScreen} />
     </PlaylistStack.Navigator>
   )
 }

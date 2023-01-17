@@ -1,9 +1,9 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 import { Button } from 'react-native-paper'
-import { auth } from '../firebase/firebaseConfig'
+import { auth } from '../../firebase/firebaseConfig'
 
-export default function SignOut({ navigation }) {
+export default function SignOutScreen({ navigation }) {
   console.log(auth.currentUser.email)
   const handleSignOut = () => {
     auth
@@ -25,7 +25,7 @@ export default function SignOut({ navigation }) {
         }}
         buttonColor={'#463AA0ed'}
       >
-        Sign Up
+        Sign Out
       </Button>
       <Text>SignOut</Text>
     </View>
