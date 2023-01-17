@@ -23,6 +23,7 @@ function Playlists({ navigation }) {
           console.log(auth.currentUser.email)
         } else {
           console.log('User is not signed in.')
+          alert('You cant be signed out because you arent signed in!')
         }
         alert('Successfully signed out!')
         dispatch(

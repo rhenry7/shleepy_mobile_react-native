@@ -10,8 +10,6 @@ import { Button, IconButton, Modal } from 'react-native-paper'
 import { modalVisibleAction } from '../reducer/slices/modalSlice'
 import SignUpScreen from '../../../components/auth/SignUp'
 import SignInScreen from '../../../components/auth/SignIn'
-import SignOut from '../../../components/auth/SignOut'
-import SignOutScreen from '../../../components/auth/SignOut'
 import { auth } from '../../../firebase/firebaseConfig'
 
 // TODO: consider renaming to "HomeStack" since this is basically the home screen for now
@@ -68,7 +66,7 @@ export function PlaylistStackScreen({ navigation }) {
         headerTitle:
           'Goodnight, ' +
           ' ' +
-          (displayName === null ? 'Shleepy Head' : displayName),
+          (currentUser === null ? 'Shleepy Head' : displayName),
       }}
     >
       <PlaylistStack.Group>
@@ -85,7 +83,6 @@ export function PlaylistStackScreen({ navigation }) {
       <PlaylistStack.Screen name="Ambient" component={AmbientSoundsList} />
       <PlaylistStack.Screen name="Sign Up" component={SignUpScreen} />
       <PlaylistStack.Screen name="Sign In" component={SignInScreen} />
-      <PlaylistStack.Screen name="Sign Out" component={SignOutScreen} />
     </PlaylistStack.Navigator>
   )
 }
