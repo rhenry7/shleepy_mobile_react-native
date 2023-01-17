@@ -89,7 +89,7 @@ const Journal: React.FC<JournalProps> = () => {
 
 export const colors = StyleSheet.create({
   primary: {
-    color: '#463AA00',
+    color: '#463AA0',
   },
   secondary: {
     color: '#060523',
@@ -145,8 +145,9 @@ const styles = StyleSheet.create({
     fontSize: 24,
     borderColor: colors.secondary.color,
     borderBottomColor: colors.primary.color,
-    borderBottomWidth: 1,
+    borderBottomWidth: 0.5,
     maxWidth: 300,
+    padding: 5,
     alignItems: 'center',
     justifyContent: 'center',
   },
