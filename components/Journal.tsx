@@ -1,37 +1,55 @@
 import React, { useState } from 'react'
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  TouchableOpacity,
-  ScrollView,
-} from 'react-native'
+import { View, Text, TextInput, StyleSheet, ScrollView } from 'react-native'
 import { Button } from 'react-native-paper'
 import moment from 'moment'
 import { Modal } from 'react-native-paper'
+import { auth, db } from '../firebase/firebaseConfig'
+import { collection, addDoc } from 'firebase/firestore'
 
-interface JournalProps {}
-
-const Journal: React.FC<JournalProps> = () => {
+const Journal: React.FC = () => {
   const [entry, setEntry] = useState([])
   const [newEntry, setNewEntry] = useState('')
-  const [modalVisible, setModalVisible] = useState(false)
   const [selectedEntry, setSelectedEntry] = useState(null)
 
-  const handleAddTodo = () => {
+  const addJournalEntry = async (entryData) => {
+    try {
+      // Get the current user's ID
+      const userId = auth.currentUser.uid
+      alert(userId)
+
+      // Add the entry data to the "journal" collection, under the user's document
+      if (userId) {
+        const docRef = await addDoc(collection(db, 'users'), {
+          userId,
+          userEntries:
+            (collection(db, 'entries'),
+            {
+              entry: entryData,
+            }),
+        })
+        alert('should be in the collection!')
+        console.log('Journal entry written with ID: ', docRef.id)
+      } else {
+        alert('no userId found')
+      }
+    } catch (error) {
+      console.error('Error adding journal entry: ', error)
+      alert(error)
+    }
+  }
+
+  const handleAddEntry = () => {
     if (newEntry !== '') {
       setEntry([
         ...entry,
         { text: newEntry, timestamp: moment().format('MM/DD/YYYY') },
       ])
       setNewEntry('')
+      addJournalEntry({
+        text: newEntry,
+        timestamp: moment().format('MM/DD/YYYY'),
+      })
     }
-  }
-
-  const handlePress = (entry) => {
-    setModalVisible(true)
-    setSelectedEntry(entry)
   }
 
   return (
@@ -49,7 +67,7 @@ const Journal: React.FC<JournalProps> = () => {
           style={styles.buttonContainer}
           icon="plus"
           mode="contained"
-          onPress={handleAddTodo}
+          onPress={handleAddEntry}
           buttonColor={'#463AA0ed'}
         >
           Add Entry

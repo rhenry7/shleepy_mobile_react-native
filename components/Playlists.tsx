@@ -9,7 +9,6 @@ import { Modal, Portal, Button, IconButton } from 'react-native-paper'
 import { auth } from '../firebase/firebaseConfig'
 import { setCurrentUser } from '../src/app/reducer/slices/userSlice'
 
-//TODO: add the Modal here, and also to state for a sort of "global modal?"
 // change name from "playlist" to "Home/Main Nav"
 function Playlists({ navigation }) {
   const dispatch = useDispatch()
@@ -24,6 +23,7 @@ function Playlists({ navigation }) {
         } else {
           console.log('User is not signed in.')
           alert('You cant be signed out because you arent signed in!')
+          return
         }
         alert('Successfully signed out!')
         dispatch(

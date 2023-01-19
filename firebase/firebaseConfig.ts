@@ -3,6 +3,7 @@ import { getApp, initializeApp } from 'firebase/app'
 import { getAuth } from 'firebase/auth'
 import { GoogleAuthProvider } from 'firebase/auth'
 import { getStorage, ref } from 'firebase/storage'
+import { getFirestore } from 'firebase/firestore'
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -35,6 +36,7 @@ export const storage = getStorage(app)
 
 // Create a storage reference from storage service
 export const storageRef = ref(storage, 'sounds')
+export const db = getFirestore(app)
 
 export const provider = new GoogleAuthProvider()
 provider.addScope('https://www.googleapis.com/auth/contacts.readonly')
