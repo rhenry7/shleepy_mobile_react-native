@@ -28,7 +28,9 @@ const Journal: React.FC = () => {
       const querySnapshot = await getDocs(collection(db, 'userEntries'))
       let userEntries = []
       querySnapshot.forEach((doc) => {
-        userEntries.push(doc.data().entry)
+        if (doc.data().userId === userId) {
+          userEntries.push(doc.data().entry)
+        }
       })
       setEntry(userEntries)
     } catch (error) {
