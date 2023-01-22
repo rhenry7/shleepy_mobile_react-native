@@ -10,13 +10,18 @@ import {
   onSnapshot,
   orderBy,
   query,
+  where,
+  getDocs,
 } from 'firebase/firestore'
 
 const Journal: React.FC = () => {
   const [entry, setEntry] = useState([])
   const [newEntry, setNewEntry] = useState('')
   const [selectedEntry, setSelectedEntry] = useState(null)
+  const userId = auth.currentUser?.uid
+  console.log(userId)
 
+  // adds entry to firestore collection
   const addJournalEntry = async (entryData) => {
     try {
       // Get the current user's ID
@@ -40,18 +45,6 @@ const Journal: React.FC = () => {
     }
   }
 
-  useEffect(() => {
-    const q = query(collection(db, 'userEntries'), orderBy('created', 'desc'))
-    onSnapshot(q, (querySnapshot) => {
-      setEntry(
-        querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          data: doc.data(),
-        })),
-      )
-    })
-  }, [])
-
   const handleAddEntry = () => {
     if (auth.currentUser !== null && newEntry !== '') {
       setEntry([
@@ -69,6 +62,24 @@ const Journal: React.FC = () => {
     }
   }
 
+  useEffect(() => {
+    if (auth.currentUser !== null) {
+      const q = query(
+        collection(db, 'userEntries'),
+        where('userId', '==', userId),
+      )
+      const querySnapshot = getDocs(q)
+      querySnapshot.then((i) =>
+        i.forEach((doc) => {
+          // doc.data() is never undefined for query doc snapshots
+          console.log(doc.id, ' => ', doc.data())
+          entry.push(doc.data().entry)
+        }),
+      )
+    }
+  }, [])
+
+  console.log({ entry })
   return (
     <View style={[styles.container]}>
       <View style={[styles.inputContainer]}>
