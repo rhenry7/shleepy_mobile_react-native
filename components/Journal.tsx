@@ -13,13 +13,36 @@ import {
   where,
   getDocs,
 } from 'firebase/firestore'
+import { useSelector } from 'react-redux'
+import { RootState } from '../src/app/reducer/store'
 
 const Journal: React.FC = () => {
   const [entry, setEntry] = useState([])
+  let userEntries = []
   const [newEntry, setNewEntry] = useState('')
   const [selectedEntry, setSelectedEntry] = useState(null)
   const userId = auth.currentUser?.uid
-  console.log(userId)
+
+  const getEntries = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, 'userEntries'))
+      let userEntries = []
+      querySnapshot.forEach((doc) => {
+        userEntries.push(doc.data().entry)
+      })
+      setEntry(userEntries)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  useEffect(() => {
+    if (auth.currentUser !== null) {
+      getEntries()
+    } else {
+      setEntry([])
+    }
+  }, [userId])
 
   // adds entry to firestore collection
   const addJournalEntry = async (entryData) => {
@@ -47,10 +70,10 @@ const Journal: React.FC = () => {
 
   const handleAddEntry = () => {
     if (auth.currentUser !== null && newEntry !== '') {
-      setEntry([
-        ...entry,
-        { text: newEntry, timestamp: moment().format('MM/DD/YYYY') },
-      ])
+      // setEntry([
+      //   ...entry,
+      //   { text: newEntry, timestamp: moment().format('MM/DD/YYYY') },
+      // ])
       setNewEntry('')
       addJournalEntry({
         text: newEntry,
@@ -61,23 +84,6 @@ const Journal: React.FC = () => {
       alert('You must be logged in to add an entry')
     }
   }
-
-  useEffect(() => {
-    if (auth.currentUser !== null) {
-      const q = query(
-        collection(db, 'userEntries'),
-        where('userId', '==', userId),
-      )
-      const querySnapshot = getDocs(q)
-      querySnapshot.then((i) =>
-        i.forEach((doc) => {
-          // doc.data() is never undefined for query doc snapshots
-          console.log(doc.id, ' => ', doc.data())
-          entry.push(doc.data().entry)
-        }),
-      )
-    }
-  }, [])
 
   console.log({ entry })
   return (
