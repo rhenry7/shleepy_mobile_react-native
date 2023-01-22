@@ -1,24 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { View, Text, TextInput, StyleSheet, ScrollView } from 'react-native'
 import { Button } from 'react-native-paper'
 import moment from 'moment'
 import { Modal } from 'react-native-paper'
 import { auth, db } from '../firebase/firebaseConfig'
-import {
-  collection,
-  addDoc,
-  onSnapshot,
-  orderBy,
-  query,
-  where,
-  getDocs,
-} from 'firebase/firestore'
-import { useSelector } from 'react-redux'
-import { RootState } from '../src/app/reducer/store'
+import { collection, addDoc, getDocs } from 'firebase/firestore'
+import { useFocusEffect } from '@react-navigation/native'
 
 const Journal: React.FC = () => {
   const [entry, setEntry] = useState([])
-  let userEntries = []
   const [newEntry, setNewEntry] = useState('')
   const [selectedEntry, setSelectedEntry] = useState(null)
   const userId = auth.currentUser?.uid
@@ -37,14 +27,17 @@ const Journal: React.FC = () => {
       console.error(error)
     }
   }
+  console.log({ userId })
 
-  useEffect(() => {
-    if (auth.currentUser !== null) {
-      getEntries()
-    } else {
-      setEntry([])
-    }
-  }, [])
+  useFocusEffect(
+    React.useCallback(() => {
+      if (auth.currentUser !== null) {
+        getEntries()
+      } else {
+        setEntry([])
+      }
+    }, [auth.currentUser]),
+  )
 
   // adds entry to firestore collection
   const addJournalEntry = async (entryData) => {
@@ -61,8 +54,6 @@ const Journal: React.FC = () => {
         })
         alert('should be in the collection!')
         console.log('Journal entry written with ID: ', docRef.id)
-      } else {
-        //alert('no userId found')
       }
     } catch (error) {
       console.error('Error adding journal entry: ', error)
@@ -72,10 +63,7 @@ const Journal: React.FC = () => {
 
   const handleAddEntry = () => {
     if (auth.currentUser !== null && newEntry !== '') {
-      // setEntry([
-      //   ...entry,
-      //   { text: newEntry, timestamp: moment().format('MM/DD/YYYY') },
-      // ])
+      ;``
       setNewEntry('')
       addJournalEntry({
         text: newEntry,
