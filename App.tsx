@@ -6,11 +6,12 @@ import { Provider } from 'react-redux'
 import { store } from './src/app/reducer/store'
 import TrackPlayer, { RepeatMode, Capability } from 'react-native-track-player'
 import ButtonContainer from './components/SoundButtons/ButtonContainer'
-import { auth } from './firebase/firebaseConfig'
+import { auth, storage } from './firebase/firebaseConfig'
 import { Provider as PaperProvider } from 'react-native-paper'
 import { PlaylistStackScreen } from './src/app/Stacks/PlaylistStack'
 import { JournalStackScreen } from './src/app/Stacks/JournalStack'
 import { AuthStackScreen } from './src/app/Stacks/AuthStack'
+import { getDownloadURL, ref } from 'firebase/storage'
 
 /*
 The App component sets up and initializes the player.It defines an async function setup() which is used to set up the player if it has not been initialized yet. The function creates an array of tracks with properties id, url and title and temporarily disables the retrieval of the url property to save on data usage from Firebase.
@@ -36,7 +37,7 @@ export default function App() {
   async function setup() {
     if (!playerInitialized) {
       await TrackPlayer.setupPlayer({})
-      let tracksTwo: Track[] = [
+      let trackList: Track[] = [
         {
           id: 1,
           url: '',
@@ -60,19 +61,19 @@ export default function App() {
       ]
       // Temporarily disabling the get for url to save on data usage from Firebase
       try {
-        // tracksTwo[0].url = await getDownloadURL(
+        // trackList[0].url = await getDownloadURL(
         //   ref(storage, 'sounds/nature/crickets.wav'),
         // )
-        // tracksTwo[1].url = await getDownloadURL(
+        // trackList[1].url = await getDownloadURL(
         //   ref(storage, 'sounds/nature/wind.wav'),
         // )
-        // tracksTwo[2].url = await getDownloadURL(
+        // trackList[2].url = await getDownloadURL(
         //   ref(storage, 'sounds/nature/heavy_rain.mp3'),
         // )
-        // tracksTwo[3].url = await getDownloadURL(
+        // trackList[3].url = await getDownloadURL(
         //   ref(storage, 'sounds/nature/seagulls.wav'),
         // )
-        await TrackPlayer.add(tracksTwo)
+        await TrackPlayer.add(trackList)
       } catch (error) {
         console.error(error)
       }

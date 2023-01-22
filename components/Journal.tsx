@@ -44,7 +44,7 @@ const Journal: React.FC = () => {
     } else {
       setEntry([])
     }
-  }, [userId])
+  }, [])
 
   // adds entry to firestore collection
   const addJournalEntry = async (entryData) => {
