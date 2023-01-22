@@ -1,10 +1,16 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, TextInput, StyleSheet, ScrollView } from 'react-native'
 import { Button } from 'react-native-paper'
 import moment from 'moment'
 import { Modal } from 'react-native-paper'
 import { auth, db } from '../firebase/firebaseConfig'
-import { collection, addDoc } from 'firebase/firestore'
+import {
+  collection,
+  addDoc,
+  onSnapshot,
+  orderBy,
+  query,
+} from 'firebase/firestore'
 
 const Journal: React.FC = () => {
   const [entry, setEntry] = useState([])
@@ -19,18 +25,14 @@ const Journal: React.FC = () => {
 
       // Add the entry data to the "journal" collection, under the user's document
       if (userId) {
-        const docRef = await addDoc(collection(db, 'users'), {
+        const docRef = await addDoc(collection(db, 'userEntries'), {
           userId,
-          userEntries:
-            (collection(db, 'entries'),
-            {
-              entry: entryData,
-            }),
+          entry: entryData,
         })
         alert('should be in the collection!')
         console.log('Journal entry written with ID: ', docRef.id)
       } else {
-        alert('no userId found')
+        //alert('no userId found')
       }
     } catch (error) {
       console.error('Error adding journal entry: ', error)
@@ -38,8 +40,20 @@ const Journal: React.FC = () => {
     }
   }
 
+  useEffect(() => {
+    const q = query(collection(db, 'userEntries'), orderBy('created', 'desc'))
+    onSnapshot(q, (querySnapshot) => {
+      setEntry(
+        querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          data: doc.data(),
+        })),
+      )
+    })
+  }, [])
+
   const handleAddEntry = () => {
-    if (newEntry !== '') {
+    if (auth.currentUser !== null && newEntry !== '') {
       setEntry([
         ...entry,
         { text: newEntry, timestamp: moment().format('MM/DD/YYYY') },
@@ -49,6 +63,9 @@ const Journal: React.FC = () => {
         text: newEntry,
         timestamp: moment().format('MM/DD/YYYY'),
       })
+    } else if (auth.currentUser === null) {
+      // Show an error message or alert to the user
+      alert('You must be logged in to add an entry')
     }
   }
 
