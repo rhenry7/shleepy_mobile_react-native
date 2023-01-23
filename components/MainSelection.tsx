@@ -3,6 +3,7 @@ import React from 'react'
 import { View, Text } from 'react-native'
 import { styles } from '../styles'
 import Meditation from './Meditation'
+import CircleAnimation from './meditationAnimations/CircleMeditation'
 import Playlists from './Playlists'
 
 // export function Meditation() {
@@ -33,7 +34,7 @@ export function PlaylistsChoice() {
       }}
     >
       <Tab.Screen name="Playlists" component={Playlists} />
-      <Tab.Screen name="Meditation" component={Meditation} />
+      <Tab.Screen name="Meditation" component={CircleAnimation} />
     </Tab.Navigator>
   )
 }
