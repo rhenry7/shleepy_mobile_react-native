@@ -14,8 +14,8 @@ function Playlists({ navigation }) {
   const dispatch = useDispatch()
   const modalVisible = useSelector((state: RootState) => state.modal.modalState)
 
-  const handleSignOut = () => {
-    auth
+  const handleSignOut = async () => {
+    await auth
       .signOut()
       .then(() => {
         if (auth.currentUser) {
