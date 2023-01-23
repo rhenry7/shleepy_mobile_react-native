@@ -14,16 +14,16 @@ _"Shleepy"_ is a mobile sleep aid application that utilizes Firebase, React Nati
 
 3. **Mixer**: The Mixer feature allows users to play multiple tracks of ambient noise, with volume control, to create their own personalized audio landscape. This feature is particularly useful for users who have trouble sleeping and need a specific sound environment to fall asleep.
 
-4. **Sound Library**: The sound library feature that allows users to pick their ideal sound for falling asleep. This feature uses React Native Navigation to provide a beneficial navigate between different sound categories. The Redux Toolkit is used to manage the state of the currently selected sound and its playback.
+4. **Sound Library**: The sound library feature allows users to pick their ideal sound for falling asleep from a curated collection of sounds. Redux Toolkit is used to manage the state of the currently selected sound and its playback.
 
 # Technologies Used:
 
-1. **Firebase**: Firebase is used for authentication and database storage, ensuring that the app's user data is secure and accessible only to the authenticated user. Firebase also stores the audio files, making the file size of the app smaller and allowing the audio files to be retrieved from storage when the user initializes the app, making the app faster and not storing these larger files locally.
+1. **Firebase**: Firebase is used for authentication and database storage, ensuring that the app's user data is secure and accessible only to the authenticated user. Firebase also stores the audio files, making the file size of the app smaller and allowing the audio files to be retrieved from storage when the user initializes the app, making the app faster by not having ti store these larger files locally.
 
-2. **React Native**: React Native allows for a native-like experience on both iOS and Android devices.
+2. **React Native**: React Native allows for a native-like experience on both iOS and Android devices. Expo was also used to improve the development process.
 
 3. **TypeScript**: TypeScript is used for type checking and improving code quality, making the development process more efficient and reducing the likelihood of runtime errors.
 
-4. **Redux Toolkit**: Redux Toolkit is used for state management, allowing for the seamless management of the app's state, including authentication and tracking playback of currently played sounds.
+4. **Redux Toolkit**: Redux Toolkit is used for state management, allowing for the seamless management of the app's state, including authentication, global modal system and tracking playback of currently played sounds.
 
 5. **React Native Navigation**: React Native Navigation is used to navigate between the app's features.
