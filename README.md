@@ -26,4 +26,4 @@ _"Shleepy"_ is a mobile sleep aid application that utilizes Firebase, React Nati
 
 4. **Redux Toolkit**: Redux Toolkit is used for state management, allowing for the seamless management of the app's state, including authentication and tracking playback of currently played sounds.
 
-5. **React Native Navigation**: React Native Navigation is used to navigate between the app's features, making it easy for the user to access and use all the features of
+5. **React Native Navigation**: React Native Navigation is used to navigate between the app's features.
