@@ -43,6 +43,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     backgroundColor: '#060523',
+    paddingTop: 20,
     maxHeight: '100%',
   },
   container_list: {
@@ -59,7 +60,7 @@ export const styles = StyleSheet.create({
     padding: 20,
   },
   description: {
-    color: 'white',
+    color: '#F0EAD6',
     fontSize: 14,
     fontWeight: '300',
   },
@@ -69,9 +70,9 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     margin: 0,
     padding: 2,
-    color: 'white',
+    color: '#F0EAD6',
   },
-  buttonContainer: {
+  SoundMixer: {
     //flex: 1,
     height: 100,
     //borderRadius: 8,
@@ -83,7 +84,7 @@ export const styles = StyleSheet.create({
     // marginTop: 32,
     marginBottom: 0,
     paddingStart: 24,
-    color: 'white',
+    color: '#F0EAD6',
   },
   subNavContainer: {
     paddingStart: 24,
@@ -93,16 +94,16 @@ export const styles = StyleSheet.create({
     fontSize: 14,
     margin: 0,
     fontWeight: '400',
-    color: '#FFF',
+    color: '#F0EAD6',
   },
   mainNavTitle: {
     fontSize: 34,
     margin: 0,
     fontWeight: '600',
-    color: '#FFF',
+    color: '#F0EAD6',
   },
   white: {
-    color: 'white',
+    color: '#F0EAD6',
   },
   background: {
     color: '#393281',
@@ -117,6 +118,6 @@ export const colors = StyleSheet.create({
     color: '#060523',
   },
   highlight: {
-    color: '#fff7c1',
+    color: '#F0EAD6',
   },
 })

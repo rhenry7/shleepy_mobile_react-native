@@ -88,7 +88,7 @@ const Journal: React.FC = () => {
           style={styles.inputText}
         />
         <Button
-          style={styles.buttonContainer}
+          style={styles.SoundMixer}
           icon="plus"
           mode="contained"
           onPress={handleAddEntry}
@@ -101,7 +101,10 @@ const Journal: React.FC = () => {
         <View style={styles.entries}>
           {entry.map((todo, index) => (
             <View key={index} style={styles.entry}>
-              <Text style={colors.white} onPress={() => setSelectedEntry(todo)}>
+              <Text
+                style={colors.highlight}
+                onPress={() => setSelectedEntry(todo)}
+              >
                 {todo.text.length < 100
                   ? todo.text
                   : `${todo.text.slice(0, 100)}...`}
@@ -137,7 +140,7 @@ export const colors = StyleSheet.create({
     color: '#060523',
   },
   highlight: {
-    color: '#fff7c1',
+    color: '#F0EAD6',
   },
   white: {
     color: '#fff',
@@ -177,7 +180,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     borderColor: 'rgba(0, 0, 0, 0.1)',
   },
-  buttonContainer: {
+  SoundMixer: {
     margin: 20,
   },
   inputText: {

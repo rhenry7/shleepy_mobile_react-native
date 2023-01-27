@@ -107,7 +107,7 @@ function Playlists({ navigation }) {
             }
 
             <Button
-              style={modalStyles.buttonContainer}
+              style={modalStyles.SoundMixer}
               icon="plus"
               mode="contained"
               onPress={() => {
@@ -119,7 +119,7 @@ function Playlists({ navigation }) {
               Sign Up
             </Button>
             <Button
-              style={modalStyles.buttonContainer}
+              style={modalStyles.SoundMixer}
               icon="arrow-right"
               mode="contained"
               onPress={() => {
@@ -131,7 +131,7 @@ function Playlists({ navigation }) {
               Sign In
             </Button>
             <Button
-              style={modalStyles.buttonContainer}
+              style={modalStyles.SoundMixer}
               icon="minus"
               mode="contained"
               onPress={() => {
@@ -168,7 +168,7 @@ const modalStyles = StyleSheet.create({
     transform: [{ translateX: -20 }, { translateY: -380 }],
   },
 
-  buttonContainer: {
+  SoundMixer: {
     //margin: 20,
     display: 'flex',
     alignItems: 'flex-start',

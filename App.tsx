@@ -5,7 +5,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import { Provider } from 'react-redux'
 import { store } from './src/app/reducer/store'
 import TrackPlayer, { RepeatMode, Capability } from 'react-native-track-player'
-import ButtonContainer from './components/SoundButtons/ButtonContainer'
+import SoundMixer from './components/SoundButtons/SoundMixer'
 import { auth, storage } from './firebase/firebaseConfig'
 import { Provider as PaperProvider } from 'react-native-paper'
 import { PlaylistStackScreen } from './src/app/Stacks/PlaylistStack'
@@ -59,7 +59,7 @@ export default function App() {
           title: 'Blues Beat',
         },
       ]
-      // Temporarily disabling the get for url to save on data usage from Firebase
+      // TODO: Temporarily disabling the get for url to save on data usage from Firebase
       try {
         // trackList[0].url = await getDownloadURL(
         //   ref(storage, 'sounds/nature/crickets.wav'),
@@ -143,7 +143,7 @@ export default function App() {
               <Tab.Screen name="Playlists" component={PlaylistStackScreen} />
               <Tab.Screen
                 name="SoundControllerScreen"
-                component={ButtonContainer}
+                component={SoundMixer}
                 options={{ title: 'Mixer' }}
               />
               <Tab.Screen

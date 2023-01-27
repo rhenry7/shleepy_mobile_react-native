@@ -4,7 +4,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 
 export const PlayStateToggle: React.FC<{ iconName: string; color: string }> = ({
   iconName = 'ios-play',
-  color = 'white',
+  color = '#F0EAD6',
 }) => {
   return (
     <View>

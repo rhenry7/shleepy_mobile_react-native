@@ -104,19 +104,6 @@ Currently, there is a bug to fix the delay/lag of switching between the sounds p
           </Pressable>
         </View>
         <View>
-          {/* {
-            // placeholder for new button
-          }
-          <Pressable onPress={playSpaceHook}>
-            <SoundCard
-              title="Deep Space"
-              description="empty void of space"
-              iconName="cloudy-night"
-              status={spaceSoundStatus}
-            />
-          </Pressable> */}
-        </View>
-        <View>
           <Pressable onPress={playWindHook}>
             <SoundCard
               title="Warm Wind"

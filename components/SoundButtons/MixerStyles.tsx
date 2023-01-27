@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     height: 80,
     backgroundColor: '#463AA0',
   },
-  buttonContainer: {
+  SoundMixer: {
     backgroundColor: '#060523',
     flex: 1,
     // justifyContent: 'center',
@@ -20,6 +20,12 @@ export const styles = StyleSheet.create({
     color: '#fff',
     paddingVertical: 120,
   },
+  description: {
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    margin: 20,
+  },
+
   buttonTitle: {
     fontSize: 18,
     fontWeight: '300',

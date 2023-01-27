@@ -2,7 +2,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import React from 'react'
 import Meditation from './Meditation'
 import CircleAnimation from './meditationAnimations/CircleMeditation'
-import MeditationStackScreen from './MeditationStack'
+import MeditationStackScreen from '../src/app/Stacks/MeditationStack'
 import Playlists from './Playlists'
 
 export function PlaylistsChoice() {

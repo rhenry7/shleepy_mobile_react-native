@@ -7,15 +7,21 @@ import Playlists from './Playlists'
 const Meditation = ({ navigation }) => {
   return (
     <View style={styles.container}>
+      <View style={styles.description}>
+        <Text style={{ color: '#F0EAD6' }}>
+          Choose a type of meditation that will help you relax, feel calm and go
+          to sleep. Watch the animation and match your breathing to the pattern.
+        </Text>
+      </View>
       <View style={styles.row}>
         <Pressable onPress={() => navigation.navigate('CircleMeditation')}>
           <Card style={styles.card}>
             <Card.Content style={styles.content}>
               {
                 // @ts-ignore:next-line
-                <IconButton icon="moon-full" iconColor={'#fff'} size={35} />
+                <IconButton icon="moon-full" iconColor={'#F0EAD6'} size={35} />
               }
-              <Text style={{ color: 'white' }}>
+              <Text style={{ color: '#F0EAD6' }}>
                 Main sleep meditation thing
               </Text>
             </Card.Content>
@@ -27,12 +33,14 @@ const Meditation = ({ navigation }) => {
               // @ts-ignore:next-line
               <IconButton
                 icon="flower-outline"
-                iconColor={'#fff'}
+                iconColor={'#F0EAD6'}
                 size={35}
                 onPress={() => console.log('Pressed')}
               />
             }
-            <Text style={{ color: 'white' }}>Main sleep meditation thing</Text>
+            <Text style={{ color: '#F0EAD6' }}>
+              Main sleep meditation thing
+            </Text>
           </Card.Content>
         </Card>
       </View>
@@ -43,12 +51,14 @@ const Meditation = ({ navigation }) => {
               // @ts-ignore:next-line
               <IconButton
                 icon="map"
-                iconColor={'#fff'}
+                iconColor={'#F0EAD6'}
                 size={35}
                 onPress={() => console.log('Pressed')}
               />
             }
-            <Text style={{ color: 'white' }}>Main sleep meditation thing</Text>
+            <Text style={{ color: '#F0EAD6' }}>
+              Main sleep meditation thing
+            </Text>
           </Card.Content>
         </Card>
         <Card style={styles.card}>
@@ -57,12 +67,14 @@ const Meditation = ({ navigation }) => {
               // @ts-ignore:next-line
               <IconButton
                 icon="waves"
-                iconColor={'#fff'}
+                iconColor={'#F0EAD6'}
                 size={35}
                 onPress={() => console.log('Pressed')}
               />
             }
-            <Text style={{ color: 'white' }}>Main sleep meditation thing</Text>
+            <Text style={{ color: '#F0EAD6' }}>
+              Main sleep meditation thing
+            </Text>
           </Card.Content>
         </Card>
       </View>
@@ -71,23 +83,6 @@ const Meditation = ({ navigation }) => {
 }
 
 const Tab = createMaterialTopTabNavigator()
-
-export function PlaylistsChoice() {
-  return (
-    <Tab.Navigator
-      screenOptions={{
-        tabBarActiveTintColor: '#e91e63',
-        tabBarLabelStyle: { fontSize: 12, color: '#F0EAD6' },
-        tabBarIndicatorStyle: {
-          backgroundColor: '#463AA0ed',
-        },
-        tabBarStyle: { backgroundColor: '#060523' },
-      }}
-    >
-      <Tab.Screen name="Playlists" component={Playlists} />
-    </Tab.Navigator>
-  )
-}
 
 const styles = StyleSheet.create({
   container: {
@@ -102,6 +97,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  description: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 20,
+  },
   card: {
     width: 150,
     height: 150,
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#463AA0',
-    color: '#fff',
+    color: '#F0EAD6',
   },
   content: {
     flex: 1,

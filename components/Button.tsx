@@ -29,7 +29,7 @@ export const MenuButton: React.FC<{
               justifyContent: 'center',
             }}
           >
-            <Ionicons name={iconName} size={24} color={'white'}></Ionicons>
+            <Ionicons name={iconName} size={24} color={'#F0EAD6'}></Ionicons>
           </View>
           <View
             style={{

@@ -7,7 +7,7 @@ import VolumeSlider from './Slider'
 
 export const ControllerIcon: React.FC<{ iconName: string; color: string }> = ({
   iconName = 'ios-play',
-  color = 'white',
+  color = '#F0EAD6',
 }) => {
   return (
     <View>

@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   actionButton: {
-    color: 'white',
+    color: '#F0EAD6',
     fontWeight: '300',
     fontSize: 18,
     paddingLeft: 15,
@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
   },
   buttonText: {
-    color: 'white',
+    color: '#F0EAD6',
     fontWeight: '700',
     fontSize: 32,
     alignItems: 'center',

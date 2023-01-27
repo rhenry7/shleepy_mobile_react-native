@@ -44,7 +44,7 @@ export const SoundCard: React.FC<{
               <Ionicons
                 name={iconName}
                 size={20}
-                color={status && isPlaying ? '#fff7c1' : 'white'}
+                color={status && isPlaying ? '#fff7c1' : '#F0EAD6'}
               ></Ionicons>
             </View>
             <View
