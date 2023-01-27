@@ -11,6 +11,7 @@ import { modalVisibleAction } from '../reducer/slices/modalSlice'
 import SignUpScreen from '../../../components/auth/SignUp'
 import SignInScreen from '../../../components/auth/SignIn'
 import { auth } from '../../../firebase/firebaseConfig'
+import CircleMeditation from '../../../components/meditationAnimations/CircleMeditation'
 
 // TODO: consider renaming to "HomeStack" since this is basically the home screen for now
 
@@ -83,6 +84,10 @@ export function PlaylistStackScreen({ navigation }) {
       <PlaylistStack.Screen name="Ambient" component={AmbientSoundsList} />
       <PlaylistStack.Screen name="Sign Up" component={SignUpScreen} />
       <PlaylistStack.Screen name="Sign In" component={SignInScreen} />
+      <PlaylistStack.Screen
+        name="CircleMeditation"
+        component={CircleMeditation}
+      />
     </PlaylistStack.Navigator>
   )
 }

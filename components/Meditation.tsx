@@ -1,25 +1,26 @@
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, Pressable } from 'react-native'
 import { Card, IconButton, Text } from 'react-native-paper'
+import Playlists from './Playlists'
 
-const Meditation = () => {
+const Meditation = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.row}>
-        <Card style={styles.card}>
-          <Card.Content style={styles.content}>
-            {
-              // @ts-ignore:next-line
-              <IconButton
-                icon="moon-full"
-                iconColor={'#fff'}
-                size={35}
-                onPress={() => console.log('Pressed')}
-              />
-            }
-            <Text style={{ color: 'white' }}>Main sleep meditation thing</Text>
-          </Card.Content>
-        </Card>
+        <Pressable onPress={() => navigation.navigate('CircleMeditation')}>
+          <Card style={styles.card}>
+            <Card.Content style={styles.content}>
+              {
+                // @ts-ignore:next-line
+                <IconButton icon="moon-full" iconColor={'#fff'} size={35} />
+              }
+              <Text style={{ color: 'white' }}>
+                Main sleep meditation thing
+              </Text>
+            </Card.Content>
+          </Card>
+        </Pressable>
         <Card style={styles.card}>
           <Card.Content style={styles.content}>
             {
@@ -66,6 +67,25 @@ const Meditation = () => {
         </Card>
       </View>
     </View>
+  )
+}
+
+const Tab = createMaterialTopTabNavigator()
+
+export function PlaylistsChoice() {
+  return (
+    <Tab.Navigator
+      screenOptions={{
+        tabBarActiveTintColor: '#e91e63',
+        tabBarLabelStyle: { fontSize: 12, color: '#F0EAD6' },
+        tabBarIndicatorStyle: {
+          backgroundColor: '#463AA0ed',
+        },
+        tabBarStyle: { backgroundColor: '#060523' },
+      }}
+    >
+      <Tab.Screen name="Playlists" component={Playlists} />
+    </Tab.Navigator>
   )
 }
 
