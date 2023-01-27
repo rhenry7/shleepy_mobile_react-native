@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {
-  View,
-  StyleSheet,
-  Animated,
-  TouchableWithoutFeedback,
-} from 'react-native'
+import { View, StyleSheet, Animated, Easing } from 'react-native'
 
 const CircleMeditation = () => {
   const [animation, setAnimation] = useState(new Animated.Value(1))
@@ -17,13 +12,21 @@ const CircleMeditation = () => {
       Animated.sequence([
         Animated.timing(animation, {
           toValue: 1.5,
-          duration: 4000,
+          duration: 3000,
           useNativeDriver: true,
+          easing: Easing.linear,
+        }),
+        Animated.timing(animation, {
+          toValue: 0.5,
+          duration: 3000,
+          useNativeDriver: true,
+          easing: Easing.elastic(1),
         }),
         Animated.timing(animation, {
           toValue: 1,
-          duration: 4000,
+          duration: 3000,
           useNativeDriver: true,
+          easing: Easing.linear,
         }),
       ]),
     ).start()

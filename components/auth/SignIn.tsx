@@ -10,6 +10,7 @@ import {
 import { auth, provider } from '../../firebase/firebaseConfig'
 import { setCurrentUser } from '../../src/app/reducer/slices/userSlice'
 import { useDispatch } from 'react-redux'
+import { Button } from 'react-native-paper'
 
 function SignInScreen({ navigation }) {
   const [value, setValue] = React.useState({
@@ -21,7 +22,7 @@ function SignInScreen({ navigation }) {
 
   console.log({ auth: auth.currentUser })
 
-  async function Login() {
+  async function signIn() {
     if (value.email === '' || value.password === '') {
       setValue({
         ...value,
@@ -50,6 +51,7 @@ function SignInScreen({ navigation }) {
           )
         }
       })
+      navigation.navigate('Playlists')
     } catch (error) {
       setValue({
         ...value,
@@ -84,7 +86,7 @@ function SignInScreen({ navigation }) {
 
   return (
     <View style={[styles.container]}>
-      <Text style={styles.buttonText}>Login</Text>
+      <Text style={styles.buttonText}>Sign In</Text>
       <View style={styles.inputContainer}>
         <View style={styles.input}>
           <View>
@@ -114,9 +116,18 @@ function SignInScreen({ navigation }) {
           </View>
         </View>
         <Pressable style={styles.extraPaddedSpace}>
-          <Text onPress={Login} style={[styles.actionButton, styles.highlight]}>
+          {/* <Text onPress={Login} style={[styles.actionButton, styles.highlight]}>
             Login
-          </Text>
+          </Text> */}
+          <Button
+            icon="account-arrow-right-outline"
+            mode="contained"
+            onPress={signIn}
+            buttonColor={'#463AA0ed'}
+          >
+            Sign In
+          </Button>
+
           <Text style={styles.actionButton}>
             Don't have an account?{' '}
             <Text
