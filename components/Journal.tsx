@@ -10,7 +10,7 @@ import { Rating, AirbnbRating } from 'react-native-ratings'
 
 type EntryDataResponse = {
   text: string
-  timeStamp: string
+  timestamp: number
   rating: number
 }
 
@@ -27,7 +27,7 @@ const Journal: React.FC = () => {
       //const entriesRef = await collection(db, 'userEntries')
       const entries = query(
         collection(db, 'userEntries'),
-        orderBy('entry', 'asc'),
+        orderBy('date', 'desc'),
       )
 
       const querySnapshot = await getDocs(entries)
@@ -67,6 +67,7 @@ const Journal: React.FC = () => {
         const docRef = await addDoc(collection(db, 'userEntries'), {
           userId,
           entry: entryData,
+          date: Date.now(),
         })
         alert('should be in the collection!')
         console.log('Journal entry written with ID: ', docRef.id)
@@ -82,6 +83,8 @@ const Journal: React.FC = () => {
       ;``
       setNewEntry('')
       setRating(0)
+      const newTime = moment().toISOString()
+      console.log({ newTime })
       addJournalEntry({
         text: newEntry,
         timestamp: moment().format('MMMM Do YYYY, h:mm:ss a'),
@@ -137,7 +140,7 @@ const Journal: React.FC = () => {
                   : `${entryData.text.slice(0, 100)}...`}
               </Text>
 
-              <Text style={colors.highlight}>{entryData.timeStamp}</Text>
+              <Text style={colors.highlight}>{entryData.timestamp}</Text>
               {/* <View style={{ paddingTop: 10 }}></View> */}
               <AirbnbRating
                 count={5}
@@ -244,6 +247,8 @@ const styles = StyleSheet.create({
   },
   entry: {
     padding: 10,
+    display: 'flex',
+    alignItems: 'flex-start',
   },
 })
 

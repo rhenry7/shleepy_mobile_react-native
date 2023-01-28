@@ -22,6 +22,22 @@ function SignInScreen({ navigation }) {
 
   console.log({ auth: auth.currentUser })
 
+  const signInAsFrank = () => {
+    setValue({
+      email: 'Frank@aol.com',
+      password: 'waterbird',
+      error: '',
+    })
+    dispatch(
+      setCurrentUser({
+        email: auth.currentUser.email,
+        displayName: auth.currentUser.displayName,
+        id: auth.currentUser.uid,
+      }),
+    )
+    navigation.navigate('Playlists')
+  }
+
   async function signIn() {
     if (value.email === '' || value.password === '') {
       setValue({
@@ -49,9 +65,9 @@ function SignInScreen({ navigation }) {
               id: auth.currentUser.uid,
             }),
           )
+          navigation.navigate('Playlists')
         }
       })
-      navigation.navigate('Playlists')
     } catch (error) {
       setValue({
         ...value,
@@ -122,7 +138,7 @@ function SignInScreen({ navigation }) {
           <Button
             icon="account-arrow-right-outline"
             mode="contained"
-            onPress={signIn}
+            onPress={signInAsFrank}
             buttonColor={'#463AA0ed'}
           >
             Sign In
