@@ -8,6 +8,12 @@ import { collection, addDoc, getDocs } from 'firebase/firestore'
 import { useFocusEffect } from '@react-navigation/native'
 import { Rating, AirbnbRating } from 'react-native-ratings'
 
+type EntryDataResponse = {
+  text: string
+  timeStamp: string
+  rating: number
+}
+
 const Journal: React.FC = () => {
   const [entry, setEntry] = useState([])
   const [newEntry, setNewEntry] = useState('')
@@ -32,6 +38,7 @@ const Journal: React.FC = () => {
   }
   console.log({ userId })
 
+  // useFocusEffect instead of useEffect to get entries when navigating with RNN
   useFocusEffect(
     React.useCallback(() => {
       if (auth.currentUser !== null) {
@@ -68,6 +75,7 @@ const Journal: React.FC = () => {
     if (auth.currentUser !== null && newEntry !== '') {
       ;``
       setNewEntry('')
+      setRating(0)
       addJournalEntry({
         text: newEntry,
         timestamp: moment().format('MM/DD/YYYY'),
@@ -94,7 +102,7 @@ const Journal: React.FC = () => {
         <View style={{ paddingTop: 10 }}>
           <AirbnbRating
             count={5}
-            defaultRating={2}
+            defaultRating={rating}
             size={28}
             showRating={false}
             onFinishRating={(rating) => setRating(rating)}
@@ -112,17 +120,26 @@ const Journal: React.FC = () => {
       </View>
       <ScrollView showsVerticalScrollIndicator={true} indicatorStyle={'white'}>
         <View style={styles.entries}>
-          {entry.map((todo, index) => (
+          {entry.map((entryData: EntryDataResponse, index) => (
             <View key={index} style={styles.entry}>
               <Text
                 style={colors.highlight}
-                onPress={() => setSelectedEntry(todo)}
+                onPress={() => setSelectedEntry(entryData)}
               >
-                {todo.text.length < 100
-                  ? todo.text
-                  : `${todo.text.slice(0, 100)}...`}
+                {entryData.text.length < 100
+                  ? entryData.text
+                  : `${entryData.text.slice(0, 100)}...`}
               </Text>
-              <Text style={colors.highlight}>{todo.timestamp}</Text>
+
+              <Text style={colors.highlight}>{entryData.timeStamp}</Text>
+              {/* <View style={{ paddingTop: 10 }}></View> */}
+              <AirbnbRating
+                count={5}
+                defaultRating={entryData.rating}
+                size={14}
+                showRating={false}
+                onFinishRating={(rating) => setRating(rating)}
+              />
             </View>
           ))}
         </View>
@@ -214,6 +231,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     display: 'flex',
     alignItems: 'flex-start',
+    justifyContent: 'center',
     margin: 10,
     padding: 10,
     maxWidth: 400,
