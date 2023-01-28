@@ -4,7 +4,7 @@ import { Button } from 'react-native-paper'
 import moment from 'moment'
 import { Modal } from 'react-native-paper'
 import { auth, db } from '../firebase/firebaseConfig'
-import { collection, addDoc, getDocs } from 'firebase/firestore'
+import { collection, addDoc, getDocs, orderBy, query } from 'firebase/firestore'
 import { useFocusEffect } from '@react-navigation/native'
 import { Rating, AirbnbRating } from 'react-native-ratings'
 
@@ -24,7 +24,13 @@ const Journal: React.FC = () => {
 
   const getEntries = async () => {
     try {
-      const querySnapshot = await getDocs(collection(db, 'userEntries'))
+      //const entriesRef = await collection(db, 'userEntries')
+      const entries = query(
+        collection(db, 'userEntries'),
+        orderBy('entry', 'asc'),
+      )
+
+      const querySnapshot = await getDocs(entries)
       let userEntries = []
       querySnapshot.forEach((doc) => {
         if (doc.data().userId === userId) {
@@ -46,7 +52,7 @@ const Journal: React.FC = () => {
       } else {
         setEntry([])
       }
-    }, [auth.currentUser]),
+    }, [auth.currentUser, newEntry]),
   )
 
   // adds entry to firestore collection
@@ -78,7 +84,7 @@ const Journal: React.FC = () => {
       setRating(0)
       addJournalEntry({
         text: newEntry,
-        timestamp: moment().format('MM/DD/YYYY'),
+        timestamp: moment().format('MMMM Do YYYY, h:mm:ss a'),
         rating: rating,
       })
     } else if (auth.currentUser === null) {
