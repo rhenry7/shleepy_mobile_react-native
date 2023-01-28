@@ -6,11 +6,14 @@ import { Modal } from 'react-native-paper'
 import { auth, db } from '../firebase/firebaseConfig'
 import { collection, addDoc, getDocs } from 'firebase/firestore'
 import { useFocusEffect } from '@react-navigation/native'
+import { Rating, AirbnbRating } from 'react-native-ratings'
 
 const Journal: React.FC = () => {
   const [entry, setEntry] = useState([])
   const [newEntry, setNewEntry] = useState('')
   const [selectedEntry, setSelectedEntry] = useState(null)
+  const [rating, setRating] = useState(0)
+
   const userId = auth.currentUser?.uid
 
   const getEntries = async () => {
@@ -68,6 +71,7 @@ const Journal: React.FC = () => {
       addJournalEntry({
         text: newEntry,
         timestamp: moment().format('MM/DD/YYYY'),
+        rating: rating,
       })
     } else if (auth.currentUser === null) {
       // Show an error message or alert to the user
@@ -87,6 +91,15 @@ const Journal: React.FC = () => {
           multiline={true}
           style={styles.inputText}
         />
+        <View style={{ paddingTop: 10 }}>
+          <AirbnbRating
+            count={5}
+            defaultRating={2}
+            size={28}
+            showRating={false}
+            onFinishRating={(rating) => setRating(rating)}
+          />
+        </View>
         <Button
           style={styles.SoundMixer}
           icon="plus"
