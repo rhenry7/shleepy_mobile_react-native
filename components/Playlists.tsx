@@ -105,43 +105,54 @@ function Playlists({ navigation }) {
                 size={15}
               />
             }
+            <View style={modalStyles.modalBody}>
+              <Pressable
+                onPress={() => {
+                  dispatch(modalVisibleAction(false))
+                  navigation.navigate('Sign Up')
+                }}
+              >
+                <Button
+                  style={modalStyles.authContent}
+                  icon="plus"
+                  mode="contained"
+                  buttonColor={'#463AA0ed'}
+                >
+                  Sign Up
+                </Button>
+              </Pressable>
+              <Pressable
+                onPress={() => {
+                  navigation.navigate('Sign In')
+                  dispatch(modalVisibleAction(false))
+                }}
+              >
+                <Button
+                  style={modalStyles.authContent}
+                  icon="arrow-right"
+                  mode="contained"
+                  buttonColor={'#463AA0ed'}
+                >
+                  Sign In
+                </Button>
+              </Pressable>
 
-            <Button
-              style={modalStyles.SoundMixer}
-              icon="plus"
-              mode="contained"
-              onPress={() => {
-                navigation.navigate('Sign Up')
-                dispatch(modalVisibleAction(false))
-              }}
-              buttonColor={'#463AA0ed'}
-            >
-              Sign Up
-            </Button>
-            <Button
-              style={modalStyles.SoundMixer}
-              icon="arrow-right"
-              mode="contained"
-              onPress={() => {
-                navigation.navigate('Sign In')
-                dispatch(modalVisibleAction(false))
-              }}
-              buttonColor={'#463AA0ed'}
-            >
-              Sign In
-            </Button>
-            <Button
-              style={modalStyles.SoundMixer}
-              icon="minus"
-              mode="contained"
-              onPress={() => {
-                handleSignOut()
-                dispatch(modalVisibleAction(false))
-              }}
-              buttonColor={'#463AA0ed'}
-            >
-              Sign Out
-            </Button>
+              <Pressable
+                onPress={() => {
+                  handleSignOut()
+                  dispatch(modalVisibleAction(false))
+                }}
+              >
+                <Button
+                  style={modalStyles.authContent}
+                  icon="minus"
+                  mode="contained"
+                  buttonColor={'#463AA0ed'}
+                >
+                  Sign Out
+                </Button>
+              </Pressable>
+            </View>
           </View>
         </Modal>
       </Portal>
@@ -153,13 +164,11 @@ const modalStyles = StyleSheet.create({
   modalContainer: {
     flex: 2,
     flexDirection: 'column',
-    //alignItems: 'center',
-    alignContent: 'flex-start',
+
     justifyContent: 'flex-start',
     backgroundColor: '#060523',
     padding: 15,
     borderRadius: 8,
-    zIndex: 10,
     borderColor: '#fff',
     borderWidth: 0.3,
     position: 'absolute',
@@ -168,11 +177,13 @@ const modalStyles = StyleSheet.create({
     transform: [{ translateX: -20 }, { translateY: -380 }],
   },
 
-  SoundMixer: {
-    //margin: 20,
+  authContent: {
     display: 'flex',
-    alignItems: 'flex-start',
-    margin: 13,
+    alignItems: 'center',
+    margin: 15,
+  },
+  modalBody: {
+    margin: 20,
   },
 
   modalContent: {
@@ -181,12 +192,11 @@ const modalStyles = StyleSheet.create({
     display: 'flex',
     // alignContent: 'flex-start',
     // justifyContent: 'center',
-    maxWidth: '98%',
-    margin: 10,
+    maxWidth: '9%',
+    margin: 1,
     padding: 32,
     borderRadius: 8,
   },
-  modalMainContent: {},
   wrapper: {
     alignItems: 'center',
     justifyContent: 'center',

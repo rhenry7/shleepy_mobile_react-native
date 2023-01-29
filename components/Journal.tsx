@@ -151,7 +151,7 @@ const Journal: React.FC = () => {
                     setSelectedEntry({ text, timestamp, rating, id })
                   }
                 >
-                  {console.log({ text })}
+                  {console.log({ rating, timestamp })}
                   {text.length < 100 ? text : `${text.slice(0, 100)}...`}
                 </Text>
                 {
