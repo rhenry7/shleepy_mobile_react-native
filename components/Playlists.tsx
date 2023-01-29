@@ -15,34 +15,24 @@ function Playlists({ navigation }) {
   const modalVisible = useSelector((state: RootState) => state.modal.modalState)
 
   const handleSignOut = async () => {
-    await auth
-      .signOut()
-      .then(() => {
-        if (auth.currentUser) {
-          console.log(auth.currentUser.email)
-        } else {
-          console.log('User is not signed in.')
-          alert('You cant be signed out because you arent signed in!')
-          return
-        }
-        alert('Successfully signed out!')
-        dispatch(
-          setCurrentUser({
-            email: '',
-            displayName: '',
-            id: '',
-          }),
-        )
-        navigation.navigate('Playlists')
-      })
-      .catch((error) => {
-        if (auth.currentUser) {
-          console.log(auth.currentUser.email)
-        } else {
-          console.log('User is not signed in.')
-        }
-        alert(error.message)
-      })
+    try {
+      await auth.signOut()
+      dispatch(
+        setCurrentUser({
+          email: '',
+          displayName: '',
+          id: '',
+        }),
+      )
+      navigation.navigate('Playlists')
+    } catch (error) {
+      if (auth.currentUser) {
+        console.log(auth.currentUser.email)
+      } else {
+        console.log('User is not signed in.')
+      }
+      alert(error.message)
+    }
   }
 
   return (

@@ -20,7 +20,7 @@ function SignInScreen({ navigation }) {
   })
   const dispatch = useDispatch()
 
-  console.log({ auth: auth.currentUser })
+  // console.log({ auth: auth.currentUser })
 
   const signInAsFrank = () => {
     setValue({
@@ -138,7 +138,7 @@ function SignInScreen({ navigation }) {
           <Button
             icon="account-arrow-right-outline"
             mode="contained"
-            onPress={signInAsFrank}
+            onPress={signIn}
             buttonColor={'#463AA0ed'}
           >
             Sign In
