@@ -1,21 +1,24 @@
 import React, { useState } from 'react'
 import { View, Text, TextInput, StyleSheet, ScrollView } from 'react-native'
-import { Button } from 'react-native-paper'
+import { Button, Divider, IconButton } from 'react-native-paper'
 import moment from 'moment'
 import { Modal } from 'react-native-paper'
 import { auth, db } from '../firebase/firebaseConfig'
-import { collection, addDoc, getDocs, orderBy, query } from 'firebase/firestore'
+import {
+  collection,
+  addDoc,
+  getDocs,
+  orderBy,
+  query,
+  deleteDoc,
+  doc,
+} from 'firebase/firestore'
 import { useFocusEffect } from '@react-navigation/native'
-import { Rating, AirbnbRating } from 'react-native-ratings'
-
-type EntryDataResponse = {
-  text: string
-  timestamp: number
-  rating: number
-}
+import { AirbnbRating } from 'react-native-ratings'
 
 const Journal: React.FC = () => {
   const [entry, setEntry] = useState([])
+  const [deleteEntry, setDeleteEntry] = useState('')
   const [newEntry, setNewEntry] = useState('')
   const [selectedEntry, setSelectedEntry] = useState(null)
   const [rating, setRating] = useState(0)
@@ -24,17 +27,15 @@ const Journal: React.FC = () => {
 
   const getEntries = async () => {
     try {
-      //const entriesRef = await collection(db, 'userEntries')
       const entries = query(
         collection(db, 'userEntries'),
         orderBy('date', 'desc'),
       )
-
       const querySnapshot = await getDocs(entries)
       let userEntries = []
       querySnapshot.forEach((doc) => {
         if (doc.data().userId === userId) {
-          userEntries.push(doc.data().entry)
+          userEntries.push({ ...doc.data().entry, id: doc.id })
         }
       })
       setEntry(userEntries)
@@ -42,7 +43,6 @@ const Journal: React.FC = () => {
       console.error(error)
     }
   }
-  console.log({ userId })
 
   // useFocusEffect instead of useEffect to get entries when navigating with RNN
   useFocusEffect(
@@ -52,7 +52,7 @@ const Journal: React.FC = () => {
       } else {
         setEntry([])
       }
-    }, [auth.currentUser, newEntry]),
+    }, [auth.currentUser, newEntry, deleteEntry]),
   )
 
   // adds entry to firestore collection
@@ -96,6 +96,16 @@ const Journal: React.FC = () => {
     }
   }
 
+  const handleDelete = async (id) => {
+    try {
+      const docRef = doc(db, 'userEntries', id)
+      await deleteDoc(docRef)
+      setDeleteEntry(docRef.id)
+    } catch (error) {
+      console.log('could not delete', error)
+    }
+  }
+
   console.log({ entry })
   return (
     <View style={[styles.container]}>
@@ -129,26 +139,43 @@ const Journal: React.FC = () => {
       </View>
       <ScrollView showsVerticalScrollIndicator={true} indicatorStyle={'white'}>
         <View style={styles.entries}>
-          {entry.map((entryData: EntryDataResponse, index) => (
-            <View key={index} style={styles.entry}>
-              <Text
-                style={colors.highlight}
-                onPress={() => setSelectedEntry(entryData)}
-              >
-                {entryData.text.length < 100
-                  ? entryData.text
-                  : `${entryData.text.slice(0, 100)}...`}
-              </Text>
-
-              <Text style={colors.highlight}>{entryData.timestamp}</Text>
-              {/* <View style={{ paddingTop: 10 }}></View> */}
-              <AirbnbRating
-                count={5}
-                defaultRating={entryData.rating}
-                size={14}
-                showRating={false}
-                onFinishRating={(rating) => setRating(rating)}
-              />
+          {entry.map(({ text, timestamp, rating, id }, index) => (
+            <View style={styles.entryContent}>
+              <View key={index} style={styles.entry}>
+                <Text
+                  style={[
+                    colors.highlight,
+                    { paddingVertical: 5, fontSize: 18 },
+                  ]}
+                  onPress={() =>
+                    setSelectedEntry({ text, timestamp, rating, id })
+                  }
+                >
+                  {console.log({ text })}
+                  {text.length < 100 ? text : `${text.slice(0, 100)}...`}
+                </Text>
+                {
+                  //@ts-ignore:next-line
+                  <Divider bold={false} style={{ color: '#fff' }} />
+                }
+                <Text style={colors.highlight}>{timestamp}</Text>
+                <AirbnbRating
+                  count={5}
+                  defaultRating={rating}
+                  size={14}
+                  showRating={false}
+                  onFinishRating={(rating) => setRating(rating)}
+                />
+              </View>
+              {
+                //@ts-ignore:next-line
+                <IconButton
+                  icon="close"
+                  iconColor={'#F0EAD6'}
+                  size={24}
+                  onPress={() => handleDelete(id)}
+                />
+              }
             </View>
           ))}
         </View>
@@ -243,12 +270,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     margin: 10,
     padding: 10,
+    paddingTop: 20,
     maxWidth: 400,
   },
   entry: {
     padding: 10,
     display: 'flex',
     alignItems: 'flex-start',
+    maxWidth: '85%',
+  },
+  entryContent: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
   },
 })
 
