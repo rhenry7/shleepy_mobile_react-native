@@ -1,8 +1,6 @@
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import React from 'react'
 import { View, StyleSheet, Pressable } from 'react-native'
 import { Card, IconButton, Text } from 'react-native-paper'
-import Playlists from './Playlists'
 
 const Meditation = ({ navigation }) => {
   return (
@@ -82,15 +80,12 @@ const Meditation = ({ navigation }) => {
   )
 }
 
-const Tab = createMaterialTopTabNavigator()
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
     paddingTop: 10,
     backgroundColor: '#060523',
-    //justifyContent: 'center',
   },
   row: {
     flexDirection: 'row',
@@ -114,8 +109,6 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     alignItems: 'center',
-    // paddingTop: 20,
-    //backgroundColor: '#060523',
     justifyContent: 'center',
   },
 })

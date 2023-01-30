@@ -1,5 +1,6 @@
 {
   "cSpell.words": ["Ionicons", "Pressable", "todos"],
   "search.useGlobalIgnoreFiles": true,
-  "search.useParentIgnoreFiles": true
+  "search.useParentIgnoreFiles": true,
+  "C_Cpp.errorSquiggles": "disabled"
 }

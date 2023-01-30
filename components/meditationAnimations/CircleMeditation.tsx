@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { View, StyleSheet, Animated, Easing } from 'react-native'
+import { View, StyleSheet, Animated, Easing, Text } from 'react-native'
 
 const CircleMeditation = () => {
-  const [animation, setAnimation] = useState(new Animated.Value(1))
+  const animation = new Animated.Value(1)
   useEffect(() => {
     startAnimation()
   }, [])
@@ -11,16 +11,16 @@ const CircleMeditation = () => {
     Animated.loop(
       Animated.sequence([
         Animated.timing(animation, {
-          toValue: 1.5,
-          duration: 3000,
+          toValue: 1,
+          duration: 1000,
           useNativeDriver: true,
           easing: Easing.linear,
         }),
         Animated.timing(animation, {
-          toValue: 0.5,
-          duration: 3000,
+          toValue: 2,
+          duration: 5000,
           useNativeDriver: true,
-          easing: Easing.elastic(1),
+          easing: Easing.linear,
         }),
         Animated.timing(animation, {
           toValue: 1,
@@ -38,7 +38,19 @@ const CircleMeditation = () => {
 
   return (
     <View style={styles.container}>
-      <Animated.View style={[styles.circle, circleStyle]} />
+      <View style={{ padding: 20 }}>
+        <Animated.View style={[styles.circle, circleStyle]} />
+      </View>
+      <Text
+        style={{
+          color: '#F0EAD6',
+          paddingTop: 80,
+          fontSize: 24,
+          fontWeight: '400',
+        }}
+      >
+        breathe in, breathe out
+      </Text>
     </View>
   )
 }
@@ -46,6 +58,7 @@ const CircleMeditation = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#060523',
