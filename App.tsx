@@ -12,6 +12,63 @@ import { PlaylistStackScreen } from './src/app/Stacks/PlaylistStack'
 import { JournalStackScreen } from './src/app/Stacks/JournalStack'
 import { AuthStackScreen } from './src/app/Stacks/AuthStack'
 import { getDownloadURL, ref } from 'firebase/storage'
+import { LineChart } from 'react-native-chart-kit'
+import { ChartData } from 'react-native-chart-kit/dist/HelperTypes'
+import { View, Dimensions, Text } from 'react-native'
+
+export function MyLineChart(props: { data: ChartData }) {
+  return (
+    <View>
+      <Text>My Line Chart</Text>
+      {
+        //@ts-ignore:next-line
+        <LineChart
+          data={{
+            labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+            datasets: [
+              {
+                data: [
+                  Math.random() * 100,
+                  Math.random() * 100,
+                  Math.random() * 100,
+                  Math.random() * 100,
+                  Math.random() * 100,
+                  Math.random() * 100,
+                ],
+              },
+            ],
+          }}
+          width={Dimensions.get('window').width} // from react-native
+          height={220}
+          yAxisLabel="$"
+          yAxisSuffix="k"
+          yAxisInterval={1} // optional, defaults to 1
+          chartConfig={{
+            backgroundColor: '#e26a00',
+            backgroundGradientFrom: '#fb8c00',
+            backgroundGradientTo: '#ffa726',
+            decimalPlaces: 2, // optional, defaults to 2dp
+            color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+            labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+            style: {
+              borderRadius: 16,
+            },
+            propsForDots: {
+              r: '6',
+              strokeWidth: '2',
+              stroke: '#ffa726',
+            },
+          }}
+          bezier
+          style={{
+            marginVertical: 8,
+            borderRadius: 16,
+          }}
+        />
+      }
+    </View>
+  )
+}
 
 /*
 The App component sets up and initializes the player.It defines an async function setup() which is used to set up the player if it has not been initialized yet. The function creates an array of tracks with properties id, url and title and temporarily disables the retrieval of the url property to save on data usage from Firebase.
@@ -151,7 +208,7 @@ export default function App() {
                 component={JournalStackScreen}
                 options={{ title: 'Journal' }}
               />
-              <Tab.Screen name="Settings" component={AuthStackScreen} />
+              <Tab.Screen name="Settings" component={MyLineChart} />
             </Tab.Group>
           </Tab.Navigator>
         </NavigationContainer>
