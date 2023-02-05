@@ -6,6 +6,9 @@ require 'json'
 podfile_properties = JSON.parse(File.read(File.join(__dir__, 'Podfile.properties.json'))) rescue {}
 
 platform :ios, podfile_properties['ios.deploymentTarget'] || '12.4'
+  pod 'Firebase', :modular_headers => true
+  pod 'FirebaseCoreInternal', :modular_headers => true
+  pod 'GoogleUtilities', :modular_headers => true
 install! 'cocoapods',
   :deterministic_uuids => false
 
