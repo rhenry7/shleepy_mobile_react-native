@@ -61,18 +61,18 @@ export default function App() {
       ]
       // TODO: Temporarily disabling the get for url to save on data usage from Firebase
       try {
-        // trackList[0].url = await getDownloadURL(
-        //   ref(storage, 'sounds/nature/crickets.wav'),
-        // )
-        // trackList[1].url = await getDownloadURL(
-        //   ref(storage, 'sounds/nature/wind.wav'),
-        // )
-        // trackList[2].url = await getDownloadURL(
-        //   ref(storage, 'sounds/nature/heavy_rain.mp3'),
-        // )
-        // trackList[3].url = await getDownloadURL(
-        //   ref(storage, 'sounds/nature/seagulls.wav'),
-        // )
+        trackList[0].url = await getDownloadURL(
+          ref(storage, 'sounds/nature/crickets.wav'),
+        )
+        trackList[1].url = await getDownloadURL(
+          ref(storage, 'sounds/nature/wind.wav'),
+        )
+        trackList[2].url = await getDownloadURL(
+          ref(storage, 'sounds/nature/heavy_rain.mp3'),
+        )
+        trackList[3].url = await getDownloadURL(
+          ref(storage, 'sounds/nature/seagulls.wav'),
+        )
         await TrackPlayer.add(trackList)
       } catch (error) {
         console.error(error)
