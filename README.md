@@ -4,7 +4,9 @@ Documentation
 
 # Introduction:
 
-_"Shleepy"_ is a mobile sleep aid application that utilizes Firebase, React Native, TypeScript, Redux Toolkit, and React Native Navigation to deliver an optimal user experience. The app uses Firebase for authentication and database storage, while also incorporating two sound libraries: React Native Track Player and Expo AV. The app is built with Expo and offers four main features: authentication, a dream journal where users can log their dreams each day, a mixer that plays multiple tracks of ambient noise with volume control, allowing the user to create their own audio landscape, and a sound library with React Native Navigation that allows users to pick the ideal sound for their comfort.
+_"Shleepy"_ is a mobile sleep aid application that utilizes Firebase, React Native, TypeScript, and Redux. Track sleep, journal, meditate and use white noise audio mixing. 
+
+The app uses Firebase for authentication and database storage. The app is built with Expo and offers four main features: authentication, a dream journal where users can log their dreams each day, a mixer that plays multiple tracks of ambient noise with volume control, allowing the user to create their own audio landscape, and a sound library with React Native Navigation that allows users to pick the ideal sound for their comfort.
 
 # Features:
 
